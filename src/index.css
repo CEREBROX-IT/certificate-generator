@@ -3,23 +3,18 @@
 @tailwind utilities;
 
 
-.container{
+.parent-container{
    display: flex;
-   position: relative;
+   flex: 1;
    height: 100%;
    width: 100%;
    background-color: white;
    color: black;
+   font-family: "Oxygen", sans-serif;
    overflow-x: hidden;
 }
 
 
 .font_sansita{
     font-family: "Sansita", sans-serif;
-    color: black;
-}
-
-.font-oxygen{
-    font-family: "Oxygen", sans-serif;
-    color: black;
 }
