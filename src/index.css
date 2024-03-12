@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.container{
+   display: flex;
+   position: relative;
+   height: 100%;
+   width: 100%;
+   background-color: white;
+   color: black;
+   overflow-x: hidden;
+}
+
+
+.font_sansita{
+    font-family: "Sansita", sans-serif;
+    color: black;
+}
+
+.font-oxygen{
+    font-family: "Oxygen", sans-serif;
+    color: black;
+}
