@@ -7,7 +7,7 @@ import { MdAdd, MdRemove, MdEdit } from "react-icons/md";
 import { FiPrinter } from "react-icons/fi";
 import { students } from "../../mockData";
 import Navbar from "../../components/Navbar";
-import AddOption1Awardee from "../../components/AddOption1Awardee";
+import AddOption1Awardee from "../../components/AcademicExcellence/AddOption1Awardee";
 
 const Option1 = () => {
   const [addAwardeeModal, setAddAwardeeModal] = useState(false);
@@ -17,7 +17,6 @@ const Option1 = () => {
   };
 
   const closeAwardeeModalHandler = () => {
-   
     setAddAwardeeModal(false);
   };
 
@@ -109,7 +108,7 @@ const Option1 = () => {
               //   DeleteModalHandler(params.row.id);
             }}
           >
-           <MdRemove className="text-[17px] text-white"/>
+            <MdRemove className="text-[17px] text-white" />
           </div>
           <div
             className="bg-[#923DFF] p-1 rounded-sm cursor-pointer hover:bg-[#6832b4f5] mr-1.5"
@@ -117,7 +116,7 @@ const Option1 = () => {
               //   DeleteModalHandler(params.row.id);
             }}
           >
-           <MdEdit className="text-[17px] text-white"/>
+            <MdEdit className="text-[17px] text-white" />
           </div>
           <div
             className="bg-[#5AC648] p-1 rounded-sm cursor-pointer hover:bg-[#4fac3f] mr-1.5"
@@ -125,7 +124,7 @@ const Option1 = () => {
               //   DeleteModalHandler(params.row.id);
             }}
           >
-           <FiPrinter className="text-[17px] text-white"/>
+            <FiPrinter className="text-[17px] text-white" />
           </div>
         </>
       ),
@@ -134,14 +133,12 @@ const Option1 = () => {
 
   return (
     <>
-   
-        {addAwardeeModal && (
-          <AddOption1Awardee
-            openModal={addAwardeeModal}
-            closeModal={closeAwardeeModalHandler}
-          />
-        )}
-    
+      {addAwardeeModal && (
+        <AddOption1Awardee
+          openModal={addAwardeeModal}
+          closeModal={closeAwardeeModalHandler}
+        />
+      )}
 
       <Navbar />
 
