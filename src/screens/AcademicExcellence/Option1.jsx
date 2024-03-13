@@ -3,21 +3,22 @@ import { FiSearch } from "react-icons/fi";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
 import { TbFileImport, TbArrowsExchange2 } from "react-icons/tb";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdRemove, MdEdit } from "react-icons/md";
 import { FiPrinter } from "react-icons/fi";
-import { students } from "../mockData";
-import Navbar from "../components/Navbar";
-import AddStudent from "../components/AddStudent";
+import { students } from "../../mockData";
+import Navbar from "../../components/Navbar";
+import AddOption1Awardee from "../../components/AddOption1Awardee";
 
-const Dashboard = () => {
-  const [addStudentModal, setAddStudentModal] = useState(false);
+const Option1 = () => {
+  const [addAwardeeModal, setAddAwardeeModal] = useState(false);
 
-  const openStudentModalHandler = () => {
-    setAddStudentModal(true);
+  const openAwardeeModalHandler = () => {
+    setAddAwardeeModal(true);
   };
 
-  const closeStudentModalHandler = () => {
-    setAddStudentModal(false);
+  const closeAwardeeModalHandler = () => {
+   
+    setAddAwardeeModal(false);
   };
 
   //-----for the Table------
@@ -26,49 +27,61 @@ const Dashboard = () => {
       field: "id",
       headerName: "BATCH ID",
       flex: 0.5,
-      minWidth: 350,
+      minWidth: 150,
     },
     {
-      field: "student_full_name",
-      headerName: "STUDENT FULL NAME",
+      field: "awardee_name",
+      headerName: "AWARDEE NAME",
       flex: 1,
-      minWidth: 200,
+      minWidth: 270,
     },
     {
       field: "quarter",
       headerName: "QUARTER",
       flex: 1,
-      minWidth: 200,
+      minWidth: 150,
     },
     {
       field: "school_name",
       headerName: "SCHOOL NAME",
       flex: 1,
-      minWidth: 200,
+      minWidth: 270,
     },
     {
-      field: "adviser_full_name",
-      headerName: "ADVISER FULL NAME",
+      field: "signatory_name1",
+      headerName: "SIGNATORY 1 NAME",
       flex: 1,
-      minWidth: 170,
+      minWidth: 270,
     },
     {
-      field: "principal_full_name",
-      headerName: "PRINCIPAL FULL NAME",
+      field: "signatory_position1",
+      headerName: "SIGNATORY 1 NAME",
       flex: 1,
-      minWidth: 170,
+      minWidth: 270,
+    },
+    {
+      field: "signatory_name2",
+      headerName: "SIGNATORY 2 NAME",
+      flex: 1,
+      minWidth: 270,
+    },
+    {
+      field: "signatory_position2",
+      headerName: "SIGNATORY 2 POSITION",
+      flex: 1,
+      minWidth: 270,
     },
     {
       field: "school_year",
       headerName: "SCHOOL YEAR",
       flex: 1,
-      minWidth: 170,
+      minWidth: 185,
     },
     {
       field: "present_date",
-      headerName: "PRESENT DA",
+      headerName: "PRESENT DATE",
       flex: 1,
-      minWidth: 170,
+      minWidth: 185,
     },
     {
       field: "avg",
@@ -85,7 +98,7 @@ const Dashboard = () => {
     {
       field: "actions",
       headerName: "ACTION",
-      minWidth: 120,
+      minWidth: 160,
       flex: 0.2,
 
       renderCell: (params) => (
@@ -96,7 +109,23 @@ const Dashboard = () => {
               //   DeleteModalHandler(params.row.id);
             }}
           >
-            {/* <DeleteIcon sx={{ color: "white" }} /> */}
+           <MdRemove className="text-[17px] text-white"/>
+          </div>
+          <div
+            className="bg-[#923DFF] p-1 rounded-sm cursor-pointer hover:bg-[#6832b4f5] mr-1.5"
+            onClick={() => {
+              //   DeleteModalHandler(params.row.id);
+            }}
+          >
+           <MdEdit className="text-[17px] text-white"/>
+          </div>
+          <div
+            className="bg-[#5AC648] p-1 rounded-sm cursor-pointer hover:bg-[#4fac3f] mr-1.5"
+            onClick={() => {
+              //   DeleteModalHandler(params.row.id);
+            }}
+          >
+           <FiPrinter className="text-[17px] text-white"/>
           </div>
         </>
       ),
@@ -105,14 +134,14 @@ const Dashboard = () => {
 
   return (
     <>
-      <>
-        {addStudentModal && (
-          <AddStudent
-            openModal={addStudentModal}
-            closeModal={closeStudentModalHandler}
+   
+        {addAwardeeModal && (
+          <AddOption1Awardee
+            openModal={addAwardeeModal}
+            closeModal={closeAwardeeModalHandler}
           />
         )}
-      </>
+    
 
       <Navbar />
 
@@ -137,7 +166,7 @@ const Dashboard = () => {
               </button>
               <button
                 className="flex flex-row  gap-1 px-2 items-center bg-[#47A2FF] hover:bg-[#477eff] py-[6px] text-white text-[14px] p-[4px] rounded-lg"
-                onClick={openStudentModalHandler}
+                onClick={openAwardeeModalHandler}
               >
                 <MdAdd className="text-[20px]" />
                 <p className="font-bold">ADD STUDENT</p>
@@ -229,4 +258,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Option1;

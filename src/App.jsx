@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Landing from './screens/Landing'
-import Dashboard from './screens/Dashboard'
+import Option1 from './screens/AcademicExcellence/Option1'
 function App() {
 
   return (
@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={ <Landing/>} />
-        <Route path='/dashboard' element={ <Dashboard/>} />
+        <Route path='/academic-excellence/template/1' element={ <Option1/>} />
       </Routes>
     </BrowserRouter>
       </div>

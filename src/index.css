@@ -52,3 +52,66 @@ html {
     transform: scale(1); /* Final scale of the modal */
   }
 }
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 7px; /* Width of the scrollbar */
+  height: 7px;
+}
+
+/* Track (the area on which the thumb scrolls) */
+::-webkit-scrollbar-track {
+  background: #ffffff; /* Color of the scrollbar track */
+}
+
+/* Handle (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+  background: #cacaca; /* Color of the scrollbar handle */
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #c4c4c4; /* Color of the scrollbar handle on hover */
+}
+
+
+button {
+  cursor: pointer;
+  position: relative;
+
+  transition: 0.2s;
+  &::before {
+    content: '';
+    height: 3px;
+    width: 0;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+
+    transition: 0.4s;
+  }
+  &:hover {
+    &::before {
+      width: 100%;
+    }
+  }
+  &:active {
+      background-color: rgba(255,255,255,.1);
+  }
+}
+
+span.ripple {
+  background-color: rgb(197, 168, 5);
+  border-radius: 50%;
+  position: absolute;
+  transform: scale(0);
+  animation: ripple .5s linear forwards;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}

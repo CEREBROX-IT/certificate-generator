@@ -23,7 +23,7 @@ const Landing = () => {
         </section>
         <button
           onClick={() => {
-            navigate("/dashboard");
+            navigate("/academic-excellence/template/1");
           }}
           className="text-[#F5D45E] text-[20px] font-bold mt-[55px] border-[#F5D45E] border-[3px] p-2 rounded-[10px] w-[220px] hover:bg-[#F5D45E] hover:text-white"
         >
