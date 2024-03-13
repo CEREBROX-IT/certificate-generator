@@ -1,30 +1,28 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import BridgetteLogo from "./../assets/bridgette-logo.webp";
 import { GoDownload } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
-import TemplateOtion from "./TemplateOption";
+import TemplateOption from "./TemplateOption";
 
 const Navbar = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [templateModal, setTemplateModal] = useState(false);
 
-
   const openTemplateModal = () => {
-    setTemplateModal(true)
-  }
+    setTemplateModal(true);
+  };
 
   const closeTemplateModal = () => {
-    setTemplateModal(false)
-  }
-
-
-
-  
+    setTemplateModal(false);
+  };
 
   return (
     <>
       {templateModal && (
-        <TemplateOtion openModal={templateModal} closeModal={closeTemplateModal} />
+        <TemplateOption
+          openModal={templateModal}
+          closeModal={closeTemplateModal}
+        />
       )}
 
       <div className="fixed flex flex-row justify-between p-4 bg-[#F5D45E] w-full h-[55px] items-center cursor-pointer z-10">
@@ -42,8 +40,9 @@ const Navbar = () => {
             BRIDGETTE
           </p>
         </section>
-        <button className="flex flex-row items-center border-[2px] border-black text-black hover:text-white hover:bg-black px-4 py-1 rounded-[10px] md:mr-6"
-        onClick={openTemplateModal}
+        <button
+          className="flex flex-row items-center border-[2px] border-black text-black hover:text-white hover:bg-black px-4 py-1 rounded-[10px] md:mr-6"
+          onClick={openTemplateModal}
         >
           <GoDownload className="text-[26px] mr-1" />
           <p className="text-[14px] font-bold">Template</p>
