@@ -106,3 +106,7 @@ button:hover::before {
 button:active {
   background-color: rgba(255, 255, 255, 0.1);
 }
+
+.shadow-text {
+  text-shadow: 2px 2px 4px rgba(0, 76, 198, 0.425); /* Horizontal offset, Vertical offset, Blur radius, Color */
+}

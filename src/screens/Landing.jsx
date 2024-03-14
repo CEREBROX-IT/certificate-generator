@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import BridgetteLogo from "./../assets/bridgette-logo.webp";
+import GetStarted from "../components/GetStarted";
 import { useNavigate } from "react-router-dom";
 
 const Landing = () => {
   const navigate = useNavigate();
+
+  const [openTemplateOption, setTemeplateOption] = useState(false);
+
+  const OpenModalHandler = () => {
+    setTemeplateOption(true);
+  };
+
+  const CloseModalHandler = () => {
+    setTemeplateOption(false);
+  };
+
   return (
     <>
+
+    {openTemplateOption && (
+      <GetStarted openModal={openTemplateOption} closeModal={CloseModalHandler}/>
+    )}
+
       <Navbar />
       <div className="font-oxygen h-full w-full flex flex-col items-center">
         <section className="flex flex-col mt-[90px] px-4 w-full md:w-[800px]">
@@ -22,9 +39,7 @@ const Landing = () => {
           </p>
         </section>
         <button
-          onClick={() => {
-            navigate("/academic-excellence/template/1");
-          }}
+          onClick={OpenModalHandler}
           className="text-[#F5D45E] text-[20px] font-bold mt-[55px] border-[#F5D45E] border-[3px] p-2 rounded-[10px] w-[220px] hover:bg-[#F5D45E] hover:text-white"
         >
           Get Started

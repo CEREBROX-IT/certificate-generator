@@ -22,7 +22,7 @@ const TemplateOption = ({ openModal, closeModal }) => {
               className="md:w-[520px] w-[90%] md:h-[470px] bg-white flex flex-col mx-auto rounded-[15px]
                           shadow-md modal-container p-7 border-t-[5px] border-[#F5D45E]"
             >
-              <div className="flex flex-row items-center mb-4">
+              <div className="flex flex-row items-center mb-2">
                 <p className="text-center w-full font-bold text-[24px] ml-4">
                   DOWNLOAD TEMPLATE
                 </p>
@@ -43,7 +43,7 @@ const TemplateOption = ({ openModal, closeModal }) => {
                   className=" object-cover w-full rounded-md"
                   style={{ objectPosition: "right 0px bottom -1rem" }}
                 />
-                <p className="absolute bottom-1 left-2 font_sansita font-bold text-[16px] md:text-[21px] text-[#ED6559]">
+                <p className="absolute bottom-1 left-2 font_sansita font-bold text-[16px] md:text-[21px] text-[#47A2FF] shadow-text">
                   TWO SIGNATURE
                 </p>
               </div>
@@ -57,7 +57,7 @@ const TemplateOption = ({ openModal, closeModal }) => {
                   className=" object-cover w-full rounded-md"
                   style={{ objectPosition: "right 0px bottom -1rem" }}
                 />
-                <p className="absolute bottom-1 left-2 font_sansita font-bold text-[16px] md:text-[21px] text-[#ED6559]">
+                 <p className="absolute bottom-1 left-2 font_sansita font-bold text-[16px] md:text-[21px] text-[#47A2FF] shadow-text">
                   THREE SIGNATURE
                 </p>
               </div>
@@ -71,7 +71,7 @@ const TemplateOption = ({ openModal, closeModal }) => {
                   className=" object-cover w-full rounded-md"
                   style={{ objectPosition: "right 0px bottom -1rem" }}
                 />
-                <p className="absolute bottom-1 left-2 font_sansita font-bold text-[16px] md:text-[21px] text-[#ED6559]">
+                  <p className="absolute bottom-1 left-2 font_sansita font-bold text-[16px] md:text-[21px] text-[#47A2FF] shadow-text">
                   FOUR SIGNATURE
                 </p>
               </div>
