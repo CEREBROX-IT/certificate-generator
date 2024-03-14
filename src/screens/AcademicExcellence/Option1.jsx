@@ -102,30 +102,30 @@ const Option1 = () => {
 
       renderCell: (params) => (
         <>
-          <div
-            className="bg-[#F13434] p-1 rounded-sm cursor-pointer hover:bg-[#d22727] mr-1.5"
+          <button
+            className="bg-[#F13434] p-1 rounded-sm cursor-pointer mr-1.5"
             onClick={() => {
               //   DeleteModalHandler(params.row.id);
             }}
           >
-            <MdRemove className="text-[17px] text-white" />
-          </div>
-          <div
-            className="bg-[#923DFF] p-1 rounded-sm cursor-pointer hover:bg-[#6832b4f5] mr-1.5"
+            <MdRemove className="text-[20px] text-white" />
+          </button>
+          <button
+            className="bg-[#923DFF] p-1 rounded-sm cursor-pointer mr-1.5"
             onClick={() => {
               //   DeleteModalHandler(params.row.id);
             }}
           >
-            <MdEdit className="text-[17px] text-white" />
-          </div>
-          <div
-            className="bg-[#5AC648] p-1 rounded-sm cursor-pointer hover:bg-[#4fac3f] mr-1.5"
+            <MdEdit className="text-[20px] text-white" />
+          </button>
+          <button
+            className="bg-[#5AC648] p-1 rounded-sm cursor-pointer mr-1.5"
             onClick={() => {
               //   DeleteModalHandler(params.row.id);
             }}
           >
-            <FiPrinter className="text-[17px] text-white" />
-          </div>
+            <FiPrinter className="text-[20px] text-white" />
+          </button>
         </>
       ),
     },
@@ -153,22 +153,22 @@ const Option1 = () => {
               />
             </div>
             <div className="flex flex-wrap-reverse flex-row gap-2">
-              <button className="flex flex-row  gap-1 px-2 items-center bg-[#F5D45E] hover:bg-[#f5c35e] py-[6px] text-white text-[14px] p-[4px] rounded-lg">
+              <button className="flex flex-row  gap-1 px-2 items-center bg-[#F5D45E] py-[6px] text-white text-[14px] p-[4px] rounded-lg">
                 <TbFileImport className="text-[20px]" />
                 <p className="font-bold">IMPORT EXCEL</p>
               </button>
-              <button className="flex flex-row  gap-1 px-2 items-center bg-[#ED6559] hover:bg-[#b94242] py-[6px] text-white text-[14px] p-[4px] rounded-lg">
+              <button className="flex flex-row  gap-1 px-2 items-center bg-[#ED6559] py-[6px] text-white text-[14px] p-[4px] rounded-lg">
                 <TbArrowsExchange2 className="text-[20px]" />
                 <p className="font-bold">CHANGE CERTIFICATE</p>
               </button>
               <button
-                className="flex flex-row  gap-1 px-2 items-center bg-[#47A2FF] hover:bg-[#477eff] py-[6px] text-white text-[14px] p-[4px] rounded-lg"
+                className="flex flex-row  gap-1 px-2 items-center bg-[#47A2FF] py-[6px] text-white text-[14px] p-[4px] rounded-lg"
                 onClick={openAwardeeModalHandler}
               >
                 <MdAdd className="text-[20px]" />
                 <p className="font-bold">ADD STUDENT</p>
               </button>
-              <button className="flex flex-row  gap-1 px-2 items-center bg-[#5AC648] hover:bg-[#4fac3f] py-[6px] text-white text-[14px] p-[4px] rounded-lg">
+              <button className="flex flex-row  gap-1 px-2 items-center bg-[#5AC648] py-[6px] text-white text-[14px] p-[4px] rounded-lg">
                 <FiPrinter className="text-[20px]" />
                 <p className="font-bold">PRINT ALL</p>
               </button>

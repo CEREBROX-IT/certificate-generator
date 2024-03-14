@@ -23,7 +23,7 @@ const AddOption1Awardee = ({ openModal, closeModal }) => {
           <div className="fixed inset-0 bg-black bg-opacity-10 flex items-center justify-center z-40">
             <div className="absolute inset-0" />
             <div
-              className="md:w-[520px] w-[90%] h-[80vh] bg-white flex flex-col mx-auto rounded-[15px]
+              className="md:w-[520px] w-[90%] h-[80vh] md:h-[680px] bg-white flex flex-col mx-auto rounded-[15px]
                  shadow-md modal-container p-7 border-t-[5px] border-[#F5D45E]"
             >
               <div className="flex flex-row items-center">
@@ -40,7 +40,7 @@ const AddOption1Awardee = ({ openModal, closeModal }) => {
                 </button>
               </div>
               <form className="h-full z-10 " onSubmit={handleSubmit(onSubmit)}>
-                <div className="w-full mt-4 h-[85%] overflow-y-auto px-1 py-2">
+                <div className="w-full mt-4 h-[85%] overflow-y-auto px-1 pt-2">
                   <div className="mb-3 w-full">
                     <TextField
                       label="Awardee Name"
@@ -243,7 +243,7 @@ const AddOption1Awardee = ({ openModal, closeModal }) => {
 
                 <div className="flex flex-row justify-end py-2 mt-2">
                   <button
-                    className="r-btn py-2 bg-[#F5D45E] w-[150px] text-white font-bold rounded-md"
+                    className="py-2 bg-[#F5D45E] w-[150px] text-white font-bold rounded-md"
                     type="submit"
                     onClick={() => {
                       console.log("click");
