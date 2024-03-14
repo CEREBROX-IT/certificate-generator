@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
+import TemplateOne from "./../assets/certificate-sample/two_signature.webp";
+import TemplateTwo from "./../assets/certificate-sample/three_signature.webp";
+import TemplateThree from "./../assets/certificate-sample/four_signature.webp";
 
 const TemplateOption = ({ openModal, closeModal }) => {
   const [modalHandler, setModalHandler] = useState(false);
-  const [selectedFile, setSelectedFile] = useState("");
+
   useEffect(() => {
     setModalHandler(openModal);
   }, [openModal]);
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-  };
 
   return (
     <>
@@ -20,7 +19,7 @@ const TemplateOption = ({ openModal, closeModal }) => {
           <div className="fixed inset-0 bg-black bg-opacity-10 flex items-center justify-center z-40">
             <div className="absolute inset-0" />
             <div
-              className="md:w-[520px] w-[90%] h-[60vh] md:h-[500px] bg-white flex flex-col mx-auto rounded-[15px]
+              className="md:w-[520px] w-[90%] md:h-[470px] bg-white flex flex-col mx-auto rounded-[15px]
                           shadow-md modal-container p-7 border-t-[5px] border-[#F5D45E]"
             >
               <div className="flex flex-row items-center mb-4">
@@ -34,7 +33,48 @@ const TemplateOption = ({ openModal, closeModal }) => {
                   <IoCloseOutline className="text-[35px]" />
                 </button>
               </div>
-              <div className="relative w-full h-[120px] bg-red-200 rounded-md cursor-pointer"></div>
+              <div className="relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer mb-[4px]">
+                <div
+                  className="absolute h-full w-full"
+                  style={{ backgroundColor: "rgba(71, 162, 255, 0.1)" }}
+                />
+                <img
+                  src={TemplateOne}
+                  className=" object-cover w-full rounded-md"
+                  style={{ objectPosition: "right 0px bottom -1rem" }}
+                />
+                <p className="absolute bottom-1 left-2 font_sansita font-bold text-[16px] md:text-[21px] text-[#ED6559]">
+                  TWO SIGNATURE
+                </p>
+              </div>
+              <div className="relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer  mb-[4px]">
+                <div
+                  className="absolute h-full w-full"
+                  style={{ backgroundColor: "rgba(71, 162, 255, 0.1)" }}
+                />
+                <img
+                  src={TemplateTwo}
+                  className=" object-cover w-full rounded-md"
+                  style={{ objectPosition: "right 0px bottom -1rem" }}
+                />
+                <p className="absolute bottom-1 left-2 font_sansita font-bold text-[16px] md:text-[21px] text-[#ED6559]">
+                  THREE SIGNATURE
+                </p>
+              </div>
+              <div className="relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer  mb-[4px]">
+                <div
+                  className="absolute h-full w-full"
+                  style={{ backgroundColor: "rgba(71, 162, 255, 0.1)" }}
+                />
+                <img
+                  src={TemplateThree}
+                  className=" object-cover w-full rounded-md"
+                  style={{ objectPosition: "right 0px bottom -1rem" }}
+                />
+                <p className="absolute bottom-1 left-2 font_sansita font-bold text-[16px] md:text-[21px] text-[#ED6559]">
+                  FOUR SIGNATURE
+                </p>
+              </div>
             </div>
           </div>
         )}
