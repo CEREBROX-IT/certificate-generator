@@ -2,19 +2,41 @@ import React, { useState, useEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
 
 const AddOption1Awardee = ({ openModal, closeModal }) => {
   const [modalHandler, setModalHandler] = useState(false);
+  const [gradeLevel, setGradeLevel] = useState(false);
   const onSubmit = (values) => console.log(values);
+
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
 
   useEffect(() => {
     setModalHandler(openModal);
   }, [openModal]);
+
+  const gradeLevelList = [
+    "Kinder 1",
+    "Kinder 2",
+    "Grade 1",
+    "Grade 2",
+    "Grade 3",
+    "Grade 4",
+    "Grade 5",
+    "Grade 6",
+    "Grade 7",
+    "Grade 8",
+    "Grade 9",
+    "Grade 10",
+    "Grade 11",
+    "Grade 12",
+  ];
 
   return (
     <>
@@ -41,88 +63,160 @@ const AddOption1Awardee = ({ openModal, closeModal }) => {
               </div>
               <form className="h-full z-10 " onSubmit={handleSubmit(onSubmit)}>
                 <div className="w-full mt-4 h-[85%] overflow-y-auto px-1 pt-2">
-                  <div className="mb-3 w-full">
+                  <div className="mb-5 w-full">
                     <TextField
                       label="Awardee Name"
                       variant="outlined"
                       name="awardee_name"
                       className="w-full"
+                      error={errors.awardee_name ? true : false}
                       inputProps={{
                         style: {
                           height: "14px",
                         },
                       }}
+                      {...register("awardee_name", {
+                        required: "This is required.",
+                        pattern: {
+                          value: /^[a-z ,.'-]+$/i,
+                          message: "Invalid characters in name.",
+                        },
+                      })}
                     />
-                    <p className="ml-1 mt-1 text-[13px] text-red-500">
-                      This is required.
-                    </p>
+                    {errors.awardee_name && (
+                      <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                        {errors.awardee_name.message}
+                      </p>
+                    )}
                   </div>
+
                   <div className="flex flex-col md:flex-row w-full md:gap-4">
-                    <div className="mb-3 w-full">
+                    <FormControl
+                      sx={{
+                        marginBottom: 3,
+                        width: "100%",
+                      }}
+                    >
                       <TextField
+                        select
                         label="Grade Level"
                         variant="outlined"
                         name="grade_level"
-                        className="w-full"
-                        inputProps={{
+                        error={
+                          gradeLevel
+                            ? true
+                            : watch("grade_level") === ""
+                            ? true
+                            : false
+                        }
+                        {...register("grade_level", {
+                          required: "This is required.",
+                        })}
+                        SelectProps={{
+                          MenuProps: { disableScrollLock: true },
                           style: {
-                            height: "14px",
+                            height: "47px",
                           },
                         }}
-                      />
-                      <p className="ml-1 mt-1 text-[13px] text-red-500">
-                        This is required.
-                      </p>
-                    </div>
-                    <div className="mb-3 w-full">
+                      >
+                        <MenuItem value="">
+                          <p
+                            className="text-slate-500 text-[12px]"
+                            onClick={() => {
+                              setGradeLevel(true);
+                            }}
+                          >
+                            Select one
+                          </p>
+                        </MenuItem>
+                        {gradeLevelList.map((grade, index) => (
+                          <MenuItem key={index} value={grade}>
+                            {grade}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                      {errors.grade_level && (
+                        <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-1.5rem]">
+                          {errors.grade_level.message}
+                        </p>
+                      )}
+                    </FormControl>
+
+                    <div className="mb-5 w-full">
                       <TextField
                         label="Section"
                         variant="outlined"
                         name="section"
                         className="w-full"
+                        error={errors.section ? true : false}
                         inputProps={{
                           style: {
                             height: "14px",
                           },
                         }}
+                        {...register("section", {
+                          required: "This is required.",
+                        })}
                       />
-                      <p className="ml-1 mt-1 text-[13px] text-red-500">
-                        This is required.
-                      </p>
+                      {errors.section && (
+                        <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                          {errors.section.message}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div className="flex flex-col md:flex-row w-full md:gap-4">
-                    <div className="mb-3 w-full">
+                    <div className="mb-5 w-full">
                       <TextField
                         label="Average"
                         variant="outlined"
                         name="average"
                         className="w-full"
+                        error={errors.average ? true : false}
                         inputProps={{
                           style: {
                             height: "14px",
                           },
                         }}
+                        {...register("average", {
+                          required: "This is required.",
+                          pattern: {
+                            value: /^[0-9]+(\.[0-9]+)?$/,
+                            message: "Invalid average value.",
+                          },
+                        })}
                       />
-                      <p className="ml-1 mt-1 text-[13px] text-red-500">
-                        This is required.
-                      </p>
+                      {errors.average && (
+                        <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                          {errors.average.message}
+                        </p>
+                      )}
                     </div>
-                    <div className="mb-3 w-full">
+
+                    <div className="relative mb-5 w-full flex flex-col">
+                      <p className="absolute text-[###323232] text-[12px] mt-[-0.6rem] ml-2 bg-white z-10 px-[4px]">
+                        Date to present
+                      </p>
                       <TextField
                         variant="outlined"
                         name="date_to_present"
                         type="date"
                         className="w-full"
+                        error={errors.date_to_present ? true : false}
                         inputProps={{
                           style: {
                             height: "14px",
                           },
                         }}
+                        {...register("date_to_present", {
+                          required: "This is required.",
+                        })}
                       />
-                      <p className="ml-1 mt-1 text-[13px] text-red-500">
-                        This is required.
-                      </p>
+                      {errors.awardee_name && (
+                        <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                          {errors.date_to_present.message}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div className="mb-3 w-full">
@@ -131,112 +225,107 @@ const AddOption1Awardee = ({ openModal, closeModal }) => {
                       variant="outlined"
                       name="school_name"
                       className="w-full"
+                      error={errors.school_name ? true : false}
                       inputProps={{
                         style: {
                           height: "14px",
                         },
                       }}
+                      {...register("school_name", {
+                        required: "This is required.",
+                        pattern: {
+                          value: /^[a-z ,.'-]+$/i,
+                          message: "Invalid characters in name.",
+                        },
+                      })}
                     />
-                    <p className="ml-1 mt-1 text-[13px] text-red-500">
-                      This is required.
-                    </p>
+                    {errors.school_name && (
+                      <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                        {errors.school_name.message}
+                      </p>
+                    )}
                   </div>
 
-                  {/* ========SIGNATORY ONE ========== */}
+                  {/* ========SIGNATORY ONE========== */}
                   <p className="font-bold text-[14px] mb-1">Signatory 1</p>
                   <div className="w-full border-t-[2px] border-[#C4C4C4]">
-                    <div className="mb-3  mt-4 w-full">
+                    <div className="mb-5  mt-4 w-full">
                       <p className="font-bold text-[14px] mb-1">
-                        Signature Attachment
+                        Signature Attachment (png only)
                       </p>
-                      <input
+                      <TextField
+                        name="signatory_attachment1"
                         className="border-[1.5px] rounded-[5px] border-[#C4C4C4] h-[48px] p-[8px] w-full hover:border-black"
                         type="file"
+                        error={errors.signatory_attachment1 ? true : false}
+                        accept=".png"
+                        InputProps={{
+                          style: {
+                            height: "47px",
+                            display: "flex",
+                            alignItems: "center",
+                          },
+                          inputProps: {
+                            accept: "image/png",
+                          },
+                        }}
+                        {...register("signatory_attachment1", {
+                          required: "This is required.",
+                        })}
                       />
-                      <p className="ml-1 mt-1 text-[13px] text-red-500">
-                        This is required.
-                      </p>
+                      {errors.signatory_attachment1 && (
+                        <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                          {errors.signatory_attachment1.message}
+                        </p>
+                      )}
                     </div>
-                    <div className="mb-3 w-full">
+                    <div className="mb-5 w-full">
                       <TextField
                         label="Signatory Name"
                         variant="outlined"
-                        name="signatory"
+                        name="signatory_name1"
                         className="w-full"
+                        error={errors.signatory_name1 ? true : false}
                         inputProps={{
                           style: {
                             height: "14px",
                           },
                         }}
+                        {...register("signatory_name1", {
+                          required: "This is required.",
+                          pattern: {
+                            value: /^[a-z ,.'-]+$/i,
+                            message: "Invalid characters in name.",
+                          },
+                        })}
                       />
-                      <p className="ml-1 mt-1 text-[13px] text-red-500">
-                        This is required.
-                      </p>
+                      {errors.signatory_name1 && (
+                        <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                          {errors.signatory_name1.message}
+                        </p>
+                      )}
                     </div>
-                    <div className="mb-3 w-full">
+                    <div className="mb-5 w-full">
                       <TextField
                         label="Signatory Position"
                         variant="outlined"
-                        name="signatory"
+                        name="signatory_position1"
                         className="w-full"
+                        error={errors.signatory_position1 ? true : false}
                         inputProps={{
                           style: {
                             height: "14px",
                           },
                         }}
+                        {...register("signatory_position1", {
+                          required: "This is required.",
+                        })}
                       />
-                      <p className="ml-1 mt-1 text-[13px] text-red-500">
-                        This is required.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* ========SIGNATORY ONE ========== */}
-                  <p className="font-bold text-[14px] mb-1">Signatory 2</p>
-                  <div className="w-full border-t-[2px] border-[#C4C4C4]">
-                    <div className="mb-3  mt-4 w-full">
-                      <p className="font-bold text-[14px] mb-1">
-                        Signature Attachment
-                      </p>
-                      <input
-                        className="border-[1.5px] rounded-[5px] border-[#C4C4C4] h-[48px] p-[8px] w-full hover:border-black"
-                        type="file"
-                      />
-                      <p className="ml-1 mt-1 text-[13px] text-red-500">
-                        This is required.
-                      </p>
-                    </div>
-                    <div className="mb-3 w-full">
-                      <TextField
-                        label="Signatory Name"
-                        variant="outlined"
-                        name="signatory"
-                        className="w-full"
-                        inputProps={{
-                          style: {
-                            height: "14px",
-                          },
-                        }}
-                      />
-                      <p className="ml-1 mt-1 text-[13px] text-red-500">
-                        This is required.
-                      </p>
-                    </div>
-                    <div className="mb-3 w-full">
-                      <TextField
-                        label="Signatory Position"
-                        variant="outlined"
-                        name="signatory"
-                        className="w-full"
-                        inputProps={{
-                          style: {
-                            height: "14px",
-                          },
-                        }}
-                      />
-                      <p className="ml-1 mt-1 text-[13px] text-red-500">
-                        This is required.
-                      </p>
+                      {errors.signatory_position1 && (
+                        <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                          {errors.signatory_position1.message}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
