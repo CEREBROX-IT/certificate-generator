@@ -3,10 +3,12 @@ import BridgetteLogo from "./../assets/bridgette-logo.webp";
 import { GoDownload } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import TemplateOption from "./TemplateOption";
+import AuthenticationModal from "./Auth/Auth";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [templateModal, setTemplateModal] = useState(false);
+  const [AuthModal, setAuthModal] = useState(false);
 
   const openTemplateModal = () => {
     setTemplateModal(true);
@@ -16,12 +18,26 @@ const Navbar = () => {
     setTemplateModal(false);
   };
 
+  const openAuthModal = () => {
+    setAuthModal(true);
+  };
+
+  const closeAuthModal = () => {
+    setAuthModal(false);
+  };
+
   return (
     <>
       {templateModal && (
         <TemplateOption
           openModal={templateModal}
           closeModal={closeTemplateModal}
+        />
+      )}
+      {AuthModal && (
+        <AuthenticationModal
+          openModal={AuthModal}
+          closeModal={closeAuthModal}
         />
       )}
 
@@ -40,13 +56,21 @@ const Navbar = () => {
             BRIDGETTE
           </p>
         </section>
-        <button
-          className="flex flex-row items-center border-[2px] border-black text-black hover:text-white hover:bg-black px-4 py-1 rounded-[10px] md:mr-6"
-          onClick={openTemplateModal}
-        >
-          <GoDownload className="text-[26px] mr-1" />
-          <p className="text-[14px] font-bold">Template</p>
-        </button>
+        <section className="flex flex-row items-center gap-2 md:mr-6">
+          <button
+            className="flex flex-row items-center border-[2px] border-black text-black hover:text-white hover:bg-black px-4 py-1 rounded-[10px]"
+            onClick={openTemplateModal}
+          >
+            <GoDownload className="text-[26px] mr-1" />
+            <p className="text-[14px] font-bold">Template</p>
+          </button>
+          <button
+            className="flex flex-row items-center border-[2px] border-black text-black hover:text-white hover:bg-black px-5 py-[7px] rounded-[10px]"
+            onClick={openAuthModal}
+          >
+            <p className="text-[14px] font-bold ">LOGIN</p>
+          </button>
+        </section>
       </div>
     </>
   );
