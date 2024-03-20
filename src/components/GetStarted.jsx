@@ -12,20 +12,101 @@ import TemplateOne from "./../assets/certificate-sample/two_signature.webp";
 import TemplateTwo from "./../assets/certificate-sample/three_signature.webp";
 import TemplateThree from "./../assets/certificate-sample/four_signature.webp";
 import ImageIcon from "./../assets/image_icon.webp";
-import { UseDispatch, useDispatch, useSelector } from "react-redux";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useDispatch, useSelector } from "react-redux";
 import { createSession } from "../redux/slice/session/createSession";
+import { getUserDatafromToken } from "../utils/extractJWT";
 
 const GetStarted = ({ openModal, closeModal }) => {
   const dispatch = useDispatch();
+  const SessionStatus = useSelector((state) => state.createSession?.status);
+  const [complete, setComplete] = useState("idle");
+  const userID = getUserDatafromToken().decodedToken.userId;
   const [modalHandler, setModalHandler] = useState(false);
   const [modalName, setModalName] = useState("SELECT CATEGORY");
   const [currentPath, setCurrentPath] = useState("path1");
+  const [signature1, setSignature1] = useState("");
+  const [signature2, setSignature2] = useState("");
+  const [signature3, setSignature3] = useState("");
+  const [signature4, setSignature4] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [gradeLevel, setGradeLevel] = useState(false);
   const [quarter, setQuarter] = useState(false);
+  const [categorySelected, setCategorySelected] = useState(
+    "Academic Excellence"
+  );
   const [formatSelected, setFormatSelected] = useState("2 Signature");
 
-  const onSubmit = (values) => console.log(values);
+  const onSubmit = (values) => {
+    const data = {
+      userId: userID,
+      category: categorySelected,
+      format: formatSelected,
+      gradeLevel: values.grade_level,
+      section: values.section,
+      quarter: values.quarter,
+      dateToPresent: values.date_to_present,
+      schoolName: values.school_name,
+      signatoryName1:
+        watch("signatory_name1") === "" ||
+        watch("signatory_name1") === undefined
+          ? "N/a"
+          : values.signatory_name1,
+      signatoryPosition1:
+        watch("signatory_position1") === "" ||
+        watch("signatory_position1") === undefined
+          ? "N/a"
+          : values.signatory_position1,
+      signatoryName2:
+        watch("signatory_name2") === "" ||
+        watch("signatory_name2") === undefined
+          ? "N/a"
+          : values.signatory_name2,
+      signatoryPosition2:
+        watch("signatory_position2") === "" ||
+        watch("signatory_position2") === undefined
+          ? "N/a"
+          : values.signatory_position2,
+
+      signatoryName3:
+        watch("signatory_name3") === "" ||
+        watch("signatory_name3") === undefined
+          ? "N/a"
+          : values.signatory_name3,
+      signatoryPosition3:
+        watch("signatory_position3") === "" ||
+        watch("signatory_position3") === undefined
+          ? "N/a"
+          : values.signatory_position3,
+
+      signatoryName4:
+        watch("signatory_name4") === "" ||
+        watch("signatory_name4") === undefined
+          ? "N/a"
+          : values.signatory_name4,
+      signatoryPosition4:
+        watch("signatory_position4") === "" ||
+        watch("signatory_position4") === undefined
+          ? "N/a"
+          : values.signatory_position4,
+      certificateTemplate: selectedFile,
+      signatorySignature1: signature1,
+      signatorySignature2: signature2,
+      signatorySignature3: signature3,
+      signatorySignature4: signature4,
+    };
+    console.log(data);
+    dispatch(createSession(data));
+  };
+
+  useEffect(() => {
+    if (SessionStatus === "loading") {
+      setComplete("loading");
+    } else if (SessionStatus === "succeeded" && complete === "loading") {
+      setComplete("idle");
+      closeModal();
+    }
+  }, [SessionStatus, setComplete, closeModal, complete]);
 
   const {
     register,
@@ -41,6 +122,25 @@ const GetStarted = ({ openModal, closeModal }) => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
+  };
+
+  const Signature1Attachment = (event) => {
+    const file = event.target.files[0];
+    setSignature1(file);
+  };
+
+  const Signature2Attachment = (event) => {
+    const file = event.target.files[0];
+    setSignature2(file);
+  };
+  const Signature3Attachment = (event) => {
+    const file = event.target.files[0];
+    setSignature3(file);
+  };
+
+  const Signature4Attachment = (event) => {
+    const file = event.target.files[0];
+    setSignature4(file);
   };
 
   useEffect(() => {
@@ -94,6 +194,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                         onClick={() => {
                           pathHandler("path2");
                           setModalName("TEMPLATE FORMAT");
+                          setCategorySelected("Academic Excellence");
                         }}
                       >
                         <GiGraduateCap className="absolute text-[80px] top-2 right-2 text-[#a23a31] mt-[-0.9rem]" />
@@ -104,8 +205,8 @@ const GetStarted = ({ openModal, closeModal }) => {
                       <button
                         className="relative bg-[#5AC648] w-[48%] h-[170px] flex flex-col justify-end cursor-pointer rounded-[10px] p-2"
                         onClick={() => {
-                          pathHandler("path2");
-                          setModalName("TEMPLATE FORMAT");
+                          // pathHandler("path2");
+                          // setModalName("TEMPLATE FORMAT");
                         }}
                       >
                         <GrCertificate className="absolute text-[70px] top-2 right-2 text-[#3d8b2f]" />
@@ -116,8 +217,8 @@ const GetStarted = ({ openModal, closeModal }) => {
                       <button
                         className="relative bg-[#a057ff] w-[48%] h-[170px] flex flex-col justify-end cursor-pointer rounded-[10px] p-2"
                         onClick={() => {
-                          pathHandler("path2");
-                          setModalName("TEMPLATE FORMAT");
+                          // pathHandler("path2");
+                          // setModalName("TEMPLATE FORMAT");
                         }}
                       >
                         <TbAwardFilled className="absolute text-[70px] top-2 right-2 text-[#6929bdeb]" />
@@ -128,8 +229,8 @@ const GetStarted = ({ openModal, closeModal }) => {
                       <button
                         className="relative bg-[#F5D45E] w-[48%] h-[170px] flex flex-col justify-end cursor-pointer rounded-[10px] p-2"
                         onClick={() => {
-                          pathHandler("path2");
-                          setModalName("TEMPLATE FORMAT");
+                          // pathHandler("path2");
+                          // setModalName("TEMPLATE FORMAT");
                         }}
                       >
                         <GiTiedScroll className="absolute text-[70px] top-2 right-2 text-[#c4a843]" />
@@ -145,7 +246,9 @@ const GetStarted = ({ openModal, closeModal }) => {
                 <>
                   <div
                     className={`relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] ${
-                      formatSelected === "2 Signature" ? "border-[#479aff]" : ""
+                      formatSelected === "2 Signature"
+                        ? "border-[#ED6559] shadow-[#ED6559] shadow-sm"
+                        : ""
                     } hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer mb-[4px]`}
                     onClick={() => {
                       pathHandler("path3");
@@ -168,7 +271,9 @@ const GetStarted = ({ openModal, closeModal }) => {
                   </div>
                   <div
                     className={`relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] ${
-                      formatSelected === "3 Signature" ? "border-[#479aff]" : ""
+                      formatSelected === "3 Signature"
+                        ? "border-[#ED6559] shadow-[#ED6559] shadow-sm"
+                        : ""
                     } hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer mb-[4px]`}
                     onClick={() => {
                       pathHandler("path3");
@@ -191,7 +296,9 @@ const GetStarted = ({ openModal, closeModal }) => {
                   </div>
                   <div
                     className={`relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] ${
-                      formatSelected === "4 Signature" ? "border-[#479aff]" : ""
+                      formatSelected === "4 Signature"
+                        ? "border-[#ED6559] shadow-[#ED6559] shadow-sm"
+                        : ""
                     } hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer mb-[4px]`}
                     onClick={() => {
                       pathHandler("path3");
@@ -552,6 +659,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                                 {...register("signatory_attachment1", {
                                   required: "This is required.",
                                 })}
+                                onChange={Signature1Attachment}
                               />
                               {errors.signatory_attachment1 && (
                                 <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
@@ -641,6 +749,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                                 {...register("signatory_attachment2", {
                                   required: "This is required.",
                                 })}
+                                onChange={Signature2Attachment}
                               />
                               {errors.signatory_attachment2 && (
                                 <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
@@ -732,6 +841,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                                 {...register("signatory_attachment1", {
                                   required: "This is required.",
                                 })}
+                                onChange={Signature1Attachment}
                               />
                               {errors.signatory_attachment1 && (
                                 <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
@@ -821,6 +931,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                                 {...register("signatory_attachment2", {
                                   required: "This is required.",
                                 })}
+                                onChange={Signature2Attachment}
                               />
                               {errors.signatory_attachment2 && (
                                 <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
@@ -910,6 +1021,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                                 {...register("signatory_attachment3", {
                                   required: "This is required.",
                                 })}
+                                onChange={Signature3Attachment}
                               />
                               {errors.signatory_attachment3 && (
                                 <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
@@ -1002,6 +1114,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                                   {...register("signatory_attachment1", {
                                     required: "This is required.",
                                   })}
+                                  onChange={Signature1Attachment}
                                 />
                                 {errors.signatory_attachment1 && (
                                   <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
@@ -1091,6 +1204,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                                   {...register("signatory_attachment2", {
                                     required: "This is required.",
                                   })}
+                                  onChange={Signature2Attachment}
                                 />
                                 {errors.signatory_attachment2 && (
                                   <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
@@ -1180,6 +1294,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                                   {...register("signatory_attachment3", {
                                     required: "This is required.",
                                   })}
+                                  onChange={Signature3Attachment}
                                 />
                                 {errors.signatory_attachment3 && (
                                   <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
@@ -1241,7 +1356,7 @@ const GetStarted = ({ openModal, closeModal }) => {
 
                             {/* ========SIGNATORY FOUR========== */}
                             <p className="font-bold text-[14px] mb-1">
-                              Signatory 3
+                              Signatory 4
                             </p>
                             <div className="w-full border-t-[2px] border-[#C4C4C4]">
                               <div className="mb-5  mt-4 w-full">
@@ -1269,6 +1384,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                                   {...register("signatory_attachment4", {
                                     required: "This is required.",
                                   })}
+                                  onChange={Signature4Attachment}
                                 />
                                 {errors.signatory_attachment4 && (
                                   <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
@@ -1342,22 +1458,38 @@ const GetStarted = ({ openModal, closeModal }) => {
                       >
                         BACK
                       </button>
-                      <button
-                        className="py-2 bg-[#F5D45E] w-[150px] text-white font-bold rounded-md"
-                        type="submit"
-                        onClick={() => {
-                          {
-                            watch("quarter") === "" ? setQuarter(true) : false;
-                          }
-                          {
-                            watch("grade_level") === ""
-                              ? setGradeLevel(true)
-                              : false;
-                          }
-                        }}
-                      >
-                        SUBMIT
-                      </button>
+
+                      {complete === "loading" ? (
+                        <>
+                          <button className="py-2 bg-[#F5D45E] w-[150px] text-white font-bold rounded-md z-[-10]">
+                            <CircularProgress
+                              size={20}
+                              sx={{ color: "white", marginTop: "4px" }}
+                            />
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            className="py-2 bg-[#F5D45E] w-[150px] text-white font-bold rounded-md"
+                            type="submit"
+                            onClick={() => {
+                              {
+                                watch("quarter") === ""
+                                  ? setQuarter(true)
+                                  : false;
+                              }
+                              {
+                                watch("grade_level") === ""
+                                  ? setGradeLevel(true)
+                                  : false;
+                              }
+                            }}
+                          >
+                            SUBMIT
+                          </button>
+                        </>
+                      )}
                     </div>
                   </form>
                 </>
