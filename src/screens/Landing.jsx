@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import BridgetteLogo from "./../assets/bridgette-logo.webp";
 import GetStarted from "../components/GetStarted";
 import AuthenticationModal from "../components/Auth/Auth";
 import { useNavigate } from "react-router-dom";
 import { getUserDatafromToken } from "../utils/extractJWT";
+import { useDispatch, useSelector } from "react-redux";
+import { getSession } from "../redux/slice/session/getSession";
 
 const Landing = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const SessionStatus = useSelector((state) => state.getSession?.data?.message);
   const userData = getUserDatafromToken();
   const userStatus = userData ? userData.decodedToken.status : false;
+  const userID = userData ? userData.decodedToken.userId : 0;
   const [AuthModal, setAuthModal] = useState(false);
   const [openTemplateOption, setTemeplateOption] = useState(false);
 
@@ -25,6 +30,11 @@ const Landing = () => {
     setTemeplateOption(false);
     setAuthModal(false);
   };
+
+  console.log("get status:", SessionStatus);
+  useEffect(() => {
+    dispatch(getSession(userID));
+  }, []);
 
   return (
     <>
@@ -55,12 +65,23 @@ const Landing = () => {
             Generate input effortlessly and receive instant rewards.
           </p>
         </section>
-        <button
-          onClick={OpenModalHandler}
-          className="text-[#F5D45E] text-[20px] font-bold mt-[55px] border-[#F5D45E] border-[3px] p-2 rounded-[10px] w-[220px] hover:bg-[#F5D45E] hover:text-white"
-        >
-          Get Started
-        </button>
+        {SessionStatus === "Session not found" ? (
+          <button
+            onClick={OpenModalHandler}
+            className="text-[#F5D45E] text-[20px] font-bold mt-[55px] border-[#F5D45E] border-[3px] p-2 rounded-[10px] w-[220px] hover:bg-[#F5D45E] hover:text-white"
+          >
+            Get Started
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              navigate("/academic-excellence/");
+            }}
+            className="text-[#F5D45E] text-[20px] font-bold mt-[55px] border-[#F5D45E] border-[3px] p-2 rounded-[10px] w-[220px] hover:bg-[#F5D45E] hover:text-white"
+          >
+            Continue
+          </button>
+        )}
 
         {/* -----User Manual on how to use----- */}
         <div className="relative bg-[#323232] w-full h-full mt-[60px]">

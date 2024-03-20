@@ -21,7 +21,8 @@ const GetStarted = ({ openModal, closeModal }) => {
   const dispatch = useDispatch();
   const SessionStatus = useSelector((state) => state.createSession?.status);
   const [complete, setComplete] = useState("idle");
-  const userID = getUserDatafromToken().decodedToken.userId;
+  const userData = getUserDatafromToken();
+  const userID = userData ? userData.decodedToken.userId : "";
   const [modalHandler, setModalHandler] = useState(false);
   const [modalName, setModalName] = useState("SELECT CATEGORY");
   const [currentPath, setCurrentPath] = useState("path1");
@@ -31,6 +32,7 @@ const GetStarted = ({ openModal, closeModal }) => {
   const [signature4, setSignature4] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [gradeLevel, setGradeLevel] = useState(false);
+  b;
   const [quarter, setQuarter] = useState(false);
   const [categorySelected, setCategorySelected] = useState(
     "Academic Excellence"
