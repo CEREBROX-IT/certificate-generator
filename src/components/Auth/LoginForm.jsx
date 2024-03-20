@@ -5,13 +5,16 @@ import { useForm } from "react-hook-form";
 import { VscEye } from "react-icons/vsc";
 import { PiEyeClosedLight } from "react-icons/pi";
 import InputAdornment from "@mui/material/InputAdornment";
+import CircularProgress from "@mui/material/CircularProgress";
 import IconButton from "@mui/material/IconButton";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../redux/slice/auth/loginSlice";
 
-const LoginForm = () => {
+const LoginForm = ({ closeModal }) => {
   const dispatch = useDispatch();
-
+  const loginStatus = useSelector((state) => state.userLogin?.status);
+  const [complete, setComplete] = useState("idle");
+  // console.log("testing::", getUserDatafromToken().decodedToken.first_name);
   const {
     register,
     handleSubmit,
@@ -27,6 +30,15 @@ const LoginForm = () => {
 
     dispatch(userLogin(loginData));
   };
+
+  useEffect(() => {
+    if (loginStatus === "loading") {
+      setComplete("loading");
+    } else if (loginStatus === "succeeded" && complete === "loading") {
+      closeModal();
+      setComplete("idle");
+    }
+  }, [loginStatus, setComplete, closeModal]);
 
   //---show/hide password option---
   const [showPassword, setShowPassword] = useState(false);
@@ -92,24 +104,51 @@ const LoginForm = () => {
             </p>
           )}
         </div>
-        <Button
-          type="submit"
-          color="success"
-          sx={{
-            background: "#F5D45E",
-            padding: "10px",
-            fontWeight: 900,
-            color: "white",
-            fontSize: "16px",
-            marginTop: "20px",
-            width: "100%",
-            "&:hover": {
-              background: "#f1c320", // Same color when hovered
-            },
-          }}
-        >
-          LOGIN
-        </Button>
+
+        {setComplete === "loading" ? (
+          <>
+            <Button
+              type="submit"
+              color="success"
+              disabled
+              sx={{
+                background: "#F5D45E",
+                padding: "10px",
+                fontWeight: 900,
+                color: "white",
+                fontSize: "16px",
+                marginTop: "20px",
+                width: "100%",
+                "&:hover": {
+                  background: "#f1c320", // Same color when hovered
+                },
+              }}
+            >
+              <CircularProgress sx={{ color: "white" }} />
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              type="submit"
+              color="success"
+              sx={{
+                background: "#F5D45E",
+                padding: "10px",
+                fontWeight: 900,
+                color: "white",
+                fontSize: "16px",
+                marginTop: "20px",
+                width: "100%",
+                "&:hover": {
+                  background: "#f1c320", // Same color when hovered
+                },
+              }}
+            >
+              LOGIN
+            </Button>
+          </>
+        )}
       </form>
     </>
   );

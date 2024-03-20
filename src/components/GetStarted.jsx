@@ -4,7 +4,6 @@ import { TbAwardFilled, TbFileImport } from "react-icons/tb";
 import { GrCertificate } from "react-icons/gr";
 import { GiTiedScroll } from "react-icons/gi";
 import { GiGraduateCap } from "react-icons/gi";
-
 import { TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import FormControl from "@mui/material/FormControl";
@@ -20,6 +19,7 @@ const GetStarted = ({ openModal, closeModal }) => {
   const [currentPath, setCurrentPath] = useState("path1");
   const [selectedFile, setSelectedFile] = useState("");
   const [gradeLevel, setGradeLevel] = useState(false);
+  const [quarter, setQuarter] = useState(false);
   const onSubmit = (values) => console.log(values);
 
   const {
@@ -142,6 +142,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                     className="relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer mb-[4px]"
                     onClick={() => {
                       pathHandler("path3");
+                      setModalName("ATTACH TEMPLATE");
                     }}
                   >
                     <div
@@ -161,6 +162,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                     className="relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer  mb-[4px]"
                     onClick={() => {
                       pathHandler("path3");
+                      setModalName("ATTACH TEMPLATE");
                     }}
                   >
                     <div
@@ -180,6 +182,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                     className="relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer  mb-[4px]"
                     onClick={() => {
                       pathHandler("path3");
+                      setModalName("ATTACH TEMPLATE");
                     }}
                   >
                     <div
@@ -272,6 +275,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                         type="submit"
                         onClick={() => {
                           pathHandler("path2");
+                          setModalName("ATTACH TEMPLATE");
                         }}
                       >
                         BACK
@@ -281,6 +285,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                         type="submit"
                         onClick={() => {
                           pathHandler("path4");
+                          setModalName("DETAILS");
                         }}
                       >
                         NEXT
@@ -295,33 +300,6 @@ const GetStarted = ({ openModal, closeModal }) => {
                     onSubmit={handleSubmit(onSubmit)}
                   >
                     <div className="w-full h-[90%] overflow-y-auto px-1 pt-2">
-                      <div className="mb-5 w-full">
-                        <TextField
-                          label="Awardee Name"
-                          variant="outlined"
-                          name="awardee_name"
-                          className="w-full"
-                          error={errors.awardee_name ? true : false}
-                          inputProps={{
-                            style: {
-                              height: "14px",
-                            },
-                          }}
-                          {...register("awardee_name", {
-                            required: "This is required.",
-                            pattern: {
-                              value: /^[a-z ,.'-]+$/i,
-                              message: "Invalid characters in name.",
-                            },
-                          })}
-                        />
-                        {errors.awardee_name && (
-                          <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
-                            {errors.awardee_name.message}
-                          </p>
-                        )}
-                      </div>
-
                       <div className="flex flex-col md:flex-row w-full md:gap-4">
                         <FormControl
                           sx={{
@@ -334,13 +312,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                             label="Grade Level"
                             variant="outlined"
                             name="grade_level"
-                            error={
-                              gradeLevel
-                                ? true
-                                : watch("grade_level") === ""
-                                ? true
-                                : false
-                            }
+                            error={gradeLevel ? true : false}
                             {...register("grade_level", {
                               required: "This is required.",
                             })}
@@ -362,14 +334,20 @@ const GetStarted = ({ openModal, closeModal }) => {
                               </p>
                             </MenuItem>
                             {gradeLevelList.map((grade, index) => (
-                              <MenuItem key={index} value={grade}>
+                              <MenuItem
+                                key={index}
+                                value={grade}
+                                onClick={() => {
+                                  setGradeLevel(false);
+                                }}
+                              >
                                 {grade}
                               </MenuItem>
                             ))}
                           </TextField>
                           {errors.grade_level && (
                             <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-1.5rem]">
-                              {errors.grade_level.message}
+                              {gradeLevel && errors.grade_level.message}
                             </p>
                           )}
                         </FormControl>
@@ -398,32 +376,77 @@ const GetStarted = ({ openModal, closeModal }) => {
                         </div>
                       </div>
                       <div className="flex flex-col md:flex-row w-full md:gap-4">
-                        <div className="mb-5 w-full">
+                        <FormControl
+                          sx={{
+                            marginBottom: quarter ? 5 : 3,
+                            width: "100%",
+                          }}
+                        >
                           <TextField
-                            label="Average"
+                            select
+                            label="Quarter"
                             variant="outlined"
-                            name="average"
-                            className="w-full"
-                            error={errors.average ? true : false}
-                            inputProps={{
+                            name="quarter"
+                            error={quarter ? true : false}
+                            {...register("quarter", {
+                              required: "This is required.",
+                            })}
+                            SelectProps={{
+                              MenuProps: { disableScrollLock: true },
                               style: {
-                                height: "14px",
+                                height: "47px",
                               },
                             }}
-                            {...register("average", {
-                              required: "This is required.",
-                              pattern: {
-                                value: /^[0-9]+(\.[0-9]+)?$/,
-                                message: "Invalid average value.",
-                              },
-                            })}
-                          />
-                          {errors.average && (
-                            <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
-                              {errors.average.message}
+                          >
+                            <MenuItem value="">
+                              <p
+                                className="text-slate-500 text-[12px]"
+                                onClick={() => {
+                                  setQuarter(true);
+                                }}
+                              >
+                                Select one
+                              </p>
+                            </MenuItem>
+                            <MenuItem
+                              value="1st Quarter"
+                              onClick={() => {
+                                setQuarter(false);
+                              }}
+                            >
+                              1st Quarter
+                            </MenuItem>
+                            <MenuItem
+                              value="2nd Quarter"
+                              onClick={() => {
+                                setQuarter(false);
+                              }}
+                            >
+                              2nd Quarter
+                            </MenuItem>
+                            <MenuItem
+                              value="3rd Quarter"
+                              onClick={() => {
+                                setQuarter(false);
+                              }}
+                            >
+                              3rd Quarter
+                            </MenuItem>
+                            <MenuItem
+                              value="2th Quarter"
+                              onClick={() => {
+                                setQuarter(false);
+                              }}
+                            >
+                              4th Quarter
+                            </MenuItem>
+                          </TextField>
+                          {errors.quarter && (
+                            <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-1.5rem]">
+                              {quarter && errors.quarter.message}
                             </p>
                           )}
-                        </div>
+                        </FormControl>
 
                         <div className="relative mb-5 w-full flex flex-col">
                           <p className="absolute text-[###323232] text-[12px] mt-[-0.6rem] ml-2 bg-white z-10 px-[4px]">
@@ -477,107 +500,38 @@ const GetStarted = ({ openModal, closeModal }) => {
                           </p>
                         )}
                       </div>
+                      {/*
+                    {formatSelected === "2 signature" ? (<>
 
-                      {/* ========SIGNATORY ONE========== */}
-                      <p className="font-bold text-[14px] mb-1">Signatory 1</p>
-                      <div className="w-full border-t-[2px] border-[#C4C4C4]">
-                        <div className="mb-5  mt-4 w-full">
-                          <p className="font-bold text-[14px] mb-1">
-                            Signature Attachment (png only)
-                          </p>
-                          <TextField
-                            name="signatory_attachment1"
-                            className="border-[1.5px] rounded-[5px] border-[#C4C4C4] h-[48px] p-[8px] w-full hover:border-black"
-                            type="file"
-                            error={errors.signatory_attachment1 ? true : false}
-                            accept=".png"
-                            InputProps={{
-                              style: {
-                                height: "47px",
-                                display: "flex",
-                                alignItems: "center",
-                              },
-                              inputProps: {
-                                accept: "image/png",
-                              },
-                            }}
-                            {...register("signatory_attachment1", {
-                              required: "This is required.",
-                            })}
-                          />
-                          {errors.signatory_attachment1 && (
-                            <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
-                              {errors.signatory_attachment1.message}
-                            </p>
-                          )}
-                        </div>
-                        <div className="mb-5 w-full">
-                          <TextField
-                            label="Signatory Name"
-                            variant="outlined"
-                            name="signatory_name1"
-                            className="w-full"
-                            error={errors.signatory_name1 ? true : false}
-                            inputProps={{
-                              style: {
-                                height: "14px",
-                              },
-                            }}
-                            {...register("signatory_name1", {
-                              required: "This is required.",
-                              pattern: {
-                                value: /^[a-z ,.'-]+$/i,
-                                message: "Invalid characters in name.",
-                              },
-                            })}
-                          />
-                          {errors.signatory_name1 && (
-                            <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
-                              {errors.signatory_name1.message}
-                            </p>
-                          )}
-                        </div>
-                        <div className="mb-5 w-full">
-                          <TextField
-                            label="Signatory Position"
-                            variant="outlined"
-                            name="signatory_position1"
-                            className="w-full"
-                            error={errors.signatory_position1 ? true : false}
-                            inputProps={{
-                              style: {
-                                height: "14px",
-                              },
-                            }}
-                            {...register("signatory_position1", {
-                              required: "This is required.",
-                            })}
-                          />
-                          {errors.signatory_position1 && (
-                            <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
-                              {errors.signatory_position1.message}
-                            </p>
-                          )}
-                        </div>
-                      </div>
+                    </>) : formatSelected === "3 signature" ? (<>
+
+                    </>) : formatSelected === "4 signature" && (<>
+
+                    </>)} */}
                     </div>
 
                     <div className="flex flex-row justify-end mt-4 gap-2">
                       <button
-                        className="flex flex-row items-center justify-center py-2 bg-[#F5D45E] w-[150px] text-white font-bold rounded-md"
-                        type="submit"
+                        className="py-2 border-[#F5D45E] border-[2px] w-[150px] text-[#F5D45E] font-bold rounded-md"
                         onClick={() => {
-                          console.log("click");
+                          pathHandler("path3");
+                          setModalName("TEMPLATE FORMAT");
                         }}
                       >
-                        <TbFileImport className="text-[20px] mr-1" />
-                        IMPORT EXCEL
+                        BACK
                       </button>
                       <button
                         className="py-2 bg-[#F5D45E] w-[150px] text-white font-bold rounded-md"
                         type="submit"
                         onClick={() => {
-                          console.log("click");
+                          {
+                            watch("quarter") === "" ? setQuarter(true) : false;
+                          }
+                          {
+                            watch("grade_level") === ""
+                              ? setGradeLevel(true)
+                              : false;
+                          }
                         }}
                       >
                         SUBMIT

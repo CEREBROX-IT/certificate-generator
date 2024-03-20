@@ -2,27 +2,44 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import BridgetteLogo from "./../assets/bridgette-logo.webp";
 import GetStarted from "../components/GetStarted";
+import AuthenticationModal from "../components/Auth/Auth";
 import { useNavigate } from "react-router-dom";
+import { getUserDatafromToken } from "../utils/extractJWT";
 
 const Landing = () => {
   const navigate = useNavigate();
-
+  const userData = getUserDatafromToken();
+  const userStatus = userData ? userData.decodedToken.status : false;
+  const [AuthModal, setAuthModal] = useState(false);
   const [openTemplateOption, setTemeplateOption] = useState(false);
 
   const OpenModalHandler = () => {
-    setTemeplateOption(true);
+    if (userStatus === true) {
+      setTemeplateOption(true);
+    } else {
+      setAuthModal(true);
+    }
   };
 
   const CloseModalHandler = () => {
     setTemeplateOption(false);
+    setAuthModal(false);
   };
 
   return (
     <>
-
-    {openTemplateOption && (
-      <GetStarted openModal={openTemplateOption} closeModal={CloseModalHandler}/>
-    )}
+      {openTemplateOption && (
+        <GetStarted
+          openModal={openTemplateOption}
+          closeModal={CloseModalHandler}
+        />
+      )}
+      {AuthModal && (
+        <AuthenticationModal
+          openModal={AuthModal}
+          closeModal={CloseModalHandler}
+        />
+      )}
 
       <Navbar />
       <div className="font-oxygen h-full w-full flex flex-col items-center">

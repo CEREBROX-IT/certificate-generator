@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
+
 const AuthenticationModal = ({ openModal, closeModal }) => {
   const [modalHandler, setModalHandler] = useState(false);
   const [currentPage, setCurrentPage] = useState("login");
@@ -40,7 +41,7 @@ const AuthenticationModal = ({ openModal, closeModal }) => {
 
               {currentPage === "login" ? (
                 <>
-                  <LoginForm />
+                  <LoginForm closeModal={closeModal} />
                   <p className="text-[14px] text-center mt-10 z-10">
                     Don't have an acount?{" "}
                     <span
