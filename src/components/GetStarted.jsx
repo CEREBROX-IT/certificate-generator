@@ -12,14 +12,19 @@ import TemplateOne from "./../assets/certificate-sample/two_signature.webp";
 import TemplateTwo from "./../assets/certificate-sample/three_signature.webp";
 import TemplateThree from "./../assets/certificate-sample/four_signature.webp";
 import ImageIcon from "./../assets/image_icon.webp";
+import { UseDispatch, useDispatch, useSelector } from "react-redux";
+import { createSession } from "../redux/slice/session/createSession";
 
 const GetStarted = ({ openModal, closeModal }) => {
+  const dispatch = useDispatch();
   const [modalHandler, setModalHandler] = useState(false);
   const [modalName, setModalName] = useState("SELECT CATEGORY");
   const [currentPath, setCurrentPath] = useState("path1");
   const [selectedFile, setSelectedFile] = useState("");
   const [gradeLevel, setGradeLevel] = useState(false);
   const [quarter, setQuarter] = useState(false);
+  const [formatSelected, setFormatSelected] = useState("2 Signature");
+
   const onSubmit = (values) => console.log(values);
 
   const {
@@ -139,10 +144,13 @@ const GetStarted = ({ openModal, closeModal }) => {
               ) : currentPath === "path2" ? (
                 <>
                   <div
-                    className="relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer mb-[4px]"
+                    className={`relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] ${
+                      formatSelected === "2 Signature" ? "border-[#479aff]" : ""
+                    } hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer mb-[4px]`}
                     onClick={() => {
                       pathHandler("path3");
                       setModalName("ATTACH TEMPLATE");
+                      setFormatSelected("2 Signature");
                     }}
                   >
                     <div
@@ -159,10 +167,13 @@ const GetStarted = ({ openModal, closeModal }) => {
                     </p>
                   </div>
                   <div
-                    className="relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer  mb-[4px]"
+                    className={`relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] ${
+                      formatSelected === "3 Signature" ? "border-[#479aff]" : ""
+                    } hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer mb-[4px]`}
                     onClick={() => {
                       pathHandler("path3");
                       setModalName("ATTACH TEMPLATE");
+                      setFormatSelected("3 Signature");
                     }}
                   >
                     <div
@@ -179,10 +190,13 @@ const GetStarted = ({ openModal, closeModal }) => {
                     </p>
                   </div>
                   <div
-                    className="relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer  mb-[4px]"
+                    className={`relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] ${
+                      formatSelected === "4 Signature" ? "border-[#479aff]" : ""
+                    } hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer mb-[4px]`}
                     onClick={() => {
                       pathHandler("path3");
                       setModalName("ATTACH TEMPLATE");
+                      setFormatSelected("4 Signature");
                     }}
                   >
                     <div
@@ -281,7 +295,12 @@ const GetStarted = ({ openModal, closeModal }) => {
                         BACK
                       </button>
                       <button
-                        className="py-2 bg-[#F5D45E] w-[150px] text-white font-bold rounded-md"
+                        disabled={selectedFile === "" ? true : false}
+                        className={`py-2 ${
+                          selectedFile === ""
+                            ? "bg-slate-200 z-[-10]"
+                            : "bg-[#F5D45E]"
+                        } w-[150px] text-white font-bold rounded-md`}
                         type="submit"
                         onClick={() => {
                           pathHandler("path4");
@@ -500,14 +519,817 @@ const GetStarted = ({ openModal, closeModal }) => {
                           </p>
                         )}
                       </div>
-                      {/*
-                    {formatSelected === "2 signature" ? (<>
 
-                    </>) : formatSelected === "3 signature" ? (<>
+                      {formatSelected === "2 Signature" ? (
+                        <>
+                          {/* ========SIGNATORY ONE========== */}
+                          <p className="font-bold text-[14px] mb-1">
+                            Signatory 1
+                          </p>
+                          <div className="w-full border-t-[2px] border-[#C4C4C4]">
+                            <div className="mb-5  mt-4 w-full">
+                              <p className="font-bold text-[14px] mb-1">
+                                Signature Attachment (png only)
+                              </p>
+                              <TextField
+                                name="signatory_attachment1"
+                                className="border-[1.5px] rounded-[5px] border-[#C4C4C4] h-[48px] p-[8px] w-full hover:border-black"
+                                type="file"
+                                error={
+                                  errors.signatory_attachment1 ? true : false
+                                }
+                                accept=".png"
+                                InputProps={{
+                                  style: {
+                                    height: "47px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                  },
+                                  inputProps: {
+                                    accept: "image/png",
+                                  },
+                                }}
+                                {...register("signatory_attachment1", {
+                                  required: "This is required.",
+                                })}
+                              />
+                              {errors.signatory_attachment1 && (
+                                <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                  {errors.signatory_attachment1.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="mb-5 w-full">
+                              <TextField
+                                label="Signatory Name"
+                                variant="outlined"
+                                name="signatory_name1"
+                                className="w-full"
+                                error={errors.signatory_name1 ? true : false}
+                                inputProps={{
+                                  style: {
+                                    height: "14px",
+                                  },
+                                }}
+                                {...register("signatory_name1", {
+                                  required: "This is required.",
+                                  pattern: {
+                                    value: /^[a-z ,.'-]+$/i,
+                                    message: "Invalid characters in name.",
+                                  },
+                                })}
+                              />
+                              {errors.signatory_name1 && (
+                                <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                  {errors.signatory_name1.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="mb-5 w-full">
+                              <TextField
+                                label="Signatory Position"
+                                variant="outlined"
+                                name="signatory_position1"
+                                className="w-full"
+                                error={
+                                  errors.signatory_position1 ? true : false
+                                }
+                                inputProps={{
+                                  style: {
+                                    height: "14px",
+                                  },
+                                }}
+                                {...register("signatory_position1", {
+                                  required: "This is required.",
+                                })}
+                              />
+                              {errors.signatory_position1 && (
+                                <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                  {errors.signatory_position1.message}
+                                </p>
+                              )}
+                            </div>
+                          </div>
 
-                    </>) : formatSelected === "4 signature" && (<>
+                          {/* ========SIGNATORY TWO========== */}
+                          <p className="font-bold text-[14px] mb-1">
+                            Signatory 2
+                          </p>
+                          <div className="w-full border-t-[2px] border-[#C4C4C4]">
+                            <div className="mb-5  mt-4 w-full">
+                              <p className="font-bold text-[14px] mb-1">
+                                Signature Attachment (png only)
+                              </p>
+                              <TextField
+                                name="signatory_attachment2"
+                                className="border-[1.5px] rounded-[5px] border-[#C4C4C4] h-[48px] p-[8px] w-full hover:border-black"
+                                type="file"
+                                error={
+                                  errors.signatory_attachment2 ? true : false
+                                }
+                                accept=".png"
+                                InputProps={{
+                                  style: {
+                                    height: "47px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                  },
+                                  inputProps: {
+                                    accept: "image/png",
+                                  },
+                                }}
+                                {...register("signatory_attachment2", {
+                                  required: "This is required.",
+                                })}
+                              />
+                              {errors.signatory_attachment2 && (
+                                <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                  {errors.signatory_attachment2.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="mb-5 w-full">
+                              <TextField
+                                label="Signatory Name"
+                                variant="outlined"
+                                name="signatory_name2"
+                                className="w-full"
+                                error={errors.signatory_name2 ? true : false}
+                                inputProps={{
+                                  style: {
+                                    height: "14px",
+                                  },
+                                }}
+                                {...register("signatory_name2", {
+                                  required: "This is required.",
+                                  pattern: {
+                                    value: /^[a-z ,.'-]+$/i,
+                                    message: "Invalid characters in name.",
+                                  },
+                                })}
+                              />
+                              {errors.signatory_name2 && (
+                                <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                  {errors.signatory_name2.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="mb-5 w-full">
+                              <TextField
+                                label="Signatory Position"
+                                variant="outlined"
+                                name="signatory_position2"
+                                className="w-full"
+                                error={
+                                  errors.signatory_position2 ? true : false
+                                }
+                                inputProps={{
+                                  style: {
+                                    height: "14px",
+                                  },
+                                }}
+                                {...register("signatory_position2", {
+                                  required: "This is required.",
+                                })}
+                              />
+                              {errors.signatory_position2 && (
+                                <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                  {errors.signatory_position2.message}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        </>
+                      ) : formatSelected === "3 Signature" ? (
+                        <>
+                          {/* ========SIGNATORY ONE========== */}
+                          <p className="font-bold text-[14px] mb-1">
+                            Signatory 1
+                          </p>
+                          <div className="w-full border-t-[2px] border-[#C4C4C4]">
+                            <div className="mb-5  mt-4 w-full">
+                              <p className="font-bold text-[14px] mb-1">
+                                Signature Attachment (png only)
+                              </p>
+                              <TextField
+                                name="signatory_attachment1"
+                                className="border-[1.5px] rounded-[5px] border-[#C4C4C4] h-[48px] p-[8px] w-full hover:border-black"
+                                type="file"
+                                error={
+                                  errors.signatory_attachment1 ? true : false
+                                }
+                                accept=".png"
+                                InputProps={{
+                                  style: {
+                                    height: "47px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                  },
+                                  inputProps: {
+                                    accept: "image/png",
+                                  },
+                                }}
+                                {...register("signatory_attachment1", {
+                                  required: "This is required.",
+                                })}
+                              />
+                              {errors.signatory_attachment1 && (
+                                <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                  {errors.signatory_attachment1.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="mb-5 w-full">
+                              <TextField
+                                label="Signatory Name"
+                                variant="outlined"
+                                name="signatory_name1"
+                                className="w-full"
+                                error={errors.signatory_name1 ? true : false}
+                                inputProps={{
+                                  style: {
+                                    height: "14px",
+                                  },
+                                }}
+                                {...register("signatory_name1", {
+                                  required: "This is required.",
+                                  pattern: {
+                                    value: /^[a-z ,.'-]+$/i,
+                                    message: "Invalid characters in name.",
+                                  },
+                                })}
+                              />
+                              {errors.signatory_name1 && (
+                                <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                  {errors.signatory_name1.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="mb-5 w-full">
+                              <TextField
+                                label="Signatory Position"
+                                variant="outlined"
+                                name="signatory_position1"
+                                className="w-full"
+                                error={
+                                  errors.signatory_position1 ? true : false
+                                }
+                                inputProps={{
+                                  style: {
+                                    height: "14px",
+                                  },
+                                }}
+                                {...register("signatory_position1", {
+                                  required: "This is required.",
+                                })}
+                              />
+                              {errors.signatory_position1 && (
+                                <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                  {errors.signatory_position1.message}
+                                </p>
+                              )}
+                            </div>
+                          </div>
 
-                    </>)} */}
+                          {/* ========SIGNATORY TWO========== */}
+                          <p className="font-bold text-[14px] mb-1">
+                            Signatory 2
+                          </p>
+                          <div className="w-full border-t-[2px] border-[#C4C4C4]">
+                            <div className="mb-5  mt-4 w-full">
+                              <p className="font-bold text-[14px] mb-1">
+                                Signature Attachment (png only)
+                              </p>
+                              <TextField
+                                name="signatory_attachment2"
+                                className="border-[1.5px] rounded-[5px] border-[#C4C4C4] h-[48px] p-[8px] w-full hover:border-black"
+                                type="file"
+                                error={
+                                  errors.signatory_attachment2 ? true : false
+                                }
+                                accept=".png"
+                                InputProps={{
+                                  style: {
+                                    height: "47px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                  },
+                                  inputProps: {
+                                    accept: "image/png",
+                                  },
+                                }}
+                                {...register("signatory_attachment2", {
+                                  required: "This is required.",
+                                })}
+                              />
+                              {errors.signatory_attachment2 && (
+                                <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                  {errors.signatory_attachment2.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="mb-5 w-full">
+                              <TextField
+                                label="Signatory Name"
+                                variant="outlined"
+                                name="signatory_name2"
+                                className="w-full"
+                                error={errors.signatory_name2 ? true : false}
+                                inputProps={{
+                                  style: {
+                                    height: "14px",
+                                  },
+                                }}
+                                {...register("signatory_name2", {
+                                  required: "This is required.",
+                                  pattern: {
+                                    value: /^[a-z ,.'-]+$/i,
+                                    message: "Invalid characters in name.",
+                                  },
+                                })}
+                              />
+                              {errors.signatory_name2 && (
+                                <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                  {errors.signatory_name2.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="mb-5 w-full">
+                              <TextField
+                                label="Signatory Position"
+                                variant="outlined"
+                                name="signatory_position3"
+                                className="w-full"
+                                error={
+                                  errors.signatory_position3 ? true : false
+                                }
+                                inputProps={{
+                                  style: {
+                                    height: "14px",
+                                  },
+                                }}
+                                {...register("signatory_position3", {
+                                  required: "This is required.",
+                                })}
+                              />
+                              {errors.signatory_position3 && (
+                                <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                  {errors.signatory_position3.message}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* ========SIGNATORY THREE========== */}
+                          <p className="font-bold text-[14px] mb-1">
+                            Signatory 3
+                          </p>
+                          <div className="w-full border-t-[2px] border-[#C4C4C4]">
+                            <div className="mb-5  mt-4 w-full">
+                              <p className="font-bold text-[14px] mb-1">
+                                Signature Attachment (png only)
+                              </p>
+                              <TextField
+                                name="signatory_attachment3"
+                                className="border-[1.5px] rounded-[5px] border-[#C4C4C4] h-[48px] p-[8px] w-full hover:border-black"
+                                type="file"
+                                error={
+                                  errors.signatory_attachment3 ? true : false
+                                }
+                                accept=".png"
+                                InputProps={{
+                                  style: {
+                                    height: "47px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                  },
+                                  inputProps: {
+                                    accept: "image/png",
+                                  },
+                                }}
+                                {...register("signatory_attachment3", {
+                                  required: "This is required.",
+                                })}
+                              />
+                              {errors.signatory_attachment3 && (
+                                <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                  {errors.signatory_attachment3.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="mb-5 w-full">
+                              <TextField
+                                label="Signatory Name"
+                                variant="outlined"
+                                name="signatory_name3"
+                                className="w-full"
+                                error={errors.signatory_name3 ? true : false}
+                                inputProps={{
+                                  style: {
+                                    height: "14px",
+                                  },
+                                }}
+                                {...register("signatory_name3", {
+                                  required: "This is required.",
+                                  pattern: {
+                                    value: /^[a-z ,.'-]+$/i,
+                                    message: "Invalid characters in name.",
+                                  },
+                                })}
+                              />
+                              {errors.signatory_name3 && (
+                                <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                  {errors.signatory_name3.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="mb-5 w-full">
+                              <TextField
+                                label="Signatory Position"
+                                variant="outlined"
+                                name="signatory_position3"
+                                className="w-full"
+                                error={
+                                  errors.signatory_position3 ? true : false
+                                }
+                                inputProps={{
+                                  style: {
+                                    height: "14px",
+                                  },
+                                }}
+                                {...register("signatory_position3", {
+                                  required: "This is required.",
+                                })}
+                              />
+                              {errors.signatory_position3 && (
+                                <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                  {errors.signatory_position3.message}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        formatSelected === "4 Signature" && (
+                          <>
+                            {/* ========SIGNATORY ONE========== */}
+                            <p className="font-bold text-[14px] mb-1">
+                              Signatory 1
+                            </p>
+                            <div className="w-full border-t-[2px] border-[#C4C4C4]">
+                              <div className="mb-5  mt-4 w-full">
+                                <p className="font-bold text-[14px] mb-1">
+                                  Signature Attachment (png only)
+                                </p>
+                                <TextField
+                                  name="signatory_attachment1"
+                                  className="border-[1.5px] rounded-[5px] border-[#C4C4C4] h-[48px] p-[8px] w-full hover:border-black"
+                                  type="file"
+                                  error={
+                                    errors.signatory_attachment1 ? true : false
+                                  }
+                                  accept=".png"
+                                  InputProps={{
+                                    style: {
+                                      height: "47px",
+                                      display: "flex",
+                                      alignItems: "center",
+                                    },
+                                    inputProps: {
+                                      accept: "image/png",
+                                    },
+                                  }}
+                                  {...register("signatory_attachment1", {
+                                    required: "This is required.",
+                                  })}
+                                />
+                                {errors.signatory_attachment1 && (
+                                  <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                    {errors.signatory_attachment1.message}
+                                  </p>
+                                )}
+                              </div>
+                              <div className="mb-5 w-full">
+                                <TextField
+                                  label="Signatory Name"
+                                  variant="outlined"
+                                  name="signatory_name1"
+                                  className="w-full"
+                                  error={errors.signatory_name1 ? true : false}
+                                  inputProps={{
+                                    style: {
+                                      height: "14px",
+                                    },
+                                  }}
+                                  {...register("signatory_name1", {
+                                    required: "This is required.",
+                                    pattern: {
+                                      value: /^[a-z ,.'-]+$/i,
+                                      message: "Invalid characters in name.",
+                                    },
+                                  })}
+                                />
+                                {errors.signatory_name1 && (
+                                  <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                    {errors.signatory_name1.message}
+                                  </p>
+                                )}
+                              </div>
+                              <div className="mb-5 w-full">
+                                <TextField
+                                  label="Signatory Position"
+                                  variant="outlined"
+                                  name="signatory_position1"
+                                  className="w-full"
+                                  error={
+                                    errors.signatory_position1 ? true : false
+                                  }
+                                  inputProps={{
+                                    style: {
+                                      height: "14px",
+                                    },
+                                  }}
+                                  {...register("signatory_position1", {
+                                    required: "This is required.",
+                                  })}
+                                />
+                                {errors.signatory_position1 && (
+                                  <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                    {errors.signatory_position1.message}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* ========SIGNATORY TWO========== */}
+                            <p className="font-bold text-[14px] mb-1">
+                              Signatory 2
+                            </p>
+                            <div className="w-full border-t-[2px] border-[#C4C4C4]">
+                              <div className="mb-5  mt-4 w-full">
+                                <p className="font-bold text-[14px] mb-1">
+                                  Signature Attachment (png only)
+                                </p>
+                                <TextField
+                                  name="signatory_attachment2"
+                                  className="border-[1.5px] rounded-[5px] border-[#C4C4C4] h-[48px] p-[8px] w-full hover:border-black"
+                                  type="file"
+                                  error={
+                                    errors.signatory_attachment2 ? true : false
+                                  }
+                                  accept=".png"
+                                  InputProps={{
+                                    style: {
+                                      height: "47px",
+                                      display: "flex",
+                                      alignItems: "center",
+                                    },
+                                    inputProps: {
+                                      accept: "image/png",
+                                    },
+                                  }}
+                                  {...register("signatory_attachment2", {
+                                    required: "This is required.",
+                                  })}
+                                />
+                                {errors.signatory_attachment2 && (
+                                  <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                    {errors.signatory_attachment2.message}
+                                  </p>
+                                )}
+                              </div>
+                              <div className="mb-5 w-full">
+                                <TextField
+                                  label="Signatory Name"
+                                  variant="outlined"
+                                  name="signatory_name2"
+                                  className="w-full"
+                                  error={errors.signatory_name2 ? true : false}
+                                  inputProps={{
+                                    style: {
+                                      height: "14px",
+                                    },
+                                  }}
+                                  {...register("signatory_name2", {
+                                    required: "This is required.",
+                                    pattern: {
+                                      value: /^[a-z ,.'-]+$/i,
+                                      message: "Invalid characters in name.",
+                                    },
+                                  })}
+                                />
+                                {errors.signatory_name2 && (
+                                  <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                    {errors.signatory_name2.message}
+                                  </p>
+                                )}
+                              </div>
+                              <div className="mb-5 w-full">
+                                <TextField
+                                  label="Signatory Position"
+                                  variant="outlined"
+                                  name="signatory_position2"
+                                  className="w-full"
+                                  error={
+                                    errors.signatory_position2 ? true : false
+                                  }
+                                  inputProps={{
+                                    style: {
+                                      height: "14px",
+                                    },
+                                  }}
+                                  {...register("signatory_position2", {
+                                    required: "This is required.",
+                                  })}
+                                />
+                                {errors.signatory_position2 && (
+                                  <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                    {errors.signatory_position2.message}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* ========SIGNATORY THREE========== */}
+                            <p className="font-bold text-[14px] mb-1">
+                              Signatory 3
+                            </p>
+                            <div className="w-full border-t-[2px] border-[#C4C4C4]">
+                              <div className="mb-5  mt-4 w-full">
+                                <p className="font-bold text-[14px] mb-1">
+                                  Signature Attachment (png only)
+                                </p>
+                                <TextField
+                                  name="signatory_attachment3"
+                                  className="border-[1.5px] rounded-[5px] border-[#C4C4C4] h-[48px] p-[8px] w-full hover:border-black"
+                                  type="file"
+                                  error={
+                                    errors.signatory_attachment3 ? true : false
+                                  }
+                                  accept=".png"
+                                  InputProps={{
+                                    style: {
+                                      height: "47px",
+                                      display: "flex",
+                                      alignItems: "center",
+                                    },
+                                    inputProps: {
+                                      accept: "image/png",
+                                    },
+                                  }}
+                                  {...register("signatory_attachment3", {
+                                    required: "This is required.",
+                                  })}
+                                />
+                                {errors.signatory_attachment3 && (
+                                  <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                    {errors.signatory_attachment3.message}
+                                  </p>
+                                )}
+                              </div>
+                              <div className="mb-5 w-full">
+                                <TextField
+                                  label="Signatory Name"
+                                  variant="outlined"
+                                  name="signatory_name3"
+                                  className="w-full"
+                                  error={errors.signatory_name3 ? true : false}
+                                  inputProps={{
+                                    style: {
+                                      height: "14px",
+                                    },
+                                  }}
+                                  {...register("signatory_name3", {
+                                    required: "This is required.",
+                                    pattern: {
+                                      value: /^[a-z ,.'-]+$/i,
+                                      message: "Invalid characters in name.",
+                                    },
+                                  })}
+                                />
+                                {errors.signatory_name3 && (
+                                  <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                    {errors.signatory_name3.message}
+                                  </p>
+                                )}
+                              </div>
+                              <div className="mb-5 w-full">
+                                <TextField
+                                  label="Signatory Position"
+                                  variant="outlined"
+                                  name="signatory_position3"
+                                  className="w-full"
+                                  error={
+                                    errors.signatory_position3 ? true : false
+                                  }
+                                  inputProps={{
+                                    style: {
+                                      height: "14px",
+                                    },
+                                  }}
+                                  {...register("signatory_position3", {
+                                    required: "This is required.",
+                                  })}
+                                />
+                                {errors.signatory_position3 && (
+                                  <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                    {errors.signatory_position3.message}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* ========SIGNATORY FOUR========== */}
+                            <p className="font-bold text-[14px] mb-1">
+                              Signatory 3
+                            </p>
+                            <div className="w-full border-t-[2px] border-[#C4C4C4]">
+                              <div className="mb-5  mt-4 w-full">
+                                <p className="font-bold text-[14px] mb-1">
+                                  Signature Attachment (png only)
+                                </p>
+                                <TextField
+                                  name="signatory_attachment4"
+                                  className="border-[1.5px] rounded-[5px] border-[#C4C4C4] h-[48px] p-[8px] w-full hover:border-black"
+                                  type="file"
+                                  error={
+                                    errors.signatory_attachment4 ? true : false
+                                  }
+                                  accept=".png"
+                                  InputProps={{
+                                    style: {
+                                      height: "47px",
+                                      display: "flex",
+                                      alignItems: "center",
+                                    },
+                                    inputProps: {
+                                      accept: "image/png",
+                                    },
+                                  }}
+                                  {...register("signatory_attachment4", {
+                                    required: "This is required.",
+                                  })}
+                                />
+                                {errors.signatory_attachment4 && (
+                                  <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                    {errors.signatory_attachment4.message}
+                                  </p>
+                                )}
+                              </div>
+                              <div className="mb-5 w-full">
+                                <TextField
+                                  label="Signatory Name"
+                                  variant="outlined"
+                                  name="signatory_name4"
+                                  className="w-full"
+                                  error={errors.signatory_name4 ? true : false}
+                                  inputProps={{
+                                    style: {
+                                      height: "14px",
+                                    },
+                                  }}
+                                  {...register("signatory_name4", {
+                                    required: "This is required.",
+                                    pattern: {
+                                      value: /^[a-z ,.'-]+$/i,
+                                      message: "Invalid characters in name.",
+                                    },
+                                  })}
+                                />
+                                {errors.signatory_name4 && (
+                                  <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                    {errors.signatory_name4.message}
+                                  </p>
+                                )}
+                              </div>
+                              <div className="mb-5 w-full">
+                                <TextField
+                                  label="Signatory Position"
+                                  variant="outlined"
+                                  name="signatory_position4"
+                                  className="w-full"
+                                  error={
+                                    errors.signatory_position4 ? true : false
+                                  }
+                                  inputProps={{
+                                    style: {
+                                      height: "14px",
+                                    },
+                                  }}
+                                  {...register("signatory_position4", {
+                                    required: "This is required.",
+                                  })}
+                                />
+                                {errors.signatory_position4 && (
+                                  <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+                                    {errors.signatory_position4.message}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </>
+                        )
+                      )}
                     </div>
 
                     <div className="flex flex-row justify-end mt-4 gap-2">

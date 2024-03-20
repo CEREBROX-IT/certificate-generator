@@ -81,15 +81,15 @@
                         </div>
                       </div>
 
-                      {/* ========SIGNATORY ONE========== */}
-                      <p className="font-bold text-[14px] mb-1">Signatory 1</p>
+                      {/* ========SIGNATORY TWO========== */}
+                      <p className="font-bold text-[14px] mb-1">Signatory 2</p>
                       <div className="w-full border-t-[2px] border-[#C4C4C4]">
                         <div className="mb-5  mt-4 w-full">
                           <p className="font-bold text-[14px] mb-1">
                             Signature Attachment (png only)
                           </p>
                           <TextField
-                            name="signatory_attachment1"
+                            name="signatory_attachment2"
                             className="border-[1.5px] rounded-[5px] border-[#C4C4C4] h-[48px] p-[8px] w-full hover:border-black"
                             type="file"
                             error={errors.signatory_attachment1 ? true : false}
@@ -118,7 +118,7 @@
                           <TextField
                             label="Signatory Name"
                             variant="outlined"
-                            name="signatory_name1"
+                            name="signatory_name2"
                             className="w-full"
                             error={errors.signatory_name1 ? true : false}
                             inputProps={{
