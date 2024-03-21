@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
+import { IoTrashBin } from "react-icons/io5";
 import BridgetteLogo from "./../assets/bridgette-logo.webp";
 import GetStarted from "../components/GetStarted";
 import AuthenticationModal from "../components/Auth/Auth";
 import { useNavigate } from "react-router-dom";
+import Tooltip from "@mui/material/Tooltip";
 import { getUserDatafromToken } from "../utils/extractJWT";
 import { useDispatch, useSelector } from "react-redux";
 import { getSession } from "../redux/slice/session/getSession";
+import { Button } from "@mui/material";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -89,6 +92,29 @@ const Landing = () => {
             <p>user manual</p>
           </div>
         </div>
+      </div>
+
+      <div className="absolute md:right-7 md:bottom-7 right-4 bottom-4">
+        <Tooltip
+          title="Reset current session to create new session."
+          placement="left"
+        >
+          <Button
+            sx={{
+              backgroundColor: "#FF1000",
+              color: "white",
+              borderRadius: "50%",
+              minHeight: "60px",
+              minWidth: " 60px",
+              boxShadow: 2,
+              "&:hover": {
+                backgroundColor: "#CD0D00",
+              },
+            }}
+          >
+            <IoTrashBin className="text-[32px]" />
+          </Button>
+        </Tooltip>
       </div>
     </>
   );

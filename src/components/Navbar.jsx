@@ -56,7 +56,7 @@ const Navbar = () => {
 
       <div className="fixed flex flex-row justify-between p-4 bg-[#F5D45E] w-full h-[55px] items-center z-10">
         <section
-          className="flex flex-row items-center  md:ml-6"
+          className="flex flex-row items-center  md:ml-6 cursor-pointer"
           onClick={() => {
             navigate("/");
           }}
@@ -93,25 +93,19 @@ const Navbar = () => {
               >
                 {menuHandler && (
                   <div className="fixed inset-0 flex items-center justify-center z-40 gap-1">
-                    <ul className="absolute bg-white rounded-md flex menu-container flex-col md:right-10 right-4 top-[51px] w-[170px]">
-                      <li className="flex flex-row items-center w-full py-3 hover:bg-slate-100 cursor-pointer rounded-t-md px-6 gap-2">
+                    <div className="absolute bg-white rounded-md flex menu-container flex-col md:right-10 right-4 top-[51px] w-[170px]">
+                      <button className="flex flex-row items-center w-full py-3 hover:bg-slate-100 cursor-pointer rounded-t-md px-6 gap-2">
                         <FaUserPen className="text-[20px]" />
-                        <button
-                          className=""
-                          onClick={() => {
-                            null;
-                          }}
-                        >
-                          Edit Profile
-                        </button>
-                      </li>
-                      <li className="flex flex-row items-center w-full py-3 hover:bg-slate-100 cursor-pointer rounded-b-md px-6 gap-2">
+                        <p>Edit Profile</p>
+                      </button>
+                      <button
+                        className="flex flex-row items-center w-full py-3 hover:bg-slate-100 cursor-pointer rounded-b-md px-6 gap-2"
+                        onClick={handleLogout}
+                      >
                         <GoSignOut className="text-[20px]" />
-                        <button className="" onClick={handleLogout}>
-                          Logout
-                        </button>
-                      </li>
-                    </ul>
+                        <p>Logout</p>
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>

@@ -106,8 +106,8 @@ const RegisterForm = () => {
             {...register("register_username", {
               required: "This is required.",
               minLength: {
-                value: 6,
-                message: "Username must be at least 6 characters long.",
+                value: 5,
+                message: "Username must be at least 5 characters long.",
               },
             })}
           />
