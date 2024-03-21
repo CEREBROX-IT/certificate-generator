@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../../utils/baseURL";
 
-export const getSession = createAsyncThunk("get/Session", async (data) => {
+export const addAwardee = createAsyncThunk("add/Awardee", async (data) => {
   try {
-    const response = await axios.get(`session/get-session/${data}`);
+    const response = await axios.post(`awardee/add-awardee/`, data);
     return response.data;
   } catch (error) {
     console.error(error.message);
@@ -17,24 +17,24 @@ const initialState = {
   error: null,
 };
 
-const getSessionSlice = createSlice({
-  name: "getSession",
+const addAwardeeSlice = createSlice({
+  name: "addAwardee",
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(getSession.pending, (state) => {
+      .addCase(addAwardee.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(getSession.fulfilled, (state, action) => {
+      .addCase(addAwardee.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.data = action.payload;
       })
-      .addCase(getSession.rejected, (state, action) => {
+      .addCase(addAwardee.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
   },
 });
 
-const getSessionReducer = getSessionSlice.reducer;
-export default getSessionReducer;
+const addAwardeeReducer = addAwardeeSlice.reducer;
+export default addAwardeeReducer;

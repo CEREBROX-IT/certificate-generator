@@ -9,12 +9,14 @@ import Tooltip from "@mui/material/Tooltip";
 import { getUserDatafromToken } from "../utils/extractJWT";
 import { useDispatch, useSelector } from "react-redux";
 import { getSession } from "../redux/slice/session/getSession";
+import { deleteSession } from "../redux/slice/session/resetSession";
 import { Button } from "@mui/material";
 
 const Landing = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const SessionStatus = useSelector((state) => state.getSession?.data?.message);
+  const DeleteStatus = useSelector((state) => state.deleteSession?.status);
   const userData = getUserDatafromToken();
   const userStatus = userData ? userData.decodedToken.status : false;
   const userID = userData ? userData.decodedToken.userId : 0;
@@ -34,7 +36,16 @@ const Landing = () => {
     setAuthModal(false);
   };
 
-  console.log("get status:", SessionStatus);
+  const ResetSessionHandler = () => {
+    dispatch(deleteSession(userID));
+  };
+
+  useEffect(() => {
+    if (DeleteStatus === "succeeded") {
+      window.location.href = "/";
+    }
+  }, [DeleteStatus]);
+
   useEffect(() => {
     dispatch(getSession(userID));
   }, []);
@@ -94,28 +105,33 @@ const Landing = () => {
         </div>
       </div>
 
-      <div className="absolute md:right-7 md:bottom-7 right-4 bottom-4">
-        <Tooltip
-          title="Reset current session to create new session."
-          placement="left"
-        >
-          <Button
-            sx={{
-              backgroundColor: "#FF1000",
-              color: "white",
-              borderRadius: "50%",
-              minHeight: "60px",
-              minWidth: " 60px",
-              boxShadow: 2,
-              "&:hover": {
-                backgroundColor: "#CD0D00",
-              },
-            }}
-          >
-            <IoTrashBin className="text-[32px]" />
-          </Button>
-        </Tooltip>
-      </div>
+      {SessionStatus === "Session found" && (
+        <>
+          <div className="absolute md:right-7 md:bottom-7 right-4 bottom-4">
+            <Tooltip
+              title="Reset current session to create new session."
+              placement="left"
+            >
+              <Button
+                onClick={ResetSessionHandler}
+                sx={{
+                  backgroundColor: "#FF1000",
+                  color: "white",
+                  borderRadius: "50%",
+                  minHeight: "60px",
+                  minWidth: " 60px",
+                  boxShadow: 2,
+                  "&:hover": {
+                    backgroundColor: "#CD0D00",
+                  },
+                }}
+              >
+                <IoTrashBin className="text-[32px]" />
+              </Button>
+            </Tooltip>
+          </div>
+        </>
+      )}
     </>
   );
 };

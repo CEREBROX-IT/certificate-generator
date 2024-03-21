@@ -32,7 +32,6 @@ const GetStarted = ({ openModal, closeModal }) => {
   const [signature4, setSignature4] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [gradeLevel, setGradeLevel] = useState(false);
-  b;
   const [quarter, setQuarter] = useState(false);
   const [categorySelected, setCategorySelected] = useState(
     "Academic Excellence"
@@ -106,7 +105,7 @@ const GetStarted = ({ openModal, closeModal }) => {
       setComplete("loading");
     } else if (SessionStatus === "succeeded" && complete === "loading") {
       setComplete("idle");
-      closeModal();
+      window.location.href = "/";
     }
   }, [SessionStatus, setComplete, closeModal, complete]);
 

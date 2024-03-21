@@ -14,11 +14,10 @@ const LoginForm = ({ closeModal }) => {
   const dispatch = useDispatch();
   const loginStatus = useSelector((state) => state.userLogin?.status);
   const [complete, setComplete] = useState("idle");
-  // console.log("testing::", getUserDatafromToken().decodedToken.first_name);
+
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
@@ -38,7 +37,7 @@ const LoginForm = ({ closeModal }) => {
       window.location.href = "/";
       setComplete("idle");
     }
-  }, [loginStatus, setComplete, closeModal]);
+  }, [loginStatus, setComplete, complete, closeModal]);
 
   //---show/hide password option---
   const [showPassword, setShowPassword] = useState(false);
