@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import GuessUser from "./components/Navigation/GuessUser";
 import AuthenticateUser from "./components/Navigation/AuthenticateUser";
+import SplashScreen from "./screens/SplashScreen";
 import { jwtDecode } from "jwt-decode";
 
 function App() {
   const [isTokenValid, setIsTokenValid] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
   const cookieString = document.cookie;
 
-  // Split the cookie string into individual cookies
   const cookies = cookieString.split(";").map((cookie) => cookie.trim());
 
-  // Find the cookie with the name "bridgette"
   const tokenCookie = cookies.find((cookie) => cookie.startsWith("bridgette="));
 
   useEffect(() => {
@@ -29,18 +28,23 @@ function App() {
       } else {
         setIsTokenValid(false);
       }
+      setIsLoading(false);
     };
 
-    const intervalId = setInterval(checkTokenValidity, 300);
+    const intervalId = setInterval(checkTokenValidity, 1200);
 
     return () => clearInterval(intervalId);
   }, [tokenCookie]);
 
   return (
     <div className="parent-container">
-      <BrowserRouter>
-        {isTokenValid ? <AuthenticateUser /> : <GuessUser />}
-      </BrowserRouter>
+      {isLoading ? (
+        <SplashScreen />
+      ) : (
+        <BrowserRouter>
+          {isTokenValid ? <AuthenticateUser /> : <GuessUser />}
+        </BrowserRouter>
+      )}
     </div>
   );
 }
