@@ -36,8 +36,10 @@ const LoginForm = ({ closeModal }) => {
     } else if (loginStatus === "succeeded" && complete === "loading") {
       window.location.href = "/";
       setComplete("idle");
+    } else if (loginStatus === "failed") {
+      setComplete("failed");
     }
-  }, [loginStatus, setComplete, complete, closeModal]);
+  }, [loginStatus, setComplete, complete]);
 
   //---show/hide password option---
   const [showPassword, setShowPassword] = useState(false);
@@ -46,6 +48,13 @@ const LoginForm = ({ closeModal }) => {
   return (
     <>
       <form className="h-full z-10 md:px-10" onSubmit={handleSubmit(onSubmit)}>
+        {complete === "failed" && (
+          <div className="w-full mt-4 mx-auto p-3 bg-red-100 border-[1px] border-red-700">
+            <p className="text-center text-red-700 text-[14px]">
+              Invalid Credentials
+            </p>
+          </div>
+        )}
         <p className="mt-4 mb-6 text-center ">
           Login your account to get started
         </p>

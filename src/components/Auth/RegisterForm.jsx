@@ -9,8 +9,10 @@ import IconButton from "@mui/material/IconButton";
 import { useDispatch, useSelector } from "react-redux";
 import { userRegister } from "../../redux/slice/auth/registerSlice";
 
-const RegisterForm = () => {
+const RegisterForm = ({ handleModeChange }) => {
   const dispatch = useDispatch();
+  const registerStatus = useSelector((state) => state.userRegister?.status);
+  const [complete, setComplete] = useState("idle");
   //---show/hide password option---
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -18,7 +20,6 @@ const RegisterForm = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
@@ -33,9 +34,27 @@ const RegisterForm = () => {
     dispatch(userRegister(registerData));
   };
 
+  useEffect(() => {
+    if (registerStatus === "loading") {
+      setComplete("loading");
+    } else if (registerStatus === "succeeded" && complete === "loading") {
+      setComplete("idle");
+      handleModeChange("login");
+    } else if (registerStatus === "failed" && complete === "loading") {
+      setComplete("failed");
+    }
+  }, [registerStatus, complete, setComplete, handleModeChange]);
+
   return (
     <>
       <form className="h-full z-10 md:px-10" onSubmit={handleSubmit(onSubmit)}>
+        {complete === "failed" && (
+          <div className="w-full mt-4 mx-auto p-3 bg-red-100 border-[1px] border-red-700">
+            <p className="text-center text-red-700 text-[14px]">
+              Username already exist
+            </p>
+          </div>
+        )}
         <p className="mt-4 mb-6 text-center ">
           Singup your account to get started
         </p>

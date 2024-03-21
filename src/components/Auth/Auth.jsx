@@ -27,7 +27,7 @@ const AuthenticationModal = ({ openModal, closeModal }) => {
             >
               <div className="flex flex-row items-center mb-2">
                 <p className="text-center w-full font-bold text-[24px] ml-4">
-                  {currentPage === "login" ? " LOGIN" : "SIGN UP"}
+                  {currentPage === "login" ? " LOGIN" : "REGISTER"}
                 </p>
                 <button
                   className="r-btn cursor-pointer rounded-[50%] hover:bg-slate-200 z-10 mt-[-2rem] mr-[-0.5rem]"
@@ -41,7 +41,7 @@ const AuthenticationModal = ({ openModal, closeModal }) => {
 
               {currentPage === "login" ? (
                 <>
-                  <LoginForm closeModal={closeModal} />
+                  <LoginForm />
                   <p className="text-[14px] text-center mt-10 z-10">
                     Don't have an acount?{" "}
                     <span
@@ -56,7 +56,7 @@ const AuthenticationModal = ({ openModal, closeModal }) => {
                 </>
               ) : (
                 <>
-                  <RegisterForm />
+                  <RegisterForm handleModeChange={handleModeChange} />
                   <p className="text-[14px] text-center mt-5 z-10">
                     Already have an acount?{" "}
                     <span
