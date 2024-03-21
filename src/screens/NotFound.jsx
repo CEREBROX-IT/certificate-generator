@@ -26,7 +26,7 @@ const NotFound = () => {
             back to the homepage!
           </p>
           <button
-            className="text-[28px] bg-[#47A2FF] mt-10 w-[300px] p-1 font-bold rounded-[10px] text-white"
+            className="text-[24px] bg-[#47A2FF] mt-10 w-[300px] p-2 font-bold rounded-md text-white"
             onClick={() => {
               navigate("/");
             }}
