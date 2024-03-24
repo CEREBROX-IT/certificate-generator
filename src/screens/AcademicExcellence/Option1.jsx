@@ -15,6 +15,7 @@ import { deleteSession } from "../../redux/slice/session/resetSession";
 import { Button } from "@mui/material";
 import { getAwardee } from "../../redux/slice/awardee/getAwardee";
 import { getSession } from "../../redux/slice/session/getSession";
+import * as XLSX from "xlsx";
 
 const Option1 = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,26 @@ const Option1 = () => {
 
   const ResetSessionHandler = () => {
     dispatch(deleteSession(userID));
+  };
+
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: "array" });
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+      const jsonData = XLSX.utils.sheet_to_json(sheet);
+
+      // Remove __rowNum__ property from each object
+      const sanitizedData = jsonData.map(({ __rowNum__, ...rest }) => rest);
+
+      console.log(sanitizedData);
+    };
+
+    reader.readAsArrayBuffer(file);
   };
 
   useEffect(() => {
@@ -151,11 +172,19 @@ const Option1 = () => {
               />
             </div>
             <div className="flex flex-wrap-reverse flex-row gap-2">
-              <button className="flex flex-row  gap-1 px-2 items-center bg-[#F5D45E] py-[6px] text-white text-[14px] p-[4px] rounded-lg">
+              <label
+                htmlFor="file-upload"
+                className="flex flex-row gap-1 px-2 items-center bg-[#F5D45E] py-[6px] text-white text-[14px] p-[4px] rounded-lg cursor-pointer"
+              >
                 <TbFileImport className="text-[20px]" />
                 <p className="font-bold">IMPORT EXCEL</p>
-              </button>
-
+              </label>
+              <input
+                type="file"
+                id="file-upload"
+                style={{ display: "none" }}
+                onChange={handleFileUpload}
+              />
               <button
                 className="flex flex-row  gap-1 px-2 items-center bg-[#47A2FF] py-[6px] text-white text-[14px] p-[4px] rounded-lg"
                 onClick={openAwardeeModalHandler}
