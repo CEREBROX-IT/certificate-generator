@@ -33,6 +33,7 @@ const GetStarted = ({ openModal, closeModal }) => {
   const [selectedFile, setSelectedFile] = useState("");
   const [gradeLevel, setGradeLevel] = useState(false);
   const [quarter, setQuarter] = useState(false);
+  const [minDate, setMinDate] = useState("");
   const [categorySelected, setCategorySelected] = useState(
     "Academic Excellence"
   );
@@ -99,6 +100,22 @@ const GetStarted = ({ openModal, closeModal }) => {
     console.log(data);
     dispatch(createSession(data));
   };
+
+  useEffect(() => {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+
+    if (month < 10) {
+      month = "0" + month;
+    }
+    if (day < 10) {
+      day = "0" + day;
+    }
+
+    setMinDate(`${year}-${month}-${day}`);
+  }, []);
 
   useEffect(() => {
     if (SessionStatus === "loading") {
@@ -246,11 +263,7 @@ const GetStarted = ({ openModal, closeModal }) => {
               ) : currentPath === "path2" ? (
                 <>
                   <div
-                    className={`relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] ${
-                      formatSelected === "2 Signature"
-                        ? "border-[#ED6559] shadow-[#ED6559] shadow-sm"
-                        : ""
-                    } hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer mb-[4px]`}
+                    className={`relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer mb-[4px]`}
                     onClick={() => {
                       pathHandler("path3");
                       setModalName("ATTACH TEMPLATE");
@@ -266,16 +279,12 @@ const GetStarted = ({ openModal, closeModal }) => {
                       className=" object-cover w-full rounded-md"
                       style={{ objectPosition: "right 0px bottom -1rem" }}
                     />
-                    <p className="absolute bottom-1 left-2 font_sansita font-bold text-[16px] md:text-[21px] text-[#47A2FF] shadow-text">
+                    <p className="absolute bottom-1 left-2 font_sansita font-bold text-[16px] md:text-[21px] text-[#dc2929] shadow-text">
                       TWO SIGNATURE
                     </p>
                   </div>
                   <div
-                    className={`relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] ${
-                      formatSelected === "3 Signature"
-                        ? "border-[#ED6559] shadow-[#ED6559] shadow-sm"
-                        : ""
-                    } hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer mb-[4px]`}
+                    className={`relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer mb-[4px]`}
                     onClick={() => {
                       pathHandler("path3");
                       setModalName("ATTACH TEMPLATE");
@@ -291,16 +300,12 @@ const GetStarted = ({ openModal, closeModal }) => {
                       className=" object-cover w-full rounded-md"
                       style={{ objectPosition: "right 0px bottom -1rem" }}
                     />
-                    <p className="absolute bottom-1 left-2 font_sansita font-bold text-[16px] md:text-[21px] text-[#47A2FF] shadow-text">
+                    <p className="absolute bottom-1 left-2 font_sansita font-bold text-[16px] md:text-[21px] text-[#dc2929] shadow-text">
                       THREE SIGNATURE
                     </p>
                   </div>
                   <div
-                    className={`relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] ${
-                      formatSelected === "4 Signature"
-                        ? "border-[#ED6559] shadow-[#ED6559] shadow-sm"
-                        : ""
-                    } hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer mb-[4px]`}
+                    className={`relative flex w-full h-[120px] border-[3px] border-white hover:border-[#47A2FF] hover:shadow-sm shadow-[#47A2FF] rounded-md cursor-pointer mb-[4px]`}
                     onClick={() => {
                       pathHandler("path3");
                       setModalName("ATTACH TEMPLATE");
@@ -316,7 +321,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                       className=" object-cover w-full rounded-md"
                       style={{ objectPosition: "right 0px bottom -1rem" }}
                     />
-                    <p className="absolute bottom-1 left-2 font_sansita font-bold text-[16px] md:text-[21px] text-[#47A2FF] shadow-text">
+                    <p className="absolute bottom-1 left-2 font_sansita font-bold text-[16px] md:text-[21px] text-[#dc2929] shadow-text">
                       FOUR SIGNATURE
                     </p>
                   </div>
@@ -383,7 +388,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                             onChange={handleFileChange}
                           />
                           <p className="mt-2 text-[14px] font-bold text-center">
-                            Drag or attach a file here
+                            Attach Certificate file here
                           </p>
                           <p className="mt-[1px] text-[13px]">
                             (JPG, JPEG, PNG only)
@@ -589,6 +594,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                               style: {
                                 height: "14px",
                               },
+                              min: minDate, // Set the min attribute to disable past dates
                             }}
                             {...register("date_to_present", {
                               required: "This is required.",
