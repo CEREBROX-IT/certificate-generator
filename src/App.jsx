@@ -39,7 +39,7 @@ function App() {
   return (
     <div className="parent-container">
       {isLoading ? (
-        <SplashScreen />
+        <SplashScreen displayMessage="Loading, please wait" />
       ) : (
         <BrowserRouter>
           {isTokenValid ? <AuthenticateUser /> : <GuessUser />}

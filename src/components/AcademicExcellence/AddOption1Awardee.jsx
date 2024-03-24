@@ -6,16 +6,18 @@ import { useDispatch, useSelector } from "react-redux";
 import InputAdornment from "@mui/material/InputAdornment";
 import CircularProgress from "@mui/material/CircularProgress";
 import { getUserDatafromToken } from "../../utils/extractJWT";
-import { addAwardee } from "../../redux/slice/awardee/addAwardee";
+// import { addAwardee } from "../../redux/slice/awardee/addAwardee";
+import { AwardeeRefresh } from "../../redux/slice/awardee/addAwardee";
 
 const AddOption1Awardee = ({ openModal, closeModal }) => {
   const dispatch = useDispatch();
   const Status = useSelector((state) => state.addAwardee?.status);
   const [complete, setComplete] = useState("idle");
+  const userId = getUserDatafromToken().decodedToken.userId;
   const [modalHandler, setModalHandler] = useState(false);
   const onSubmit = (values) => {
     const data = {
-      userId: getUserDatafromToken().decodedToken.userId,
+      userId: userId,
       postedByName:
         getUserDatafromToken().decodedToken.first_name +
         " " +
@@ -24,7 +26,7 @@ const AddOption1Awardee = ({ openModal, closeModal }) => {
       avg: values.average_grade,
     };
 
-    dispatch(addAwardee(data));
+    dispatch(AwardeeRefresh(data, userId));
   };
 
   const {

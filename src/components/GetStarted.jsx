@@ -615,10 +615,6 @@ const GetStarted = ({ openModal, closeModal }) => {
                           }}
                           {...register("school_name", {
                             required: "This is required.",
-                            pattern: {
-                              value: /^[a-z ,.'-]+$/i,
-                              message: "Invalid characters in name.",
-                            },
                           })}
                         />
                         {errors.school_name && (

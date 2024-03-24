@@ -6,7 +6,6 @@ import { TbFileImport } from "react-icons/tb";
 import { MdAdd, MdRemove, MdEdit } from "react-icons/md";
 import { IoTrashBin } from "react-icons/io5";
 import { FiPrinter } from "react-icons/fi";
-import { students } from "../../mockData";
 import Navbar from "../../components/Navbar";
 import AddOption1Awardee from "../../components/AcademicExcellence/AddOption1Awardee";
 import Tooltip from "@mui/material/Tooltip";
@@ -14,10 +13,16 @@ import { getUserDatafromToken } from "../../utils/extractJWT";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteSession } from "../../redux/slice/session/resetSession";
 import { Button } from "@mui/material";
+import { getAwardee } from "../../redux/slice/awardee/getAwardee";
+import { getSession } from "../../redux/slice/session/getSession";
+import { useNavigate } from "react-router-dom";
 
 const Option1 = () => {
   const dispatch = useDispatch();
   const userData = getUserDatafromToken();
+  const awardeeList = useSelector((state) => state.getAwardee?.data);
+  const tableData = awardeeList?.awardees || [];
+  const navigate = useNavigate();
   const userID = userData ? userData.decodedToken.userId : 0;
   const DeleteStatus = useSelector((state) => state.deleteSession?.status);
   const [addAwardeeModal, setAddAwardeeModal] = useState(false);
@@ -35,21 +40,30 @@ const Option1 = () => {
   };
 
   useEffect(() => {
+    dispatch(getAwardee(userID));
+    dispatch(getSession(userID));
+
     if (DeleteStatus === "succeeded") {
       window.location.href = "/";
     }
-  }, [DeleteStatus]);
+  }, [DeleteStatus, dispatch]);
 
-  //-----for the Table------
+  const tableDataWithRowNumber = tableData.map((row, index) => ({
+    ...row,
+    rowNumber: index + 1,
+  }));
+
   const column = [
     {
       field: "id",
       headerName: "BATCH ID",
       flex: 0.5,
       minWidth: 150,
+      renderCell: (params) => <>{params.row.rowNumber}</>,
     },
+
     {
-      field: "awardee_name",
+      field: "awardeeName",
       headerName: "AWARDEE NAME",
       flex: 1,
       minWidth: 270,
@@ -69,7 +83,7 @@ const Option1 = () => {
     {
       field: "actions",
       headerName: "ACTION",
-      minWidth: 160,
+      minWidth: 200,
       flex: 0.2,
 
       renderCell: (params) => (
@@ -77,7 +91,8 @@ const Option1 = () => {
           <button
             className="bg-[#F13434] p-1 rounded-sm cursor-pointer mr-1.5"
             onClick={() => {
-              //   DeleteModalHandler(params.row.id);
+              // DeleteModalHandler(params.row.id);
+              console.log("deleted::", params.row.id);
             }}
           >
             <MdRemove className="text-[20px] text-white" />
@@ -89,14 +104,6 @@ const Option1 = () => {
             }}
           >
             <MdEdit className="text-[20px] text-white" />
-          </button>
-          <button
-            className="bg-[#5AC648] p-1 rounded-sm cursor-pointer mr-1.5"
-            onClick={() => {
-              //   DeleteModalHandler(params.row.id);
-            }}
-          >
-            <FiPrinter className="text-[20px] text-white" />
           </button>
         </>
       ),
@@ -137,13 +144,19 @@ const Option1 = () => {
                 <MdAdd className="text-[20px]" />
                 <p className="font-bold">ADD AWARDEE</p>
               </button>
-              <button className="flex flex-row  gap-1 px-2 items-center bg-[#5AC648] py-[6px] text-white text-[14px] p-[4px] rounded-lg">
+              <button
+                className="flex flex-row  gap-1 px-2 items-center bg-[#5AC648] py-[6px] text-white text-[14px] p-[4px] rounded-lg"
+                onClick={() => {
+                  window.open("/generate-certificate/acadmic-excellence/");
+                }}
+              >
                 <FiPrinter className="text-[20px]" />
                 <p className="font-bold">PRINT ALL</p>
               </button>
             </div>
           </div>
           {/* -------TABLE------- */}
+
           <div className="bg-white rounded-b-lg mx-auto mb-5 mt-5 overflow-hidden">
             <Box
               sx={{
@@ -211,7 +224,7 @@ const Option1 = () => {
               }}
             >
               <DataGrid
-                rows={students}
+                rows={tableDataWithRowNumber}
                 columns={column}
                 components={{ Toolbar: GridToolbar }}
                 checkboxSelection

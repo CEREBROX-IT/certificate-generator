@@ -17,8 +17,8 @@
   font-family: "Sansita", sans-serif;
 }
 
-html {
-  overflow-y: scroll !important;
+.arimo {
+  font-family: "Arimo", sans-serif;
 }
 
 .modal-wrapper {

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../../utils/baseURL";
+import { getAwardee } from "./getAwardee";
 
 export const addAwardee = createAsyncThunk("add/Awardee", async (data) => {
   try {
@@ -38,3 +39,12 @@ const addAwardeeSlice = createSlice({
 
 const addAwardeeReducer = addAwardeeSlice.reducer;
 export default addAwardeeReducer;
+
+export const AwardeeRefresh = (data, userId) => async (dispatch) => {
+  try {
+    await dispatch(addAwardee(data));
+    await dispatch(getAwardee(userId));
+  } catch (error) {
+    console.error("Error adding awardee", error.message);
+  }
+};

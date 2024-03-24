@@ -1,7 +1,7 @@
 import React from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import BridgetteLogo from "./../assets/bridgette-logo.webp";
-const SplashScreen = () => {
+const SplashScreen = ({ displayMessage }) => {
   return (
     <div className="absolute flex flex-col h-full w-full justify-center content-center bg-white">
       <label className="flex flex-col">
@@ -12,7 +12,7 @@ const SplashScreen = () => {
           />
         </div>
         <span className="text-black mx-auto animate-pulse">
-          Loading, please wait
+          {displayMessage}
         </span>
 
         <div className="flex justify-center mt-4">
