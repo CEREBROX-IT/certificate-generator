@@ -8,6 +8,8 @@ import addAwardeeReducer from "../slice/awardee/addAwardee";
 import getAwardeeReducer from "../slice/awardee/getAwardee";
 import addMultipleAwardeeReducer from "../slice/awardee/addMultipleAwardee";
 import updateAwardeeReducer from "../slice/awardee/updateAwardee";
+import deleteAwardeeReducer from "../slice/awardee/deleteAwardee";
+import deleteAllAwardeeReducer from "../slice/awardee/deleteAllAwardee";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +22,8 @@ const store = configureStore({
     addMultipleAwardee: addMultipleAwardeeReducer,
     getAwardee: getAwardeeReducer,
     updateAwardee: updateAwardeeReducer,
+    deleteAwardee: deleteAwardeeReducer,
+    deleteAllAwardee: deleteAllAwardeeReducer,
   },
 });
 

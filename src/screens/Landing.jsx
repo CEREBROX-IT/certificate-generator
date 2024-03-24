@@ -79,7 +79,16 @@ const Landing = () => {
             Generate input effortlessly and receive instant rewards.
           </p>
         </section>
-        {SessionStatus === "Session not found" ? (
+        {SessionStatus === "Session found" ? (
+          <button
+            onClick={() => {
+              navigate("/academic-excellence/");
+            }}
+            className="text-[#F5D45E] text-[20px] font-bold mt-[55px] border-[#F5D45E] border-[3px] p-2 rounded-[10px] w-[220px] hover:bg-[#F5D45E] hover:text-white"
+          >
+            Continue
+          </button>
+        ) : SessionStatus === "Session not found" ? (
           <button
             onClick={OpenModalHandler}
             className="text-[#F5D45E] text-[20px] font-bold mt-[55px] border-[#F5D45E] border-[3px] p-2 rounded-[10px] w-[220px] hover:bg-[#F5D45E] hover:text-white"
@@ -88,12 +97,10 @@ const Landing = () => {
           </button>
         ) : (
           <button
-            onClick={() => {
-              navigate("/academic-excellence/");
-            }}
+            disabled
             className="text-[#F5D45E] text-[20px] font-bold mt-[55px] border-[#F5D45E] border-[3px] p-2 rounded-[10px] w-[220px] hover:bg-[#F5D45E] hover:text-white"
           >
-            Continue
+            Loading
           </button>
         )}
 

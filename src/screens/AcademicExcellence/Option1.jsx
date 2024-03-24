@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteSession } from "../../redux/slice/session/resetSession";
 import { Button } from "@mui/material";
 import { MultipleAwardeeRefresh } from "../../redux/slice/awardee/addMultipleAwardee";
+import { deleteAwardeeRefresh } from "../../redux/slice/awardee/deleteAwardee";
+import { deleteAllAwardeeRefresh } from "../../redux/slice/awardee/deleteAllAwardee";
 import { getAwardee } from "../../redux/slice/awardee/getAwardee";
 import { getSession } from "../../redux/slice/session/getSession";
 import * as XLSX from "xlsx";
@@ -116,10 +118,8 @@ const Option1 = () => {
 
   const applyFilters = () => {
     if (searchQuery === "") {
-      // If search query is empty, display all data
       setTableData(awardeeList);
     } else {
-      // Apply search filter
       const filteredData = awardeeList.filter((data) =>
         data.awardeeName.toLowerCase().includes(searchQuery.toLowerCase())
       );
@@ -164,8 +164,13 @@ const Option1 = () => {
           <button
             className="bg-[#F13434] p-1 rounded-sm cursor-pointer mr-1.5"
             onClick={() => {
-              // DeleteModalHandler(params.row.id);
-              console.log("deleted::", params.row.id);
+              const confirmReset = window.confirm(
+                "Are you sure you want to remove the awardee?"
+              );
+
+              if (confirmReset) {
+                dispatch(deleteAwardeeRefresh(params.row.id, userID));
+              }
             }}
           >
             <MdRemove className="text-[20px] text-white" />
@@ -231,7 +236,15 @@ const Option1 = () => {
               />
               <button
                 className="flex flex-row  gap-1 px-2 items-center bg-[#F13434] hover:bg-[#d04040] py-[6px] text-white text-[14px] p-[4px] rounded-lg"
-                onClick={openAwardeeModalHandler}
+                onClick={() => {
+                  const confirmReset = window.confirm(
+                    "Are you sure you want to remove all awardee?"
+                  );
+
+                  if (confirmReset) {
+                    dispatch(deleteAllAwardeeRefresh(userID));
+                  }
+                }}
               >
                 <MdRemove className="text-[20px]" />
                 <p className="font-bold">REMOVE ALL</p>
