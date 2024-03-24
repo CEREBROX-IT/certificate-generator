@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import { TbAwardFilled, TbFileImport } from "react-icons/tb";
+import { TbAwardFilled } from "react-icons/tb";
 import { GrCertificate } from "react-icons/gr";
 import { GiTiedScroll } from "react-icons/gi";
 import { GiGraduateCap } from "react-icons/gi";

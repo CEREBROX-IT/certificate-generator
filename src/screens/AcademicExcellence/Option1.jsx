@@ -8,6 +8,7 @@ import { IoTrashBin } from "react-icons/io5";
 import { FiPrinter } from "react-icons/fi";
 import Navbar from "../../components/Navbar";
 import AddOption1Awardee from "../../components/AcademicExcellence/AddOption1Awardee";
+import UpdateOption1Awardee from "../../components/AcademicExcellence/UpdateOption1Awardee";
 import Tooltip from "@mui/material/Tooltip";
 import { getUserDatafromToken } from "../../utils/extractJWT";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,15 +23,13 @@ const Option1 = () => {
   const dispatch = useDispatch();
   const userData = getUserDatafromToken();
   const awardeeList = useSelector((state) => state.getAwardee?.data?.awardees);
-  const MultipleAwardeeStatus = useSelector(
-    (state) => state.addMultipleAwardee?.status
-  );
   const [tableData, setTableData] = useState([]);
   const userID = userData ? userData.decodedToken.userId : 0;
   const DeleteStatus = useSelector((state) => state.deleteSession?.status);
   const [addAwardeeModal, setAddAwardeeModal] = useState(false);
+  const [updateAwardeeModal, setUpdateAwardeeModal] = useState(false);
+  const [rowData, setRowData] = useState("");
   const [excelData, setExcelData] = useState([]);
-  const [importExcelStatus, setImportExcelStatus] = useState("idle");
   const [searchQuery, setSearchQuery] = useState("");
 
   const openAwardeeModalHandler = () => {
@@ -39,6 +38,15 @@ const Option1 = () => {
 
   const closeAwardeeModalHandler = () => {
     setAddAwardeeModal(false);
+  };
+
+  const openUpdateAwardeeModalHandler = (data) => {
+    setRowData(data);
+    setUpdateAwardeeModal(true);
+  };
+
+  const closeUpdateAwardeeModalHandler = () => {
+    setUpdateAwardeeModal(false);
   };
 
   const ResetSessionHandler = () => {
@@ -72,7 +80,10 @@ const Option1 = () => {
       const enrichedData = jsonData.map((row) => ({
         ...row,
         userId: userID,
-        postedByName: "peter francis",
+        postedByName:
+          userData.decodedToken.first_name +
+          " " +
+          userData.decodedToken.last_name,
       }));
 
       // Remove __rowNum__ property from each object
@@ -162,7 +173,8 @@ const Option1 = () => {
           <button
             className="bg-[#923DFF] p-1 rounded-sm cursor-pointer mr-1.5"
             onClick={() => {
-              //   DeleteModalHandler(params.row.id);
+              console.log(params.row);
+              openUpdateAwardeeModalHandler(params.row);
             }}
           >
             <MdEdit className="text-[20px] text-white" />
@@ -178,6 +190,14 @@ const Option1 = () => {
         <AddOption1Awardee
           openModal={addAwardeeModal}
           closeModal={closeAwardeeModalHandler}
+        />
+      )}
+
+      {updateAwardeeModal && (
+        <UpdateOption1Awardee
+          openModal={updateAwardeeModal}
+          closeModal={closeUpdateAwardeeModalHandler}
+          rowData={rowData}
         />
       )}
 
@@ -201,7 +221,7 @@ const Option1 = () => {
                 className="flex flex-row gap-1 px-2 items-center bg-[#F5D45E] hover:bg-[#e6c757] py-[6px] text-white text-[14px] p-[4px] rounded-lg cursor-pointer"
               >
                 <TbFileImport className="text-[20px]" />
-                <p className="font-bold">IMPORT EXCEL</p>
+                <p className="font-bold">IMPORT</p>
               </label>
               <input
                 type="file"
@@ -210,12 +230,20 @@ const Option1 = () => {
                 onChange={handleFileUpload}
               />
               <button
+                className="flex flex-row  gap-1 px-2 items-center bg-[#F13434] hover:bg-[#d04040] py-[6px] text-white text-[14px] p-[4px] rounded-lg"
+                onClick={openAwardeeModalHandler}
+              >
+                <MdRemove className="text-[20px]" />
+                <p className="font-bold">REMOVE ALL</p>
+              </button>
+              <button
                 className="flex flex-row  gap-1 px-2 items-center bg-[#47A2FF] hover:bg-[#478ed5] py-[6px] text-white text-[14px] p-[4px] rounded-lg"
                 onClick={openAwardeeModalHandler}
               >
                 <MdAdd className="text-[20px]" />
                 <p className="font-bold">ADD AWARDEE</p>
               </button>
+
               <button
                 className="flex flex-row  gap-1 px-2 items-center bg-[#5AC648] hover:bg-[#50b73d] py-[6px] text-white text-[14px] p-[4px] rounded-lg"
                 onClick={() => {

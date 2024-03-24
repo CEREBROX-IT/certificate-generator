@@ -7,6 +7,7 @@ import deleteSessionReducer from "../slice/session/resetSession";
 import addAwardeeReducer from "../slice/awardee/addAwardee";
 import getAwardeeReducer from "../slice/awardee/getAwardee";
 import addMultipleAwardeeReducer from "../slice/awardee/addMultipleAwardee";
+import updateAwardeeReducer from "../slice/awardee/updateAwardee";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     addAwardee: addAwardeeReducer,
     addMultipleAwardee: addMultipleAwardeeReducer,
     getAwardee: getAwardeeReducer,
+    updateAwardee: updateAwardeeReducer,
   },
 });
 
