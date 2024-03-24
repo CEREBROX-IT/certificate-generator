@@ -70,13 +70,11 @@ const Navbar = () => {
           </p>
         </section>
         <section className="flex flex-row items-center gap-2 md:mr-6">
-          <button
-            className="flex flex-row items-center border-[2px] border-black text-black hover:text-white hover:bg-black px-4 py-1 rounded-[10px]"
-            onClick={openTemplateModal}
-          >
-            <GoDownload className="text-[26px] mr-1" />
-            <p className="text-[14px] font-bold">Template</p>
-          </button>
+          {userStatus && (
+            <p className="md:flex hidden">
+              Hello! {userData.decodedToken.first_name}
+            </p>
+          )}
           {userStatus ? (
             <>
               <PiUserCircleFill

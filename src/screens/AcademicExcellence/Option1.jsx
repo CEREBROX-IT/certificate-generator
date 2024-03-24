@@ -178,7 +178,6 @@ const Option1 = () => {
           <button
             className="bg-[#923DFF] p-1 rounded-sm cursor-pointer mr-1.5"
             onClick={() => {
-              console.log(params.row);
               openUpdateAwardeeModalHandler(params.row);
             }}
           >
