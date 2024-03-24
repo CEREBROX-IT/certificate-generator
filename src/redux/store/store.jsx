@@ -6,6 +6,7 @@ import getSessionReducer from "../slice/session/getSession";
 import deleteSessionReducer from "../slice/session/resetSession";
 import addAwardeeReducer from "../slice/awardee/addAwardee";
 import getAwardeeReducer from "../slice/awardee/getAwardee";
+import addMultipleAwardeeReducer from "../slice/awardee/addMultipleAwardee";
 
 const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
     getSession: getSessionReducer,
     deleteSession: deleteSessionReducer,
     addAwardee: addAwardeeReducer,
+    addMultipleAwardee: addMultipleAwardeeReducer,
     getAwardee: getAwardeeReducer,
   },
 });

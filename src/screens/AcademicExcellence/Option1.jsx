@@ -13,6 +13,7 @@ import { getUserDatafromToken } from "../../utils/extractJWT";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteSession } from "../../redux/slice/session/resetSession";
 import { Button } from "@mui/material";
+import { MultipleAwardeeRefresh } from "../../redux/slice/awardee/addMultipleAwardee";
 import { getAwardee } from "../../redux/slice/awardee/getAwardee";
 import { getSession } from "../../redux/slice/session/getSession";
 import * as XLSX from "xlsx";
@@ -21,11 +22,15 @@ const Option1 = () => {
   const dispatch = useDispatch();
   const userData = getUserDatafromToken();
   const awardeeList = useSelector((state) => state.getAwardee?.data?.awardees);
+  const MultipleAwardeeStatus = useSelector(
+    (state) => state.addMultipleAwardee?.status
+  );
   const [tableData, setTableData] = useState([]);
-
   const userID = userData ? userData.decodedToken.userId : 0;
   const DeleteStatus = useSelector((state) => state.deleteSession?.status);
   const [addAwardeeModal, setAddAwardeeModal] = useState(false);
+  const [excelData, setExcelData] = useState([]);
+  const [importExcelStatus, setImportExcelStatus] = useState("idle");
   const [searchQuery, setSearchQuery] = useState("");
 
   const openAwardeeModalHandler = () => {
@@ -37,8 +42,20 @@ const Option1 = () => {
   };
 
   const ResetSessionHandler = () => {
-    dispatch(deleteSession(userID));
+    const confirmReset = window.confirm(
+      "Are you sure you want to reset the session?"
+    );
+
+    if (confirmReset) {
+      dispatch(deleteSession(userID));
+    }
   };
+
+  useEffect(() => {
+    if (excelData.length > 0) {
+      dispatch(MultipleAwardeeRefresh(excelData, userID));
+    }
+  }, [dispatch, excelData, userID]);
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -51,10 +68,17 @@ const Option1 = () => {
       const sheet = workbook.Sheets[sheetName];
       const jsonData = XLSX.utils.sheet_to_json(sheet);
 
-      // Remove __rowNum__ property from each object
-      const sanitizedData = jsonData.map(({ __rowNum__, ...rest }) => rest);
+      // Add additional data to each object
+      const enrichedData = jsonData.map((row) => ({
+        ...row,
+        userId: userID,
+        postedByName: "peter francis",
+      }));
 
-      console.log(sanitizedData);
+      // Remove __rowNum__ property from each object
+      const sanitizedData = enrichedData.map(({ __rowNum__, ...rest }) => rest);
+
+      setExcelData(sanitizedData);
     };
 
     reader.readAsArrayBuffer(file);
@@ -174,7 +198,7 @@ const Option1 = () => {
             <div className="flex flex-wrap-reverse flex-row gap-2">
               <label
                 htmlFor="file-upload"
-                className="flex flex-row gap-1 px-2 items-center bg-[#F5D45E] py-[6px] text-white text-[14px] p-[4px] rounded-lg cursor-pointer"
+                className="flex flex-row gap-1 px-2 items-center bg-[#F5D45E] hover:bg-[#e6c757] py-[6px] text-white text-[14px] p-[4px] rounded-lg cursor-pointer"
               >
                 <TbFileImport className="text-[20px]" />
                 <p className="font-bold">IMPORT EXCEL</p>
@@ -186,14 +210,14 @@ const Option1 = () => {
                 onChange={handleFileUpload}
               />
               <button
-                className="flex flex-row  gap-1 px-2 items-center bg-[#47A2FF] py-[6px] text-white text-[14px] p-[4px] rounded-lg"
+                className="flex flex-row  gap-1 px-2 items-center bg-[#47A2FF] hover:bg-[#478ed5] py-[6px] text-white text-[14px] p-[4px] rounded-lg"
                 onClick={openAwardeeModalHandler}
               >
                 <MdAdd className="text-[20px]" />
                 <p className="font-bold">ADD AWARDEE</p>
               </button>
               <button
-                className="flex flex-row  gap-1 px-2 items-center bg-[#5AC648] py-[6px] text-white text-[14px] p-[4px] rounded-lg"
+                className="flex flex-row  gap-1 px-2 items-center bg-[#5AC648] hover:bg-[#50b73d] py-[6px] text-white text-[14px] p-[4px] rounded-lg"
                 onClick={() => {
                   window.open("/generate-certificate/acadmic-excellence/");
                 }}
@@ -275,7 +299,6 @@ const Option1 = () => {
                 rows={tableData || []}
                 columns={column}
                 components={{ Toolbar: GridToolbar }}
-                checkboxSelection
               />
             </Box>
           </div>
