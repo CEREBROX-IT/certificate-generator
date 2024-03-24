@@ -15,17 +15,17 @@ import { deleteSession } from "../../redux/slice/session/resetSession";
 import { Button } from "@mui/material";
 import { getAwardee } from "../../redux/slice/awardee/getAwardee";
 import { getSession } from "../../redux/slice/session/getSession";
-import { useNavigate } from "react-router-dom";
 
 const Option1 = () => {
   const dispatch = useDispatch();
   const userData = getUserDatafromToken();
-  const awardeeList = useSelector((state) => state.getAwardee?.data);
-  const tableData = awardeeList?.awardees || [];
-  const navigate = useNavigate();
+  const awardeeList = useSelector((state) => state.getAwardee?.data?.awardees);
+  const [tableData, setTableData] = useState([]);
+
   const userID = userData ? userData.decodedToken.userId : 0;
   const DeleteStatus = useSelector((state) => state.deleteSession?.status);
   const [addAwardeeModal, setAddAwardeeModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const openAwardeeModalHandler = () => {
     setAddAwardeeModal(true);
@@ -48,18 +48,35 @@ const Option1 = () => {
     }
   }, [DeleteStatus, dispatch]);
 
-  const tableDataWithRowNumber = tableData.map((row, index) => ({
-    ...row,
-    rowNumber: index + 1,
-  }));
+  useEffect(() => {
+    if (awardeeList) {
+      setTableData(awardeeList);
+    }
+  }, [awardeeList]);
+
+  useEffect(() => {
+    applyFilters();
+  }, [searchQuery]);
+
+  const applyFilters = () => {
+    if (searchQuery === "") {
+      // If search query is empty, display all data
+      setTableData(awardeeList);
+    } else {
+      // Apply search filter
+      const filteredData = awardeeList.filter((data) =>
+        data.awardeeName.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setTableData(filteredData);
+    }
+  };
 
   const column = [
     {
       field: "id",
-      headerName: "BATCH ID",
+      headerName: "AWARDEE ID",
       flex: 0.5,
       minWidth: 150,
-      renderCell: (params) => <>{params.row.rowNumber}</>,
     },
 
     {
@@ -129,6 +146,8 @@ const Option1 = () => {
               <input
                 placeholder="search"
                 className="p-[3px] pr-[35px] pl-4 border-[#dfdfdf] border-[2px] rounded-[20px] w-[100%] md:w-[420px] lg:w-[320px]"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
             <div className="flex flex-wrap-reverse flex-row gap-2">
@@ -224,7 +243,7 @@ const Option1 = () => {
               }}
             >
               <DataGrid
-                rows={tableDataWithRowNumber}
+                rows={tableData || []}
                 columns={column}
                 components={{ Toolbar: GridToolbar }}
                 checkboxSelection
