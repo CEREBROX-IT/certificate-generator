@@ -18,6 +18,7 @@ import StepThree from "./../assets/user-manual/step-3.webp";
 import StepFour from "./../assets/user-manual/step-4.webp";
 import StepFive from "./../assets/user-manual/step-5.webp";
 import StepSix from "./../assets/user-manual/step-6.webp";
+import StepSeven from "./../assets/user-manual/step-7.webp";
 import { Button } from "@mui/material";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -370,7 +371,7 @@ const Landing = () => {
                 </p>
               </div>
               <img
-                src={sample}
+                src={StepSeven}
                 className="h-[250px] w-[360px] transform md:rotate-[7deg] border-r-[10px] border-b-[10px] border-[#F5D45E] lg:mr-[-7rem] bg-slate-400"
               />
             </div>
