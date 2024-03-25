@@ -31,7 +31,7 @@ function App() {
       setIsLoading(false);
     };
 
-    const intervalId = setInterval(checkTokenValidity, 1200);
+    const intervalId = setInterval(checkTokenValidity, 900);
 
     return () => clearInterval(intervalId);
   }, [tokenCookie]);
