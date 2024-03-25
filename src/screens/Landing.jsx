@@ -11,6 +11,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSession } from "../redux/slice/session/getSession";
 import { deleteSession } from "../redux/slice/session/resetSession";
 import sample from "./../assets/certificate-sample/two_signature.webp";
+import StepOne from "./../assets/user-manual/step-1.webp";
+import StepTwo from "./../assets/user-manual/step-2.webp";
+import StepThree from "./../assets/user-manual/step-3.webp";
+import StepFour from "./../assets/user-manual/step-4.webp";
+import StepFive from "./../assets/user-manual/step-5.webp";
+import StepSix from "./../assets/user-manual/step-6.webp";
 import { Button } from "@mui/material";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -172,7 +178,7 @@ const Landing = () => {
                 </p>
               </div>
               <img
-                src={sample}
+                src={StepOne}
                 className="h-[250px] w-[360px] transform md:rotate-[7deg] lg:mr-[-7rem] bg-slate-400"
               />
             </div>
@@ -184,7 +190,7 @@ const Landing = () => {
               data-aos-anchor-placement="center-bottom"
             >
               <img
-                src={sample}
+                src={StepTwo}
                 className="h-[250px] w-[360px] transform md:rotate-[-7deg] lg:ml-[-7rem] bg-slate-400"
               />
               <div className="flex flex-col md:w-[420px] md:ml-2">
@@ -226,7 +232,7 @@ const Landing = () => {
                 </p>
               </div>
               <img
-                src={sample}
+                src={StepThree}
                 className="h-[250px] w-[360px] transform md:rotate-[7deg] lg:mr-[-7rem] bg-slate-400"
               />
             </div>
@@ -238,7 +244,7 @@ const Landing = () => {
               data-aos-anchor-placement="center-bottom"
             >
               <img
-                src={sample}
+                src={StepFour}
                 className="h-[250px] w-[360px] transform md:rotate-[-7deg] lg:ml-[-7rem] bg-slate-400"
               />
               <div className="flex flex-col md:w-[420px] md:ml-2">
@@ -279,7 +285,7 @@ const Landing = () => {
                 </p>
               </div>
               <img
-                src={sample}
+                src={StepFive}
                 className="h-[250px] w-[360px] transform md:rotate-[7deg] lg:mr-[-7rem] bg-slate-400"
               />
             </div>
@@ -291,7 +297,7 @@ const Landing = () => {
               data-aos-anchor-placement="center-bottom"
             >
               <img
-                src={sample}
+                src={StepSix}
                 className="h-[250px] w-[360px] transform md:rotate-[-7deg] lg:ml-[-7rem] bg-slate-400"
               />
               <div className="flex flex-col md:w-[420px] md:ml-2">
