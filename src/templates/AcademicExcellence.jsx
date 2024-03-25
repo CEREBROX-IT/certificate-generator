@@ -19,7 +19,6 @@ const AcademicExcellence = () => {
   const userID = userData ? userData.decodedToken.userId : 0;
   const awardeeList = useSelector((state) => state.getAwardee?.data?.awardees);
   const SessionData = useSelector((state) => state.getSession?.data?.session);
-  const [loading, setLoading] = useState(true);
   const [formattedDate, setFormattedDate] = useState("");
 
   useEffect(() => {
