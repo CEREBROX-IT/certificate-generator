@@ -231,6 +231,7 @@ const Option1 = () => {
                 type="file"
                 id="file-upload"
                 style={{ display: "none" }}
+                accept=".xlsx, .xls, .csv"
                 onChange={handleFileUpload}
               />
               <button
