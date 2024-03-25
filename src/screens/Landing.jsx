@@ -46,7 +46,13 @@ const Landing = () => {
   };
 
   const ResetSessionHandler = () => {
-    dispatch(deleteSession(userID));
+    const confirmReset = window.confirm(
+      "Are you sure you want to reset the session?"
+    );
+
+    if (confirmReset) {
+      dispatch(deleteSession(userID));
+    }
   };
 
   useEffect(() => {
