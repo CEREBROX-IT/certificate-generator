@@ -67,8 +67,7 @@ const AcademicExcellence = () => {
               <Image
                 src={SessionData.certificateTemplate}
                 style={{
-                  height: "100%",
-                  marginTop: "2%",
+                  height: "100%",            
                 }}
               />
               <View
@@ -84,7 +83,7 @@ const AcademicExcellence = () => {
                     fontFamily: "Times-Bold",
                     textAlign: "center",
                     marginTop: "197px",
-                    fontSize: 28,
+                    fontSize: 30,
                   }}
                 >
                   {awardee.ranking.toUpperCase()}
@@ -93,7 +92,7 @@ const AcademicExcellence = () => {
                   style={{
                     fontFamily: "Times-Bold",
                     textAlign: "center",
-                    marginTop: "30px",
+                    marginTop: "20px",
                     fontSize: 34,
                     textDecoration: "underline",
                   }}
@@ -104,7 +103,7 @@ const AcademicExcellence = () => {
                   style={{
                     fontFamily: "Helvetica",
                     textAlign: "center",
-                    marginTop: "10",
+                    marginTop: "5",
                     fontSize: 16,
                     marginHorizontal: "120",
                   }}
