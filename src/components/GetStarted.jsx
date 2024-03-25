@@ -117,6 +117,10 @@ const GetStarted = ({ openModal, closeModal }) => {
     setMinDate(`${year}-${month}-${day}`);
   }, []);
 
+  const CommingSoon = () => {
+    alert("This Feature is currently not Available.");
+  };
+
   useEffect(() => {
     if (SessionStatus === "loading") {
       setComplete("loading");
@@ -222,10 +226,11 @@ const GetStarted = ({ openModal, closeModal }) => {
                       </button>
                       <button
                         className="relative bg-[#5AC648] w-[48%] h-[170px] flex flex-col justify-end cursor-pointer rounded-[10px] p-2"
-                        onClick={() => {
-                          // pathHandler("path2");
-                          // setModalName("TEMPLATE FORMAT");
-                        }}
+                        // onClick={() => {
+                        //   // pathHandler("path2");
+                        //   // setModalName("TEMPLATE FORMAT");
+                        // }}
+                        onClick={CommingSoon}
                       >
                         <GrCertificate className="absolute text-[70px] top-2 right-2 text-[#3d8b2f]" />
                         <p className="text-[18px] font-bold text-white">
@@ -234,10 +239,11 @@ const GetStarted = ({ openModal, closeModal }) => {
                       </button>
                       <button
                         className="relative bg-[#a057ff] w-[48%] h-[170px] flex flex-col justify-end cursor-pointer rounded-[10px] p-2"
-                        onClick={() => {
-                          // pathHandler("path2");
-                          // setModalName("TEMPLATE FORMAT");
-                        }}
+                        // onClick={() => {
+                        //   // pathHandler("path2");
+                        //   // setModalName("TEMPLATE FORMAT");
+                        // }}
+                        onClick={CommingSoon}
                       >
                         <TbAwardFilled className="absolute text-[70px] top-2 right-2 text-[#6929bdeb]" />
                         <p className="text-[18px] font-bold text-white">
@@ -246,10 +252,11 @@ const GetStarted = ({ openModal, closeModal }) => {
                       </button>
                       <button
                         className="relative bg-[#F5D45E] w-[48%] h-[170px] flex flex-col justify-end cursor-pointer rounded-[10px] p-2"
-                        onClick={() => {
-                          // pathHandler("path2");
-                          // setModalName("TEMPLATE FORMAT");
-                        }}
+                        // onClick={() => {
+                        //   // pathHandler("path2");
+                        //   // setModalName("TEMPLATE FORMAT");
+                        // }}
+                        onClick={CommingSoon}
                       >
                         <GiTiedScroll className="absolute text-[70px] top-2 right-2 text-[#c4a843]" />
                         <p className="text-[18px] font-bold text-white">
