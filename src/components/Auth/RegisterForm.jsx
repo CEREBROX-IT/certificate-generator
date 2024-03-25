@@ -20,6 +20,7 @@ const RegisterForm = ({ handleModeChange }) => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
 
@@ -33,6 +34,18 @@ const RegisterForm = ({ handleModeChange }) => {
 
     dispatch(userRegister(registerData));
   };
+
+  // Custom validation function to check if passwords match
+  const passwordMatch = (value) => {
+    const newPassword = watch("register_password"); // Get the value of "New password" field
+    return newPassword === value || "Password do not match";
+  };
+
+  // Register the "Re-enter new password" field with the custom validation
+  register("confirm_password", {
+    required: "This is required.",
+    validate: passwordMatch,
+  });
 
   useEffect(() => {
     if (registerStatus === "loading") {

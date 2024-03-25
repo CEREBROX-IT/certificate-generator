@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import BridgetteLogo from "./../assets/bridgette-logo.webp";
 import { FaUserPen } from "react-icons/fa6";
-import { GoDownload, GoSignOut } from "react-icons/go";
+import { GoSignOut } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
-import TemplateOption from "./TemplateOption";
+import EditProfileModal from "./EditProfileModal";
 import AuthenticationModal from "./Auth/Auth";
 import { PiUserCircleFill } from "react-icons/pi";
 import { getUserDatafromToken } from "../utils/extractJWT";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [templateModal, setTemplateModal] = useState(false);
+  const [editProfileModal, setEditProfileModal] = useState(false);
   const [AuthModal, setAuthModal] = useState(false);
   const [menuHandler, setMenuHandler] = useState(false);
   const userData = getUserDatafromToken();
   const userStatus = userData ? userData.decodedToken.status : false;
 
-  const openTemplateModal = () => {
-    setTemplateModal(true);
+  const openEditProfile = () => {
+    setEditProfileModal(true);
   };
 
-  const closeTemplateModal = () => {
-    setTemplateModal(false);
+  const closeEditProfile = () => {
+    setEditProfileModal(false);
   };
 
   const openAuthModal = () => {
@@ -41,10 +41,11 @@ const Navbar = () => {
 
   return (
     <>
-      {templateModal && (
-        <TemplateOption
-          openModal={templateModal}
-          closeModal={closeTemplateModal}
+      {editProfileModal && (
+        <EditProfileModal
+          openModal={editProfileModal}
+          closeModal={closeEditProfile}
+          userId={userData.decodedToken.userId}
         />
       )}
       {AuthModal && (
@@ -92,7 +93,10 @@ const Navbar = () => {
                 {menuHandler && (
                   <div className="fixed inset-0 flex items-center justify-center z-40 gap-1">
                     <div className="absolute bg-white rounded-md flex menu-container flex-col md:right-10 right-4 top-[51px] w-[170px]">
-                      <button className="flex flex-row items-center w-full py-3 hover:bg-slate-100 cursor-pointer rounded-t-md px-6 gap-2">
+                      <button
+                        className="flex flex-row items-center w-full py-3 hover:bg-slate-100 cursor-pointer rounded-t-md px-6 gap-2"
+                        onClick={openEditProfile}
+                      >
                         <FaUserPen className="text-[20px]" />
                         <p>Edit Profile</p>
                       </button>

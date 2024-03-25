@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { IoTrashBin } from "react-icons/io5";
+import { IoIosArrowUp } from "react-icons/io";
 import BridgetteLogo from "./../assets/bridgette-logo.webp";
 import GetStarted from "../components/GetStarted";
 import AuthenticationModal from "../components/Auth/Auth";
@@ -37,6 +38,35 @@ const Landing = () => {
   const userID = userData ? userData.decodedToken.userId : 0;
   const [AuthModal, setAuthModal] = useState(false);
   const [openTemplateOption, setTemeplateOption] = useState(false);
+  const [showScrollToTopButton, setShowScrollToTopButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      // Adjust this value as needed to determine when the button should be shown
+      const scrollThreshold = 200;
+      if (scrollPosition > scrollThreshold) {
+        setShowScrollToTopButton(true);
+      } else {
+        setShowScrollToTopButton(false);
+      }
+    };
+
+    // Attach scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup function to remove the event listener
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []); // Empty dependency array means this effect runs only once after initial render
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   const OpenModalHandler = () => {
     if (userStatus === true) {
@@ -88,7 +118,10 @@ const Landing = () => {
 
       <Navbar />
       <div className="font-oxygen h-[100%] w-full flex flex-col items-center">
-        <section className="flex flex-col mt-[90px] px-4 w-full md:w-[800px]">
+        <section
+          id="top"
+          className="flex flex-col mt-[90px] px-4 w-full md:w-[800px]"
+        >
           <div className="w-full" data-aos="zoom-in">
             <img src={BridgetteLogo} className="h-[95px] w-[95px] mx-auto" />
             <p className="font_sansita text-center font-bold text-[25px] md:text-[34px]">
@@ -97,7 +130,7 @@ const Landing = () => {
           </div>
 
           <div className="w-full" data-aos="zoom-in">
-            <h1 className="text-[#ED6559] font_sansita font-bold text-[30px] md:text-[70px] mt-[-0.4rem] md:mt-[-1.4rem] text-center">
+            <h1 className="text-[#e70f00ee] font_sansita font-bold text-[30px] md:text-[70px] mt-[-0.4rem] md:mt-[-1.4rem] text-center">
               CERTIFICATE GENERATOR
             </h1>
             <p className="text-[14px] md:text-[24px] text-center">
@@ -179,7 +212,7 @@ const Landing = () => {
               </div>
               <img
                 src={StepOne}
-                className="h-[250px] w-[360px] transform md:rotate-[7deg] lg:mr-[-7rem] bg-slate-400"
+                className="h-[250px] w-[360px] transform md:rotate-[7deg] lg:mr-[-7rem] border-r-[10px] border-b-[10px] border-[#F5D45E] bg-slate-400"
               />
             </div>
             {/* -------Step 1 end-------- */}
@@ -191,7 +224,7 @@ const Landing = () => {
             >
               <img
                 src={StepTwo}
-                className="h-[250px] w-[360px] transform md:rotate-[-7deg] lg:ml-[-7rem] bg-slate-400"
+                className="h-[250px] w-[360px] transform md:rotate-[-7deg] lg:ml-[-7rem] border-l-[10px] border-b-[10px] border-[#F5D45E] bg-slate-400"
               />
               <div className="flex flex-col md:w-[420px] md:ml-2">
                 <p className="font-bold font_sansita text-[34px] text-[#F5D45E] text-start">
@@ -233,7 +266,7 @@ const Landing = () => {
               </div>
               <img
                 src={StepThree}
-                className="h-[250px] w-[360px] transform md:rotate-[7deg] lg:mr-[-7rem] bg-slate-400"
+                className="h-[250px] w-[360px] transform md:rotate-[7deg] border-r-[10px] border-b-[10px] border-[#F5D45E] lg:mr-[-7rem] bg-slate-400"
               />
             </div>
             {/* -------Step 3 end-------- */}
@@ -245,7 +278,7 @@ const Landing = () => {
             >
               <img
                 src={StepFour}
-                className="h-[250px] w-[360px] transform md:rotate-[-7deg] lg:ml-[-7rem] bg-slate-400"
+                className="h-[250px] w-[360px] transform md:rotate-[-7deg] border-l-[10px] border-b-[10px] border-[#F5D45E] lg:ml-[-7rem] bg-slate-400"
               />
               <div className="flex flex-col md:w-[420px] md:ml-2">
                 <p className="font-bold font_sansita text-[34px] text-[#F5D45E] text-start">
@@ -286,7 +319,7 @@ const Landing = () => {
               </div>
               <img
                 src={StepFive}
-                className="h-[250px] w-[360px] transform md:rotate-[7deg] lg:mr-[-7rem] bg-slate-400"
+                className="h-[250px] w-[360px] transform md:rotate-[7deg] border-r-[10px] border-b-[10px] border-[#F5D45E] lg:mr-[-7rem] bg-slate-400"
               />
             </div>
             {/* -------Step 5 end-------- */}
@@ -298,7 +331,7 @@ const Landing = () => {
             >
               <img
                 src={StepSix}
-                className="h-[250px] w-[360px] transform md:rotate-[-7deg] lg:ml-[-7rem] bg-slate-400"
+                className="h-[250px] w-[360px] transform md:rotate-[-7deg] border-l-[10px] border-b-[10px] border-[#F5D45E] lg:ml-[-7rem] bg-slate-400"
               />
               <div className="flex flex-col md:w-[420px] md:ml-2">
                 <p className="font-bold font_sansita text-[34px] text-[#F5D45E] text-start">
@@ -338,7 +371,7 @@ const Landing = () => {
               </div>
               <img
                 src={sample}
-                className="h-[250px] w-[360px] transform md:rotate-[7deg] lg:mr-[-7rem] bg-slate-400"
+                className="h-[250px] w-[360px] transform md:rotate-[7deg] border-r-[10px] border-b-[10px] border-[#F5D45E] lg:mr-[-7rem] bg-slate-400"
               />
             </div>
             {/* -------Step 7 end-------- */}
@@ -346,6 +379,26 @@ const Landing = () => {
         </div>
         <Footer />
       </div>
+      {showScrollToTopButton && (
+        <div className="fixed left-7 md:bottom-7 right-4 bottom-4">
+          <Button
+            onClick={scrollToTop}
+            sx={{
+              backgroundColor: "#47A2FF",
+              color: "white",
+              borderRadius: "50%",
+              minHeight: "30px",
+              minWidth: "30px",
+              boxShadow: 2,
+              "&:hover": {
+                backgroundColor: "#478ed5",
+              },
+            }}
+          >
+            <IoIosArrowUp className="text-[28px]" />
+          </Button>
+        </div>
+      )}
 
       {SessionStatus === "Session found" && (
         <>
