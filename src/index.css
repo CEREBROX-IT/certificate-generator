@@ -17,10 +17,6 @@
   font-family: "Sansita", sans-serif;
 }
 
-.arimo {
-  font-family: "Arimo", sans-serif;
-}
-
 .modal-wrapper {
   display: none; /* Initially hide the modal */
   position: fixed;
