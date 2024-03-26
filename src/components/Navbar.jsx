@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BridgetteLogo from "./../assets/bridgette-logo.webp";
 import { FaUserPen } from "react-icons/fa6";
 import { GoSignOut } from "react-icons/go";
@@ -7,9 +7,15 @@ import EditProfileModal from "./EditProfileModal";
 import AuthenticationModal from "./Auth/Auth";
 import { PiUserCircleFill } from "react-icons/pi";
 import { getUserDatafromToken } from "../utils/extractJWT";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getUserInfo } from "../redux/slice/auth/getUserInfo";
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userInfo = useSelector(
+    (state) => state.getUserInfo?.data?.getInformation
+  );
+  const Status = useSelector((state) => state.getUserInfo?.status);
   const [editProfileModal, setEditProfileModal] = useState(false);
   const [AuthModal, setAuthModal] = useState(false);
   const [menuHandler, setMenuHandler] = useState(false);
@@ -38,6 +44,10 @@ const Navbar = () => {
       "bridgette=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     window.location.href = "/";
   };
+
+  useEffect(() => {
+    dispatch(getUserInfo(userData.decodedToken.userId));
+  }, [dispatch]);
 
   return (
     <>
@@ -70,10 +80,8 @@ const Navbar = () => {
           </p>
         </section>
         <section className="flex flex-row items-center gap-2 md:mr-6">
-          {userStatus && (
-            <p className="md:flex hidden">
-              Hello! {userData.decodedToken.first_name}
-            </p>
+          {Status === "succeeded" && (
+            <p className="md:flex hidden">Hello! {userInfo.first_name}</p>
           )}
           {userStatus ? (
             <>

@@ -12,6 +12,7 @@ import deleteAwardeeReducer from "../slice/awardee/deleteAwardee";
 import deleteAllAwardeeReducer from "../slice/awardee/deleteAllAwardee";
 import updateInfoReducer from "../slice/auth/updateInfo";
 import changePasswordReducer from "../slice/auth/updatePassword";
+import getUserInfoRducer from "../slice/auth/getUserInfo";
 
 const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ const store = configureStore({
     userLogin: userLoginReducer,
     updateInfo: updateInfoReducer,
     changePassword: changePasswordReducer,
+    getUserInfo: getUserInfoRducer,
     createSession: createSessionReducer,
     getSession: getSessionReducer,
     deleteSession: deleteSessionReducer,

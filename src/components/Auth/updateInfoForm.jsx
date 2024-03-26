@@ -5,10 +5,14 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDatafromToken } from "../../utils/extractJWT";
-import { updateInfo } from "../../redux/slice/auth/updateInfo";
+import { UpdateUserInfoRefresh } from "../../redux/slice/auth/updateInfo";
+
 const UpdateInfoForm = ({ userId, closeModal }) => {
   const dispatch = useDispatch();
   const Status = useSelector((state) => state.updateInfo?.status);
+  const userInfo = useSelector(
+    (state) => state.getUserInfo?.data?.getInformation
+  );
   const [complete, setComplete] = useState("idle");
 
   const onSubmit = (values) => {
@@ -18,7 +22,7 @@ const UpdateInfoForm = ({ userId, closeModal }) => {
       newLastName: values.last_name,
     };
 
-    dispatch(updateInfo(data));
+    dispatch(UpdateUserInfoRefresh(data, userId));
   };
   const userData = getUserDatafromToken();
   const {
@@ -49,7 +53,7 @@ const UpdateInfoForm = ({ userId, closeModal }) => {
             variant="outlined"
             name="first_name"
             className="w-full"
-            defaultValue={userData.decodedToken.first_name}
+            defaultValue={userInfo.first_name}
             error={errors.first_name ? true : false}
             inputProps={{
               style: {
@@ -77,7 +81,7 @@ const UpdateInfoForm = ({ userId, closeModal }) => {
             variant="outlined"
             name="last_name"
             className="w-full"
-            defaultValue={userData.decodedToken.last_name}
+            defaultValue={userInfo.last_name}
             error={errors.last_name ? true : false}
             inputProps={{
               style: {
