@@ -13,5 +13,3 @@ yarn upgrade
 #Clean cache
 yarn cache clean
 
-# Run in development environment
-yarn dev
