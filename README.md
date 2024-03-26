@@ -1,8 +1,27 @@
-# React + Vite
+# Bridgette - Certificate Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#### Step 1: clone the repository using HTTPS
+Open the terminal and run the command below to save the repository on your local.
+```
+git clone https://github.com/CEREBROX-IT/certificate-generator.git
+```
 
-Currently, two official plugins are available:
+#### Step 2: Navigate to the project directory
+```
+cd certificate-generator
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### Step 3: Run the following command in the terminal to make "manage.sh" executable
+```
+chmod +x manage.sh
+```
+
+#### Step 4: Run the following command to automate the nodeJS setup, installing yarn and upgrading dependencies.
+```
+./manage.sh
+```
+
+#### Step 5: Run the Server using yarn
+```
+yarn dev
+```
