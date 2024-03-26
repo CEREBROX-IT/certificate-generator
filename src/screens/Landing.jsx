@@ -11,7 +11,6 @@ import { getUserDatafromToken } from "../utils/extractJWT";
 import { useDispatch, useSelector } from "react-redux";
 import { getSession } from "../redux/slice/session/getSession";
 import { deleteSession } from "../redux/slice/session/resetSession";
-import sample from "./../assets/certificate-sample/two_signature.webp";
 import StepOne from "./../assets/user-manual/step-1.webp";
 import StepTwo from "./../assets/user-manual/step-2.webp";
 import StepThree from "./../assets/user-manual/step-3.webp";
@@ -19,6 +18,8 @@ import StepFour from "./../assets/user-manual/step-4.webp";
 import StepFive from "./../assets/user-manual/step-5.webp";
 import StepSix from "./../assets/user-manual/step-6.webp";
 import StepSeven from "./../assets/user-manual/step-7.webp";
+import ExcelTemplate from "./../assets/Sample-file/template-excel-file.xlsx";
+import Bgtemplate from "./../assets/Sample-file/certificate_format.png";
 import { Button } from "@mui/material";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -206,9 +207,15 @@ const Landing = () => {
                   letter-size (8.5 x 11) background. Ensure the template meets
                   your design preferences. You can download the sample template
                   file from{" "}
-                  <span className="text-[#47A2FF] hover:underline z-10 cursor-pointer">
-                    Link
-                  </span>{" "}
+                  <a
+                    href={Bgtemplate}
+                    download="Template-excel-file"
+                    target="_blank"
+                  >
+                    <span className="text-[#47A2FF] hover:underline z-10 cursor-pointer">
+                      Link
+                    </span>
+                  </a>{" "}
                 </p>
               </div>
               <img
@@ -239,9 +246,15 @@ const Landing = () => {
                   an Excel file. Columns should be labeled "awardeeName" and
                   "avg" to maintain consistency and prevent errors. Download a
                   sample Excel file from{" "}
-                  <span className="text-[#47A2FF] hover:underline z-10 cursor-pointer">
-                    Link
-                  </span>{" "}
+                  <a
+                    href={ExcelTemplate}
+                    download="Template-excel-file"
+                    target="_blank"
+                  >
+                    <span className="text-[#47A2FF] hover:underline z-10 cursor-pointer">
+                      Link
+                    </span>{" "}
+                  </a>
                   for reference.
                 </p>
               </div>
