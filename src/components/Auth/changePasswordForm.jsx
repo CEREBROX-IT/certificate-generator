@@ -55,7 +55,7 @@ const ChangePasswordForm = ({ userId, closeModal }) => {
     } else if (Status === "failed" && complete === "loading") {
       setComplete("failed");
     } else if (complete === "failed") {
-      setComplete("idle");
+      setComplete("failed");
     }
   }, [, Status, setComplete, complete, closeModal]);
 
