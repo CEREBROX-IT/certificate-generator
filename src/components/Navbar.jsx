@@ -20,6 +20,7 @@ const Navbar = () => {
   const [AuthModal, setAuthModal] = useState(false);
   const [menuHandler, setMenuHandler] = useState(false);
   const userData = getUserDatafromToken();
+  const userId = userData ? userData.decodedToken.userId : 0;
   const userStatus = userData ? userData.decodedToken.status : false;
 
   const openEditProfile = () => {
@@ -46,7 +47,7 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    dispatch(getUserInfo(userData.decodedToken.userId));
+    dispatch(getUserInfo(userId));
   }, [dispatch]);
 
   return (
