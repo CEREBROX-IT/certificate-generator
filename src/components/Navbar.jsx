@@ -45,7 +45,6 @@ const Navbar = () => {
         <EditProfileModal
           openModal={editProfileModal}
           closeModal={closeEditProfile}
-          userId={userData.decodedToken.userId}
         />
       )}
       {AuthModal && (

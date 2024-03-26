@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import UpdateInfoForm from "./Auth/updateInfoForm";
 import ChangePasswordForm from "./Auth/changePasswordForm";
-
-const EditProfileModal = ({ openModal, closeModal, userID }) => {
+import { getUserDatafromToken } from "../utils/extractJWT";
+const EditProfileModal = ({ openModal, closeModal }) => {
   const [modalHandler, setModalHandler] = useState(false);
   const [currentPage, setCurrentPage] = useState("page1");
+  const userID = getUserDatafromToken().decodedToken.userId;
 
   useEffect(() => {
     setModalHandler(openModal);
@@ -62,12 +63,15 @@ const EditProfileModal = ({ openModal, closeModal, userID }) => {
               <div className="h-full z-10 md:px-10">
                 {currentPage === "page1" ? (
                   <>
-                    <UpdateInfoForm userId={userID} />
+                    <UpdateInfoForm userId={userID} closeModal={closeModal} />
                   </>
                 ) : (
                   currentPage === "page2" && (
                     <>
-                      <ChangePasswordForm userId={userID} />
+                      <ChangePasswordForm
+                        userId={userID}
+                        closeModal={closeModal}
+                      />
                     </>
                   )
                 )}

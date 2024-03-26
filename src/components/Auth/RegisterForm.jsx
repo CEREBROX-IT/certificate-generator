@@ -218,24 +218,50 @@ const RegisterForm = ({ handleModeChange }) => {
           )}
         </div>
 
-        <Button
-          type="submit"
-          color="success"
-          sx={{
-            background: "#F5D45E",
-            padding: "10px",
-            fontWeight: 900,
-            color: "white",
-            fontSize: "16px",
-            marginTop: "20px",
-            width: "100%",
-            "&:hover": {
-              background: "#f1c320", // Same color when hovered
-            },
-          }}
-        >
-          REGISTER
-        </Button>
+        {complete === "loading" ? (
+          <>
+            <Button
+              type="submit"
+              color="success"
+              disabled
+              sx={{
+                background: "#F5D45E",
+                padding: "10px",
+                fontWeight: 900,
+                color: "white",
+                fontSize: "16px",
+                marginTop: "20px",
+                width: "100%",
+                "&:hover": {
+                  background: "#f1c320", // Same color when hovered
+                },
+              }}
+            >
+              <CircularProgress size={28} sx={{ color: "white" }} />
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              type="submit"
+              color="success"
+              sx={{
+                background: "#F5D45E",
+                padding: "10px",
+                fontWeight: 900,
+                color: "white",
+                fontSize: "16px",
+                marginTop: "20px",
+                width: "100%",
+                "&:hover": {
+                  background: "#f1c320", // Same color when hovered
+                },
+              }}
+            >
+              REGISTER
+            </Button>
+          </>
+        )}
       </form>
     </>
   );

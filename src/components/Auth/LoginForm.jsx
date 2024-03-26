@@ -146,7 +146,7 @@ const LoginForm = () => {
                 },
               }}
             >
-              <CircularProgress sx={{ color: "white" }} />
+              <CircularProgress size={28} sx={{ color: "white" }} />
             </Button>
           </>
         ) : (

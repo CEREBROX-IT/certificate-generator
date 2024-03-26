@@ -3,15 +3,29 @@ import { TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { VscEye } from "react-icons/vsc";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 import { PiEyeClosedLight } from "react-icons/pi";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import { useDispatch, useSelector } from "react-redux";
-const ChangePasswordForm = ({ userId }) => {
+import { changePassword } from "../../redux/slice/auth/updatePassword";
+
+const ChangePasswordForm = ({ userId, closeModal }) => {
+  const dispatch = useDispatch();
+  const Status = useSelector((state) => state.changePassword?.status);
+  const [complete, setComplete] = useState("idle");
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const onSubmit = (values) => console.log(values);
+  const onSubmit = (values) => {
+    const data = {
+      userId: userId,
+      currentPassword: values.current_password,
+      newPassword: values.register_password,
+    };
+
+    dispatch(changePassword(data));
+  };
 
   const {
     register,
@@ -32,9 +46,29 @@ const ChangePasswordForm = ({ userId }) => {
     validate: passwordMatch,
   });
 
+  useEffect(() => {
+    if (Status === "loading") {
+      setComplete("loading");
+    } else if (Status === "succeeded" && complete === "loading") {
+      closeModal();
+      setComplete("idle");
+    } else if (Status === "failed" && complete === "loading") {
+      setComplete("failed");
+    } else if (complete === "failed") {
+      setComplete("idle");
+    }
+  }, [, Status, setComplete, complete, closeModal]);
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
+        {complete === "failed" && (
+          <div className="w-full mx-auto p-3 bg-red-100 border-[1px] border-red-700 mb-5 mt-[-0.5rem]">
+            <p className="text-center text-red-700 text-[14px]">
+              Current password is incorrect
+            </p>
+          </div>
+        )}
         <div className="mb-5 w-full">
           <TextField
             label="Current Password"
@@ -139,7 +173,7 @@ const ChangePasswordForm = ({ userId }) => {
             </p>
           )}
         </div>
-        {false ? (
+        {complete === "loading" ? (
           <>
             <Button
               type="submit"
@@ -158,7 +192,7 @@ const ChangePasswordForm = ({ userId }) => {
                 },
               }}
             >
-              <CircularProgress sx={{ color: "white" }} />
+              <CircularProgress size={28} sx={{ color: "white" }} />
             </Button>
           </>
         ) : (

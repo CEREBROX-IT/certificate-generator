@@ -10,11 +10,15 @@ import addMultipleAwardeeReducer from "../slice/awardee/addMultipleAwardee";
 import updateAwardeeReducer from "../slice/awardee/updateAwardee";
 import deleteAwardeeReducer from "../slice/awardee/deleteAwardee";
 import deleteAllAwardeeReducer from "../slice/awardee/deleteAllAwardee";
+import updateInfoReducer from "../slice/auth/updateInfo";
+import changePasswordReducer from "../slice/auth/updatePassword";
 
 const store = configureStore({
   reducer: {
     userRegister: userRegisterReducer,
     userLogin: userLoginReducer,
+    updateInfo: updateInfoReducer,
+    changePassword: changePasswordReducer,
     createSession: createSessionReducer,
     getSession: getSessionReducer,
     deleteSession: deleteSessionReducer,

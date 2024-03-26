@@ -1,17 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDatafromToken } from "../../utils/extractJWT";
-const UpdateInfoForm = ({ userId }) => {
-  const onSubmit = (values) => console.log(values);
+import { updateInfo } from "../../redux/slice/auth/updateInfo";
+const UpdateInfoForm = ({ userId, closeModal }) => {
+  const dispatch = useDispatch();
+  const Status = useSelector((state) => state.updateInfo?.status);
+  const [complete, setComplete] = useState("idle");
+
+  const onSubmit = (values) => {
+    const data = {
+      userId: userId,
+      newFirstName: values.first_name,
+      newLastName: values.last_name,
+    };
+
+    dispatch(updateInfo(data));
+  };
   const userData = getUserDatafromToken();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    if (Status === "loading") {
+      setComplete("loading");
+    } else if (Status === "succeeded" && complete === "loading") {
+      closeModal();
+      setComplete("idle");
+    } else if (Status === "failed" && complete === "loading") {
+      setComplete("failed");
+    } else if (complete === "failed") {
+      setComplete("idle");
+    }
+  }, [, Status, setComplete, complete, closeModal]);
 
   return (
     <>
@@ -71,7 +98,7 @@ const UpdateInfoForm = ({ userId }) => {
             </p>
           )}
         </div>
-        {false ? (
+        {complete === "loading" ? (
           <>
             <Button
               type="submit"
@@ -90,7 +117,7 @@ const UpdateInfoForm = ({ userId }) => {
                 },
               }}
             >
-              <CircularProgress sx={{ color: "white" }} />
+              <CircularProgress size={28} sx={{ color: "white" }} />
             </Button>
           </>
         ) : (
