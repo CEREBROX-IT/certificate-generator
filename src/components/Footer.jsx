@@ -22,7 +22,7 @@ const Footer = () => {
             </div>
             <div className="flex flex-row items-center gap-2 mt-2">
               <MdEmail className="text-white text-[26px]" />
-              <p>bridgette2024@gmail.com</p>
+              <p>cerebroxit@gmail.com</p>
             </div>
           </div>
 
