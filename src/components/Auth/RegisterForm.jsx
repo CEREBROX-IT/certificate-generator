@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { VscEye } from "react-icons/vsc";
 import { PiEyeClosedLight } from "react-icons/pi";
 import InputAdornment from "@mui/material/InputAdornment";
+import CircularProgress from "@mui/material/CircularProgress";
 import IconButton from "@mui/material/IconButton";
 import { useDispatch, useSelector } from "react-redux";
 import { userRegister } from "../../redux/slice/auth/registerSlice";
