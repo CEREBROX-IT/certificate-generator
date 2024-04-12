@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import axios from "../../../utils/baseURL";
 
 export const userRegister = createAsyncThunk("user/register", async (data) => {
@@ -10,6 +10,8 @@ export const userRegister = createAsyncThunk("user/register", async (data) => {
     throw error;
   }
 });
+
+export const resetRegisterStatus = createAction("user/resetStatus");
 
 const initialState = {
   data: null,
@@ -32,9 +34,12 @@ const userRegisterSLice = createSlice({
       .addCase(userRegister.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(resetRegisterStatus, (state) => {
+        state.status = "idle";
+        state.error = null;
       });
   },
 });
 
-const userRegisterReducer = userRegisterSLice.reducer;
-export default userRegisterReducer;
+export const { reducer: userRegisterReducer } = userRegisterSLice;

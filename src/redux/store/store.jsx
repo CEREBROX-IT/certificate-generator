@@ -1,6 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userRegisterReducer from "../slice/auth/registerSlice";
-import userLoginReducer from "../slice/auth/loginSlice";
+import {
+  userRegisterReducer,
+  resetRegisterStatus,
+} from "../slice/auth/registerSlice";
+import { userLoginReducer, resetStatus } from "../slice/auth/loginSlice";
 import createSessionReducer from "../slice/session/createSession";
 import getSessionReducer from "../slice/session/getSession";
 import deleteSessionReducer from "../slice/session/resetSession";
@@ -17,7 +20,9 @@ import getUserInfoRducer from "../slice/auth/getUserInfo";
 const store = configureStore({
   reducer: {
     userRegister: userRegisterReducer,
+    resetRigsterStatus: resetRegisterStatus,
     userLogin: userLoginReducer,
+    resetLoginStatus: resetStatus,
     updateInfo: updateInfoReducer,
     changePassword: changePasswordReducer,
     getUserInfo: getUserInfoRducer,

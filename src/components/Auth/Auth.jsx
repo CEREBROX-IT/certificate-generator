@@ -2,13 +2,26 @@ import React, { useState, useEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
+import { useDispatch, useSelector } from "react-redux";
+import { resetStatus } from "../../redux/slice/auth/loginSlice";
+import { resetRegisterStatus } from "../../redux/slice/auth/registerSlice";
 
 const AuthenticationModal = ({ openModal, closeModal }) => {
+  const dispatch = useDispatch();
   const [modalHandler, setModalHandler] = useState(false);
   const [currentPage, setCurrentPage] = useState("login");
+  const loginStatus = useSelector((state) => state.userLogin?.status);
 
   const handleModeChange = (mode) => {
     setCurrentPage(mode);
+  };
+
+  const handleReset = () => {
+    dispatch(resetStatus());
+  };
+
+  const handleRegisterReset = () => {
+    dispatch(resetRegisterStatus());
   };
 
   useEffect(() => {
@@ -31,13 +44,14 @@ const AuthenticationModal = ({ openModal, closeModal }) => {
                 </p>
                 <button
                   className="r-btn cursor-pointer rounded-[50%] hover:bg-slate-200 z-10 mt-[-2rem] mr-[-0.5rem]"
-                  onClick={closeModal}
+                  onClick={() => {
+                    closeModal();
+                    handleRegisterReset();
+                  }}
                 >
                   <IoCloseOutline className="text-[35px]" />
                 </button>
               </div>
-
-              {/* =========Input fields here======= */}
 
               {currentPage === "login" ? (
                 <>
@@ -47,6 +61,7 @@ const AuthenticationModal = ({ openModal, closeModal }) => {
                     <span
                       className="text-[#47A2FF] cursor-pointer hover:underline"
                       onClick={() => {
+                        handleReset();
                         handleModeChange("register");
                       }}
                     >

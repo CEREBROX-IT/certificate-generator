@@ -12,9 +12,6 @@ import { getUserInfo } from "../redux/slice/auth/getUserInfo";
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userInfo = useSelector(
-    (state) => state.getUserInfo?.data?.getInformation
-  );
 
   const Status = useSelector((state) => state.getUserInfo?.status);
   const [editProfileModal, setEditProfileModal] = useState(false);

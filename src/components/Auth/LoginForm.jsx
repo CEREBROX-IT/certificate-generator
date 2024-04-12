@@ -31,7 +31,6 @@ const LoginForm = () => {
     dispatch(userLogin(loginData));
   };
 
-  console.log(complete);
   useEffect(() => {
     if (loginStatus === "loading") {
       setComplete("loading");
@@ -41,7 +40,6 @@ const LoginForm = () => {
     } else if (loginStatus === "failed") {
       setComplete("failed");
     }
-
     if (registerStatus === "succeeded" && loginStatus === "idle") {
       setComplete("succeeded");
     }
