@@ -4,6 +4,7 @@ import { IoTrashBin } from "react-icons/io5";
 import { IoIosArrowUp } from "react-icons/io";
 import BridgetteLogo from "./../assets/bridgette-logo.webp";
 import SPITICFormat from "../components/FormatSession/SPITICFormat";
+import WMAAFormat from "../components/FormatSession/WMAAFormat";
 import AuthenticationModal from "../components/Auth/Auth";
 import { useNavigate } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
@@ -36,6 +37,7 @@ const Landing = () => {
   const SessionStatus = useSelector((state) => state.getSession?.data?.message);
   const DeleteStatus = useSelector((state) => state.deleteSession?.status);
   const userData = getUserDatafromToken();
+  const schoolBelong = userData ? userData.decodedToken.school_belong : "";
   const userStatus = userData ? userData.decodedToken.status : false;
   const userID = userData ? userData.decodedToken.userId : 0;
   const [AuthModal, setAuthModal] = useState(false);
@@ -105,12 +107,18 @@ const Landing = () => {
 
   return (
     <>
-      {openTemplateOption && (
+      {schoolBelong === "Paul’s Institute of Technology of Iligan City, Inc" ? (
         <SPITICFormat
           openModal={openTemplateOption}
           closeModal={CloseModalHandler}
         />
-      )}
+      ) : schoolBelong === "Western Mindanao Adventist Academy" ? (
+        <WMAAFormat
+          openModal={openTemplateOption}
+          closeModal={CloseModalHandler}
+        />
+      ) : undefined}
+
       {AuthModal && (
         <AuthenticationModal
           openModal={AuthModal}

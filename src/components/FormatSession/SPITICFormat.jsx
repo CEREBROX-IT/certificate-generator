@@ -97,7 +97,6 @@ const SPITICFormat = ({ openModal, closeModal }) => {
       signatorySignature3: signature3,
       signatorySignature4: signature4,
     };
-    console.log(data);
     dispatch(createSession(data));
   };
 
@@ -202,7 +201,10 @@ const SPITICFormat = ({ openModal, closeModal }) => {
                 </p>
                 <button
                   className="cursor-pointer rounded-[50%] hover:bg-slate-200 z-10 mt-[-2rem] mr-[-0.5rem]"
-                  onClick={closeModal}
+                  onClick={() => {
+                    pathHandler("path1");
+                    closeModal();
+                  }}
                 >
                   <IoCloseOutline className="text-[35px]" />
                 </button>
