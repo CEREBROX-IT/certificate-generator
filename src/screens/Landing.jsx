@@ -166,8 +166,12 @@ const Landing = () => {
             </button>
           )}
         </section>
+        {/* <div className="flex flex-row w-full justify-center z-10">
+          <div className="w-[1000px] h-[950px] rounded-[50%] bg-green-200 mb-[-20rem]" />
+          <div className="w-[1000px] h-[950px] rounded-[50%] bg-red-200 " />
+        </div> */}
         {/* -----User Manual on how to use----- */}
-        <div className="relative bg-[#323232] min-w-full h-full mt-[60px] overflow-hidden pb-10">
+        <div className="relative bg-[#323232] min-w-full h-full overflow-hidden pb-10 mt-[60px]">
           <div className="flex flex-col lg:w-[900px] w-full h-full mx-auto px-4 lg:px-0">
             <h1
               className="font-bold font_sansita text-[45px] text-[#F5D45E]"
