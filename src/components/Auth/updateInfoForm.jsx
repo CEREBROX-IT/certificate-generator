@@ -11,8 +11,9 @@ const UpdateInfoForm = ({ userId, closeModal }) => {
   const dispatch = useDispatch();
   const Status = useSelector((state) => state.updateInfo?.status);
   const userInfo = useSelector(
-    (state) => state.getUserInfo?.data?.getInformation
+    (state) => state.getUserInfo?.data?.userInformation
   );
+
   const [complete, setComplete] = useState("idle");
 
   const onSubmit = (values) => {
@@ -24,7 +25,7 @@ const UpdateInfoForm = ({ userId, closeModal }) => {
 
     dispatch(UpdateUserInfoRefresh(data, userId));
   };
-  const userData = getUserDatafromToken();
+
   const {
     register,
     handleSubmit,

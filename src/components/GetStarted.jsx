@@ -1485,14 +1485,16 @@ const GetStarted = ({ openModal, closeModal }) => {
                             type="submit"
                             onClick={() => {
                               {
-                                watch("quarter") === ""
+                                watch("quarter") === "" ||
+                                watch("quarter") === undefined
                                   ? setQuarter(true)
-                                  : false;
+                                  : setQuarter(false);
                               }
                               {
-                                watch("grade_level") === ""
+                                watch("grade_level") === "" ||
+                                watch("grade_level") === undefined
                                   ? setGradeLevel(true)
-                                  : false;
+                                  : setGradeLevel(false);
                               }
                             }}
                           >
