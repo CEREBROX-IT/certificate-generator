@@ -32,6 +32,7 @@ const RegisterForm = ({ handleModeChange }) => {
     const registerData = {
       first_name: values.first_name,
       last_name: values.last_name,
+      school_belong: values.selected_school,
       username: values.register_username,
       password: values.register_password,
     };

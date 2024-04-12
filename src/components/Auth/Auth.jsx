@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { resetStatus } from "../../redux/slice/auth/loginSlice";
 import { resetRegisterStatus } from "../../redux/slice/auth/registerSlice";
 
@@ -10,7 +10,6 @@ const AuthenticationModal = ({ openModal, closeModal }) => {
   const dispatch = useDispatch();
   const [modalHandler, setModalHandler] = useState(false);
   const [currentPage, setCurrentPage] = useState("login");
-  const loginStatus = useSelector((state) => state.userLogin?.status);
 
   const handleModeChange = (mode) => {
     setCurrentPage(mode);

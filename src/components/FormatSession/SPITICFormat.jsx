@@ -8,16 +8,16 @@ import { TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
-import TemplateOne from "./../assets/certificate-sample/two_signature.webp";
-import TemplateTwo from "./../assets/certificate-sample/three_signature.webp";
-import TemplateThree from "./../assets/certificate-sample/four_signature.webp";
-import ImageIcon from "./../assets/image_icon.webp";
+import TemplateOne from "./../../assets/certificate-sample/two_signature.webp";
+import TemplateTwo from "./../../assets/certificate-sample/three_signature.webp";
+import TemplateThree from "./../../assets/certificate-sample/four_signature.webp";
+import ImageIcon from "./../../assets/image_icon.webp";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useDispatch, useSelector } from "react-redux";
-import { createSession } from "../redux/slice/session/createSession";
-import { getUserDatafromToken } from "../utils/extractJWT";
+import { createSession } from "../../redux/slice/session/createSession";
+import { getUserDatafromToken } from "../../utils/extractJWT";
 
-const GetStarted = ({ openModal, closeModal }) => {
+const SPITICFormat = ({ openModal, closeModal }) => {
   const dispatch = useDispatch();
   const SessionStatus = useSelector((state) => state.createSession?.status);
   const [complete, setComplete] = useState("idle");
@@ -48,7 +48,7 @@ const GetStarted = ({ openModal, closeModal }) => {
       section: values.section,
       quarter: values.quarter,
       dateToPresent: values.date_to_present,
-      schoolName: values.school_name,
+      designationPlace: values.designation_place,
       signatoryName1:
         watch("signatory_name1") === "" ||
         watch("signatory_name1") === undefined
@@ -212,7 +212,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                   <div className="flex flex-col w-full">
                     <section className="flex flex-wrap gap-2 w-full h-full justify-center">
                       <button
-                        className="relative bg-[#ED6559] w-[48%] h-[170px] flex flex-col justify-end cursor-pointer rounded-[10px] p-2"
+                        className="relative bg-[#ED6559] w-[48%] h-[170px] flex flex-col justify-end cursor-pointer rounded-[10px] p-2 button-9"
                         onClick={() => {
                           pathHandler("path2");
                           setModalName("TEMPLATE FORMAT");
@@ -225,7 +225,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                         </p>
                       </button>
                       <button
-                        className="relative bg-[#5AC648] w-[48%] h-[170px] flex flex-col justify-end cursor-pointer rounded-[10px] p-2"
+                        className="relative bg-[#5AC648] w-[48%] h-[170px] flex flex-col justify-end cursor-pointer rounded-[10px] p-2 button-9"
                         // onClick={() => {
                         //   // pathHandler("path2");
                         //   // setModalName("TEMPLATE FORMAT");
@@ -238,7 +238,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                         </p>
                       </button>
                       <button
-                        className="relative bg-[#a057ff] w-[48%] h-[170px] flex flex-col justify-end cursor-pointer rounded-[10px] p-2"
+                        className="relative bg-[#a057ff] w-[48%] h-[170px] flex flex-col justify-end cursor-pointer rounded-[10px] p-2 button-9"
                         // onClick={() => {
                         //   // pathHandler("path2");
                         //   // setModalName("TEMPLATE FORMAT");
@@ -251,7 +251,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                         </p>
                       </button>
                       <button
-                        className="relative bg-[#F5D45E] w-[48%] h-[170px] flex flex-col justify-end cursor-pointer rounded-[10px] p-2"
+                        className="relative bg-[#F5D45E] w-[48%] h-[170px] flex flex-col justify-end cursor-pointer rounded-[10px] p-2 button-9"
                         // onClick={() => {
                         //   // pathHandler("path2");
                         //   // setModalName("TEMPLATE FORMAT");
@@ -332,7 +332,7 @@ const GetStarted = ({ openModal, closeModal }) => {
                       FOUR SIGNATURE
                     </p>
                   </div>
-                  <div className="flex flex-row justify-end mt-2 mb-[-1rem]">
+                  <div className="flex flex-row justify-end mt-2 mb-[-1rem] z-10">
                     <button
                       className="py-2 bg-[#F5D45E] w-[150px] text-white font-bold rounded-md"
                       type="submit"
@@ -572,12 +572,28 @@ const GetStarted = ({ openModal, closeModal }) => {
                               3rd Quarter
                             </MenuItem>
                             <MenuItem
-                              value="2th Quarter"
+                              value="4th Quarter"
                               onClick={() => {
                                 setQuarter(false);
                               }}
                             >
                               4th Quarter
+                            </MenuItem>
+                            <MenuItem
+                              value="1st Semester"
+                              onClick={() => {
+                                setQuarter(false);
+                              }}
+                            >
+                              1st Semester
+                            </MenuItem>
+                            <MenuItem
+                              value="2nd Semester"
+                              onClick={() => {
+                                setQuarter(false);
+                              }}
+                            >
+                              2nd Semester
                             </MenuItem>
                           </TextField>
                           {errors.quarter && (
@@ -616,23 +632,23 @@ const GetStarted = ({ openModal, closeModal }) => {
                       </div>
                       <div className="mb-3 w-full">
                         <TextField
-                          label="School Name"
+                          label="Designating place for the award ceremony"
                           variant="outlined"
-                          name="school_name"
+                          name="designation_place"
                           className="w-full"
-                          error={errors.school_name ? true : false}
+                          error={errors.designation_place ? true : false}
                           inputProps={{
                             style: {
                               height: "14px",
                             },
                           }}
-                          {...register("school_name", {
+                          {...register("designation_place", {
                             required: "This is required.",
                           })}
                         />
-                        {errors.school_name && (
+                        {errors.designation_place && (
                           <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
-                            {errors.school_name.message}
+                            {errors.designation_place.message}
                           </p>
                         )}
                       </div>
@@ -1514,4 +1530,4 @@ const GetStarted = ({ openModal, closeModal }) => {
   );
 };
 
-export default GetStarted;
+export default SPITICFormat;

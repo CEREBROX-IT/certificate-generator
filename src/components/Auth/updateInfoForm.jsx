@@ -103,6 +103,22 @@ const UpdateInfoForm = ({ userId, closeModal }) => {
             </p>
           )}
         </div>
+
+        <div className="mb-5 w-full">
+          <TextField
+            disabled
+            label="School Belong To"
+            variant="outlined"
+            name="school_belong"
+            className="w-full"
+            defaultValue={userInfo.school_belong}
+            inputProps={{
+              style: {
+                height: "14px",
+              },
+            }}
+          />
+        </div>
         {complete === "loading" ? (
           <>
             <Button

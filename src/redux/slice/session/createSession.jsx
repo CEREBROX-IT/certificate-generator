@@ -14,7 +14,7 @@ export const createSession = createAsyncThunk(
     formData.append("section", data.section);
     formData.append("quarter", data.quarter);
     formData.append("dateToPresent", data.dateToPresent);
-    formData.append("schoolName", data.schoolName);
+    formData.append("designationPlace", data.designationPlace);
     formData.append("signatoryName1", data.signatoryName1);
     formData.append("signatoryPosition1", data.signatoryPosition1);
     formData.append("signatoryName2", data.signatoryName2);
