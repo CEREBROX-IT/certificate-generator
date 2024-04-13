@@ -81,7 +81,7 @@ const SPITICTemplate = () => {
                   style={{
                     fontFamily: "Times-Bold",
                     textAlign: "center",
-                    marginTop: "197px",
+                    marginTop: "189px",
                     fontSize: 30,
                   }}
                 >
@@ -125,7 +125,6 @@ const SPITICTemplate = () => {
                       <View
                         style={{
                           width: "100%",
-
                           alignItems: "center",
                         }}
                       >

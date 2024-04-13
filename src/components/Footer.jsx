@@ -1,6 +1,5 @@
 import React from "react";
 import BridgetteLogo from "./../assets/bridgette-logo.webp";
-import { FaPhone } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 
 const Footer = () => {
@@ -16,10 +15,7 @@ const Footer = () => {
         <section className="flex md:flex-row flex-col justify-between mt-5 border-b-[1px] pb-10 border-[#323232]">
           <div className="flex flex-col">
             <p className="font_sansita font-bold text-[24px]">CONTACT US</p>
-            <div className="flex flex-row items-center gap-2 mt-2">
-              <FaPhone className="text-white text-[24px]" />
-              <p>+6391-203-3121</p>
-            </div>
+
             <div className="flex flex-row items-center gap-2 mt-2">
               <MdEmail className="text-white text-[26px]" />
               <p>cerebroxit@gmail.com</p>

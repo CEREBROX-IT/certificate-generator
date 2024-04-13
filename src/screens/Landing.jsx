@@ -20,7 +20,6 @@ import StepFive from "./../assets/user-manual/step-5.webp";
 import StepSix from "./../assets/user-manual/step-6.webp";
 import StepSeven from "./../assets/user-manual/step-7.webp";
 import ExcelTemplate from "./../assets/Sample-file/template-excel-file.xlsx";
-import Bgtemplate from "./../assets/Sample-file/certificate_format.png";
 import { Button } from "@mui/material";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -200,7 +199,7 @@ const Landing = () => {
           <div className="w-[1000px] h-[950px] rounded-[50%] bg-red-200 " />
         </div> */}
         {/* -----User Manual on how to use----- */}
-        <div className="relative bg-bgblack bg-slate-900 bg-no-repeat bg-cover min-w-full h-full overflow-hidden pb-10 mt-[60px]">
+        <div className="relative bg-bgblack bg-slate-900 bg-no-repeat bg-cover min-w-full h-full overflow-hidden pb-10 mt-[60px] pt-[50px]">
           <div className="flex flex-col lg:w-[900px] w-full h-full mx-auto px-4 lg:px-0">
             <div
               data-aos="fade-right"
@@ -232,19 +231,11 @@ const Landing = () => {
                   <span className="font-bold text-[#F5D45E]">
                     Prepare Template{" "}
                   </span>
-                  - Design a landscape-oriented certificate template on a
-                  letter-size (8.5 x 11) background. Ensure the template meets
-                  your design preferences. You can download the sample template
-                  file from{" "}
-                  <a
-                    href={Bgtemplate}
-                    download="Template-excel-file"
-                    target="_blank"
-                  >
-                    <span className="text-[#47A2FF] hover:underline z-10 cursor-pointer">
-                      Link
-                    </span>
-                  </a>{" "}
+                  - Design a certificate background template sized at letter
+                  size (8.5 x 11 inches), with orientation options available
+                  based on the school's preference, either 'Portrait' or
+                  'Landscape'. The red tags in the provided sample image
+                  indicate where dynamic data will be inserted.
                 </p>
               </div>
               <img
