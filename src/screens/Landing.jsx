@@ -135,7 +135,7 @@ const Landing = () => {
           <div className="w-full" data-aos="zoom-in">
             <img src={BridgetteLogo} className="h-[95px] w-[95px] mx-auto" />
             <p className="font_sansita text-center font-bold text-[25px] md:text-[34px]">
-              BRIDGETTE
+              ACADEMIC
             </p>
           </div>
 

@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import InputAdornment from "@mui/material/InputAdornment";
 import CircularProgress from "@mui/material/CircularProgress";
 import { getUserDatafromToken } from "../../utils/extractJWT";
-import { UpdateAwardeeRefresh } from "../../redux/slice/awardee/SPITICAwardee/updateAwardee";
+import { UpdateAwardeeRefreshSpitic } from "../../redux/slice/awardee/SPITICAwardee/updateAwardee";
 
 const UpdateOption1Awardee = ({ openModal, closeModal, rowData }) => {
   const dispatch = useDispatch();
-  const Status = useSelector((state) => state.updateAwardee?.status);
+  const Status = useSelector((state) => state.updateAwardeeSpitic?.status);
   const [complete, setComplete] = useState("idle");
   const userId = getUserDatafromToken().decodedToken.userId;
   const [modalHandler, setModalHandler] = useState(false);
@@ -22,7 +22,7 @@ const UpdateOption1Awardee = ({ openModal, closeModal, rowData }) => {
       awardeeName: values.awardee_name,
       avg: values.average_grade,
     };
-    dispatch(UpdateAwardeeRefresh(data, userId));
+    dispatch(UpdateAwardeeRefreshSpitic(data, userId));
   };
 
   const {

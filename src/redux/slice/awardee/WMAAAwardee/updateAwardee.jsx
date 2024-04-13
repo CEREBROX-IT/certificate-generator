@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../../../utils/baseURL";
 import { getAwardee } from "../getAwardee";
 
-export const updateAwardeeSpitic = createAsyncThunk(
-  "update/Awardee/Spitic",
+export const updateAwardee = createAsyncThunk(
+  "update/Awardee",
   async (data) => {
     const temData = {
       userId: data.userId,
@@ -32,33 +32,32 @@ const initialState = {
 };
 
 const updateAwardeeSlice = createSlice({
-  name: "updateAwardee/Spitic",
+  name: "updateAwardee",
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(updateAwardeeSpitic.pending, (state) => {
+      .addCase(updateAwardee.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(updateAwardeeSpitic.fulfilled, (state, action) => {
+      .addCase(updateAwardee.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.data = action.payload;
       })
-      .addCase(updateAwardeeSpitic.rejected, (state, action) => {
+      .addCase(updateAwardee.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
   },
 });
 
-const updateAwardeeSpiticReducer = updateAwardeeSlice.reducer;
-export default updateAwardeeSpiticReducer;
+const updateAwardeeReducer = updateAwardeeSlice.reducer;
+export default updateAwardeeReducer;
 
-export const UpdateAwardeeRefreshSpitic =
-  (data, userId) => async (dispatch) => {
-    try {
-      await dispatch(updateAwardeeSpitic(data));
-      await dispatch(getAwardee(userId));
-    } catch (error) {
-      console.error("Error upading awardee", error.message);
-    }
-  };
+export const UpdateAwardeeRefresh = (data, userId) => async (dispatch) => {
+  try {
+    await dispatch(updateAwardee(data));
+    await dispatch(getAwardee(userId));
+  } catch (error) {
+    console.error("Error upading awardee", error.message);
+  }
+};

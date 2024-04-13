@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../../../utils/baseURL";
 import { getAwardee } from "../getAwardee";
 
-export const addMultipleAwardeeSpitic = createAsyncThunk(
-  "add/multiple-awardees/Spitic",
+export const addMultipleAwardee = createAsyncThunk(
+  "add/multiple-awardees",
   async (data) => {
     try {
       const response = await axios.post(
@@ -25,31 +25,31 @@ const initialState = {
 };
 
 const addMultipleAwardeeSlice = createSlice({
-  name: "addMultipleAwardee/Spitic",
+  name: "addMultipleAwardee",
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(addMultipleAwardeeSpitic.pending, (state) => {
+      .addCase(addMultipleAwardee.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(addMultipleAwardeeSpitic.fulfilled, (state, action) => {
+      .addCase(addMultipleAwardee.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.data = action.payload;
       })
-      .addCase(addMultipleAwardeeSpitic.rejected, (state, action) => {
+      .addCase(addMultipleAwardee.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
   },
 });
 
-const addMultipleAwardeeSpiticReducer = addMultipleAwardeeSlice.reducer;
-export default addMultipleAwardeeSpiticReducer;
+const addMultipleAwardeeReducer = addMultipleAwardeeSlice.reducer;
+export default addMultipleAwardeeReducer;
 
-export const MultipleAwardeeRefreshSpitic =
+export const MultipleAwardeeRefresh =
   (excelData, userId) => async (dispatch) => {
     try {
-      await dispatch(addMultipleAwardeeSpitic(excelData));
+      await dispatch(addMultipleAwardee(excelData));
       await dispatch(getAwardee(userId));
     } catch (error) {
       console.error("Error adding awardee", error.message);
