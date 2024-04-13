@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../../../utils/baseURL";
 import { getAwardee } from "../getAwardee";
 
-export const updateAwardee = createAsyncThunk(
-  "update/Awardee",
+export const updateAwardeeWmaa = createAsyncThunk(
+  "update/Awardee/Wmaa",
   async (data) => {
     const temData = {
       userId: data.userId,
@@ -14,7 +14,7 @@ export const updateAwardee = createAsyncThunk(
 
     try {
       const response = await axios.put(
-        `awardee/spitic/edit-awardee/${data.id}`,
+        `awardee/wmaa/edit-awardee/${data.id}`,
         temData
       );
       return response.data;
@@ -32,30 +32,30 @@ const initialState = {
 };
 
 const updateAwardeeSlice = createSlice({
-  name: "updateAwardee",
+  name: "updateAwardee/Wmaa",
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(updateAwardee.pending, (state) => {
+      .addCase(updateAwardeeWmaa.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(updateAwardee.fulfilled, (state, action) => {
+      .addCase(updateAwardeeWmaa.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.data = action.payload;
       })
-      .addCase(updateAwardee.rejected, (state, action) => {
+      .addCase(updateAwardeeWmaa.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
   },
 });
 
-const updateAwardeeReducer = updateAwardeeSlice.reducer;
-export default updateAwardeeReducer;
+const updateAwardeeWmaaReducer = updateAwardeeSlice.reducer;
+export default updateAwardeeWmaaReducer;
 
-export const UpdateAwardeeRefresh = (data, userId) => async (dispatch) => {
+export const UpdateAwardeeRefreshWmaa = (data, userId) => async (dispatch) => {
   try {
-    await dispatch(updateAwardee(data));
+    await dispatch(updateAwardeeWmaa(data));
     await dispatch(getAwardee(userId));
   } catch (error) {
     console.error("Error upading awardee", error.message);

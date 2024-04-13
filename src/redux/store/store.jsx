@@ -7,10 +7,13 @@ import { userLoginReducer, resetStatus } from "../slice/auth/loginSlice";
 import createSessionReducer from "../slice/session/createSession";
 import getSessionReducer from "../slice/session/getSession";
 import deleteSessionReducer from "../slice/session/resetSession";
-import addAwardeeSpiticReducer from "../slice/awardee/SPITICAwardee/addAwardee";
 import getAwardeeReducer from "../slice/awardee/getAwardee";
+import addAwardeeSpiticReducer from "../slice/awardee/SPITICAwardee/addAwardee";
+import addAwardeeWmaaReducer from "../slice/awardee/WMAAAwardee/addAwardee";
 import addMultipleAwardeeSpiticReducer from "../slice/awardee/SPITICAwardee/addMultipleAwardee";
+import addMultipleAwardeeWmaaReducer from "../slice/awardee/WMAAAwardee/addMultipleAwardee";
 import updateAwardeeSpiticReducer from "../slice/awardee/SPITICAwardee/updateAwardee";
+import updateAwardeeWmaaReducer from "../slice/awardee/WMAAAwardee/updateAwardee";
 import deleteAwardeeReducer from "../slice/awardee/deleteAwardee";
 import deleteAllAwardeeReducer from "../slice/awardee/deleteAllAwardee";
 import updateInfoReducer from "../slice/auth/updateInfo";
@@ -30,9 +33,12 @@ const store = configureStore({
     getSession: getSessionReducer,
     deleteSession: deleteSessionReducer,
     addAwardeeSpitic: addAwardeeSpiticReducer,
+    addAwardeeWmaa: addAwardeeWmaaReducer,
     addMultipleAwardeeSpitic: addMultipleAwardeeSpiticReducer,
-    getAwardee: getAwardeeReducer,
+    addMultipleAwardeeWmaa: addMultipleAwardeeWmaaReducer,
     updateAwardeeSpitic: updateAwardeeSpiticReducer,
+    updateAwardeeWmaa: updateAwardeeWmaaReducer,
+    getAwardee: getAwardeeReducer,
     deleteAwardee: deleteAwardeeReducer,
     deleteAllAwardee: deleteAllAwardeeReducer,
   },
