@@ -3,7 +3,8 @@ import Navbar from "../components/Navbar";
 import { IoTrashBin } from "react-icons/io5";
 import { IoIosArrowUp } from "react-icons/io";
 import BridgetteLogo from "./../assets/bridgette-logo.webp";
-import GetStarted from "../components/GetStarted";
+import SPITICFormat from "../components/FormatSession/SPITICFormat";
+import WMAAFormat from "../components/FormatSession/WMAAFormat";
 import AuthenticationModal from "../components/Auth/Auth";
 import { useNavigate } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
@@ -19,7 +20,6 @@ import StepFive from "./../assets/user-manual/step-5.webp";
 import StepSix from "./../assets/user-manual/step-6.webp";
 import StepSeven from "./../assets/user-manual/step-7.webp";
 import ExcelTemplate from "./../assets/Sample-file/template-excel-file.xlsx";
-import Bgtemplate from "./../assets/Sample-file/certificate_format.png";
 import { Button } from "@mui/material";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -36,6 +36,7 @@ const Landing = () => {
   const SessionStatus = useSelector((state) => state.getSession?.data?.message);
   const DeleteStatus = useSelector((state) => state.deleteSession?.status);
   const userData = getUserDatafromToken();
+  const schoolBelong = userData ? userData.decodedToken.school_belong : "";
   const userStatus = userData ? userData.decodedToken.status : false;
   const userID = userData ? userData.decodedToken.userId : 0;
   const [AuthModal, setAuthModal] = useState(false);
@@ -105,12 +106,18 @@ const Landing = () => {
 
   return (
     <>
-      {openTemplateOption && (
-        <GetStarted
+      {schoolBelong === "Paul’s Institute of Technology of Iligan City, Inc" ? (
+        <SPITICFormat
           openModal={openTemplateOption}
           closeModal={CloseModalHandler}
         />
-      )}
+      ) : schoolBelong === "Western Mindanao Adventist Academy" ? (
+        <WMAAFormat
+          openModal={openTemplateOption}
+          closeModal={CloseModalHandler}
+        />
+      ) : undefined}
+
       {AuthModal && (
         <AuthenticationModal
           openModal={AuthModal}
@@ -122,19 +129,40 @@ const Landing = () => {
       <div className="font-oxygen h-[100%] w-full flex flex-col items-center">
         <section
           id="top"
-          className="flex flex-col mt-[90px] px-4 w-full md:w-[800px]"
+          className="flex flex-col mt-[120px] px-4 w-full md:w-[800px]"
         >
           <div className="w-full" data-aos="zoom-in">
             <img src={BridgetteLogo} className="h-[95px] w-[95px] mx-auto" />
             <p className="font_sansita text-center font-bold text-[25px] md:text-[34px]">
-              BRIDGETTE
+              ACADEMIC
             </p>
           </div>
 
-          <div className="w-full" data-aos="zoom-in">
-            <h1 className="text-[#e70f00ee] font_sansita font-bold text-[30px] md:text-[70px] mt-[-0.4rem] md:mt-[-1.4rem] text-center">
-              CERTIFICATE GENERATOR
-            </h1>
+          <div className="w-full waviy" data-aos="zoom-in">
+            <div className="font_sansita text-[#e70f00ee] font_sansita font-bold text-[30px] md:text-[75px] mt-[-0.4rem] md:mt-[-1.4rem] text-center">
+              <span className="--i:1">C</span>
+              <span className="--i:2">E</span>
+              <span className="--i:3">R</span>
+              <span className="--i:4">T</span>
+              <span className="--i:5">I</span>
+              <span className="--i:6">F</span>
+              <span className="--i:7">I</span>
+              <span className="--i:8">C</span>
+              <span className="--i:9">A</span>
+              <span className="--i:10">T</span>
+              <span className="--i:11">E </span>
+              <span>&nbsp;</span>
+              <span className="--i:12">G</span>
+              <span className="--i:13">E</span>
+              <span className="--i:14">N</span>
+              <span className="--i:15">E</span>
+              <span className="--i:16">R</span>
+              <span className="--i:17">A</span>
+              <span className="--i:18">T</span>
+              <span className="--i:19">O</span>
+              <span className="--i:20">R</span>
+            </div>
+
             <p className="text-[14px] md:text-[24px] text-center">
               Generate effortlessly and receive instant outputs.
             </p>
@@ -146,48 +174,48 @@ const Landing = () => {
               onClick={() => {
                 navigate("/academic-excellence/");
               }}
-              className="text-[#F5D45E] text-[20px] font-bold mt-[55px] border-[#F5D45E] border-[3px] p-2 rounded-[10px] w-[220px] hover:bg-[#F5D45E] hover:text-white"
+              className="md:mt-[55px] mt-[40px]  w-[220px] bg-[#F5D45E] button-53"
             >
               Continue
             </button>
           ) : SessionStatus === "Session not found" ? (
             <button
               onClick={OpenModalHandler}
-              className="text-[#F5D45E] text-[20px] font-bold mt-[55px] border-[#F5D45E] border-[3px] p-2 rounded-[10px] w-[220px] hover:bg-[#F5D45E] hover:text-white"
+              className="md:mt-[55px] mt-[40px]  w-[220px] bg-[#F5D45E] button-53"
             >
               Get Started
             </button>
           ) : (
             <button
               disabled
-              className="text-[#F5D45E] text-[20px] font-bold mt-[55px] border-[#F5D45E] border-[3px] p-2 rounded-[10px] w-[220px] hover:bg-[#F5D45E] hover:text-white"
+              className="md:mt-[55px] mt-[40px]  w-[220px] bg-[#F5D45E] button-53"
             >
               Loading
             </button>
           )}
         </section>
+        {/* <div className="flex flex-row w-full justify-center z-10">
+          <div className="w-[1000px] h-[950px] rounded-[50%] bg-green-200 mb-[-20rem]" />
+          <div className="w-[1000px] h-[950px] rounded-[50%] bg-red-200 " />
+        </div> */}
         {/* -----User Manual on how to use----- */}
-        <div className="relative bg-[#323232] min-w-full h-full mt-[60px] overflow-hidden pb-10">
+        <div className="relative bg-bgblack bg-slate-900 bg-no-repeat bg-cover min-w-full h-full overflow-hidden pb-10 mt-[60px] pt-[50px]">
           <div className="flex flex-col lg:w-[900px] w-full h-full mx-auto px-4 lg:px-0">
-            <h1
-              className="font-bold font_sansita text-[45px] text-[#F5D45E]"
+            <div
               data-aos="fade-right"
-              data-aos-offset="300"
+              data-aos-offset="0"
               data-aos-easing="ease-in-sine"
             >
-              How to Use?
-            </h1>
-            <p
-              className="text-white mb-32 md:w-[80%] md:text-start text-justify"
-              data-aos="fade-right"
-              data-aos-offset="300"
-              data-aos-easing="ease-in-sine"
-            >
-              Here are the comprehensive steps detailing how to effectively
-              utilize the system for creating and generating certificates for
-              students, ensuring a streamlined process from initial setup to
-              final certificate issuance.
-            </p>
+              <h1 className="font-bold font_sansita md:text-[45px] text-[35px] text-[#F5D45E]">
+                How to Use?
+              </h1>
+              <p className="text-white mb-32 md:w-[80%] md:text-start text-justify">
+                Here are the comprehensive steps detailing how to effectively
+                utilize the system for creating and generating certificates for
+                students, ensuring a streamlined process from initial setup to
+                final certificate issuance.
+              </p>
+            </div>
             {/* -------Step 1-------- */}
             <div
               className="flex md:flex-row flex-col w-full justify-end gap-4 mb-20"
@@ -203,19 +231,11 @@ const Landing = () => {
                   <span className="font-bold text-[#F5D45E]">
                     Prepare Template{" "}
                   </span>
-                  - Design a landscape-oriented certificate template on a
-                  letter-size (8.5 x 11) background. Ensure the template meets
-                  your design preferences. You can download the sample template
-                  file from{" "}
-                  <a
-                    href={Bgtemplate}
-                    download="Template-excel-file"
-                    target="_blank"
-                  >
-                    <span className="text-[#47A2FF] hover:underline z-10 cursor-pointer">
-                      Link
-                    </span>
-                  </a>{" "}
+                  - Design a certificate background template sized at letter
+                  size (8.5 x 11 inches), with orientation options available
+                  based on the school's preference, either 'Portrait' or
+                  'Landscape'. The red tags in the provided sample image
+                  indicate where dynamic data will be inserted.
                 </p>
               </div>
               <img
@@ -400,8 +420,8 @@ const Landing = () => {
             sx={{
               backgroundColor: "#47A2FF",
               color: "white",
-              borderRadius: "50%",
-              minHeight: "30px",
+              borderRadius: "5px",
+              minHeight: "35px",
               minWidth: "30px",
               boxShadow: 2,
               "&:hover": {
@@ -409,7 +429,7 @@ const Landing = () => {
               },
             }}
           >
-            <IoIosArrowUp className="text-[28px]" />
+            <IoIosArrowUp className="text-[20px]" />
           </Button>
         </div>
       )}

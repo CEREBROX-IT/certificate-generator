@@ -1,12 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "../../../utils/baseURL";
-import { getAwardee } from "./getAwardee";
+import axios from "../../../../utils/baseURL";
+import { getAwardee } from "../getAwardee";
 
-export const addMultipleAwardee = createAsyncThunk(
-  "add/multiple-awardees",
+export const addMultipleAwardeeSpitic = createAsyncThunk(
+  "add/multiple-awardees/Spitic",
   async (data) => {
     try {
-      const response = await axios.post(`awardee/add-multiple-awardees/`, data);
+      const response = await axios.post(
+        `awardee/spitic/add-multiple-awardees/`,
+        data
+      );
       return response.data;
     } catch (error) {
       console.error(error.message);
@@ -22,31 +25,31 @@ const initialState = {
 };
 
 const addMultipleAwardeeSlice = createSlice({
-  name: "addMultipleAwardee",
+  name: "addMultipleAwardee/Spitic",
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(addMultipleAwardee.pending, (state) => {
+      .addCase(addMultipleAwardeeSpitic.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(addMultipleAwardee.fulfilled, (state, action) => {
+      .addCase(addMultipleAwardeeSpitic.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.data = action.payload;
       })
-      .addCase(addMultipleAwardee.rejected, (state, action) => {
+      .addCase(addMultipleAwardeeSpitic.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
   },
 });
 
-const addMultipleAwardeeReducer = addMultipleAwardeeSlice.reducer;
-export default addMultipleAwardeeReducer;
+const addMultipleAwardeeSpiticReducer = addMultipleAwardeeSlice.reducer;
+export default addMultipleAwardeeSpiticReducer;
 
-export const MultipleAwardeeRefresh =
+export const MultipleAwardeeRefreshSpitic =
   (excelData, userId) => async (dispatch) => {
     try {
-      await dispatch(addMultipleAwardee(excelData));
+      await dispatch(addMultipleAwardeeSpitic(excelData));
       await dispatch(getAwardee(userId));
     } catch (error) {
       console.error("Error adding awardee", error.message);

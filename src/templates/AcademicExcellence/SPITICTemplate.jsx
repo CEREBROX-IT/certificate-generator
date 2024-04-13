@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAwardee } from "../redux/slice/awardee/getAwardee";
-import { getSession } from "../redux/slice/session/getSession";
-import { getUserDatafromToken } from "../utils/extractJWT";
-import SplashScreen from "../screens/SplashScreen";
+import { getAwardee } from "../../redux/slice/awardee/getAwardee";
+import { getSession } from "../../redux/slice/session/getSession";
+import { getUserDatafromToken } from "../../utils/extractJWT";
+import SplashScreen from "../../screens/SplashScreen";
 import {
   Document,
   Page,
@@ -13,7 +13,7 @@ import {
   PDFViewer,
 } from "@react-pdf/renderer";
 
-const AcademicExcellence = () => {
+const SPITICTemplate = () => {
   const dispatch = useDispatch();
   const userData = getUserDatafromToken();
   const userID = userData ? userData.decodedToken.userId : 0;
@@ -66,7 +66,7 @@ const AcademicExcellence = () => {
               <Image
                 src={SessionData.certificateTemplate}
                 style={{
-                  height: "100%",            
+                  height: "100%",
                 }}
               />
               <View
@@ -81,7 +81,7 @@ const AcademicExcellence = () => {
                   style={{
                     fontFamily: "Times-Bold",
                     textAlign: "center",
-                    marginTop: "197px",
+                    marginTop: "189px",
                     fontSize: 30,
                   }}
                 >
@@ -110,7 +110,7 @@ const AcademicExcellence = () => {
                   of the {SessionData.gradeLevel} {SessionData.section} for
                   having an average of {awardee.avg} % for the{" "}
                   {SessionData.quarter}. Given this {formattedDate} at{" "}
-                  {SessionData.schoolName}.
+                  {SessionData.designationPlace}.
                 </Text>
                 {SessionData.format === "2 Signature" ? (
                   <>
@@ -125,7 +125,6 @@ const AcademicExcellence = () => {
                       <View
                         style={{
                           width: "100%",
-
                           alignItems: "center",
                         }}
                       >
@@ -320,7 +319,6 @@ const AcademicExcellence = () => {
                         <View
                           style={{
                             width: "100%",
-
                             alignItems: "center",
                           }}
                         >
@@ -487,4 +485,4 @@ const AcademicExcellence = () => {
   );
 };
 
-export default AcademicExcellence;
+export default SPITICTemplate;

@@ -1,11 +1,18 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import axios from "./../../../utils/baseURL";
 
-// Function to set a cookie
+// Function to set a cookie - <<<For development>>>
+// const setJwtCookie = (token) => {
+//   document.cookie = `bridgette=${token}; max-age=${
+//     24 * 60 * 60
+//   }; path=/; domain=localhost; samesite=lax`;
+// };
+
+// Function to set a cookie - <<<For Production>>>
 const setJwtCookie = (token) => {
   document.cookie = `bridgette=${token}; max-age=${
-    24 * 60 * 60
-  }; path=/; domain=localhost; samesite=lax`;
+    1 * 24 * 60 * 60
+  }; path=/; domain=certificate-generator.cerebrox.online; samesite=lax`;
 };
 
 export const userLogin = createAsyncThunk("user/login", async (data) => {
@@ -19,6 +26,8 @@ export const userLogin = createAsyncThunk("user/login", async (data) => {
     throw error;
   }
 });
+
+export const resetStatus = createAction("user/resetStatus");
 
 const initialState = {
   data: null,
@@ -41,9 +50,12 @@ const userLoginSlice = createSlice({
       .addCase(userLogin.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(resetStatus, (state) => {
+        state.status = "idle";
+        state.error = null;
       });
   },
 });
 
-const userLoginReducer = userLoginSlice.reducer;
-export default userLoginReducer;
+export const { reducer: userLoginReducer } = userLoginSlice;

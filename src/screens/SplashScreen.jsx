@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import BridgetteLogo from "./../assets/bridgette-logo.webp";
+
 const SplashScreen = ({ displayMessage }) => {
   return (
     <div className="absolute flex flex-col h-full w-full justify-center content-center bg-white">

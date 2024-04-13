@@ -12,17 +12,17 @@ import { getUserInfo } from "../redux/slice/auth/getUserInfo";
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userInfo = useSelector(
-    (state) => state.getUserInfo?.data?.getInformation
-  );
 
   const Status = useSelector((state) => state.getUserInfo?.status);
+  const userInfo = useSelector(
+    (state) => state.getUserInfo?.data?.userInformation
+  );
   const [editProfileModal, setEditProfileModal] = useState(false);
   const [AuthModal, setAuthModal] = useState(false);
   const [menuHandler, setMenuHandler] = useState(false);
   const userData = getUserDatafromToken();
   const userId = userData ? userData.decodedToken.userId : 0;
-  const first_name = userData ? userData.decodedToken.first_name : 0;
+
   const userStatus = userData ? userData.decodedToken.status : false;
 
   const openEditProfile = () => {
@@ -84,7 +84,7 @@ const Navbar = () => {
         </section>
         <section className="flex flex-row items-center gap-2 md:mr-6">
           {Status === "succeeded" && (
-            <p className="md:flex hidden">Hello! {first_name}</p>
+            <p className="md:flex hidden">Hello! {userInfo.first_name}</p>
           )}
           {userStatus ? (
             <>
