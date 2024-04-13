@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import axios from "./../../../utils/baseURL";
 
 // Function to set a cookie
@@ -19,6 +19,8 @@ export const userLogin = createAsyncThunk("user/login", async (data) => {
     throw error;
   }
 });
+
+export const resetStatus = createAction("user/resetStatus");
 
 const initialState = {
   data: null,
@@ -41,9 +43,12 @@ const userLoginSlice = createSlice({
       .addCase(userLogin.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(resetStatus, (state) => {
+        state.status = "idle";
+        state.error = null;
       });
   },
 });
 
-const userLoginReducer = userLoginSlice.reducer;
-export default userLoginReducer;
+export const { reducer: userLoginReducer } = userLoginSlice;

@@ -12,15 +12,17 @@ import { getUserInfo } from "../redux/slice/auth/getUserInfo";
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userInfo = useSelector(
-    (state) => state.getUserInfo?.data?.getInformation
-  );
+
   const Status = useSelector((state) => state.getUserInfo?.status);
+  const userInfo = useSelector(
+    (state) => state.getUserInfo?.data?.userInformation
+  );
   const [editProfileModal, setEditProfileModal] = useState(false);
   const [AuthModal, setAuthModal] = useState(false);
   const [menuHandler, setMenuHandler] = useState(false);
   const userData = getUserDatafromToken();
   const userId = userData ? userData.decodedToken.userId : 0;
+
   const userStatus = userData ? userData.decodedToken.status : false;
 
   const openEditProfile = () => {

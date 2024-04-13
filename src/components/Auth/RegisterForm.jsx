@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { TextField } from "@mui/material";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import { VscEye } from "react-icons/vsc";
 import { PiEyeClosedLight } from "react-icons/pi";
 import InputAdornment from "@mui/material/InputAdornment";
+import CircularProgress from "@mui/material/CircularProgress";
 import IconButton from "@mui/material/IconButton";
 import { useDispatch, useSelector } from "react-redux";
 import { userRegister } from "../../redux/slice/auth/registerSlice";
@@ -15,6 +18,7 @@ const RegisterForm = ({ handleModeChange }) => {
   const [complete, setComplete] = useState("idle");
   //---show/hide password option---
   const [showPassword, setShowPassword] = useState(false);
+  const [selectedSchool, setSelectedSchool] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const {
@@ -28,6 +32,7 @@ const RegisterForm = ({ handleModeChange }) => {
     const registerData = {
       first_name: values.first_name,
       last_name: values.last_name,
+      school_belong: values.selected_school,
       username: values.register_username,
       password: values.register_password,
     };
@@ -46,6 +51,11 @@ const RegisterForm = ({ handleModeChange }) => {
     required: "This is required.",
     validate: passwordMatch,
   });
+
+  const SchoolNameList = [
+    "Western Mindanao Adventist Academy",
+    "Paul’s Institute of Technology of Iligan City, Inc",
+  ];
 
   useEffect(() => {
     if (registerStatus === "loading") {
@@ -123,6 +133,56 @@ const RegisterForm = ({ handleModeChange }) => {
             </p>
           )}
         </div>
+        <FormControl
+          sx={{
+            marginBottom: 3,
+            width: "100%",
+          }}
+        >
+          <TextField
+            select
+            label="What School"
+            variant="outlined"
+            name="selected_school"
+            error={selectedSchool ? true : false}
+            {...register("selected_school", {
+              required: "This is required.",
+            })}
+            SelectProps={{
+              MenuProps: { disableScrollLock: true },
+              style: {
+                height: "47px",
+              },
+            }}
+          >
+            <MenuItem value="">
+              <p
+                className="text-slate-500 text-[12px]"
+                onClick={() => {
+                  setSelectedSchool(true);
+                }}
+              >
+                Select one
+              </p>
+            </MenuItem>
+            {SchoolNameList.map((school, index) => (
+              <MenuItem
+                key={index}
+                value={school}
+                onClick={() => {
+                  setSelectedSchool(false);
+                }}
+              >
+                {school}
+              </MenuItem>
+            ))}
+          </TextField>
+          {errors.selected_school && (
+            <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
+              {selectedSchool && errors.selected_school.message}
+            </p>
+          )}
+        </FormControl>
         <div className="mb-5 w-full">
           <TextField
             label="Username"
@@ -256,6 +316,12 @@ const RegisterForm = ({ handleModeChange }) => {
                 "&:hover": {
                   background: "#f1c320", // Same color when hovered
                 },
+              }}
+              onClick={() => {
+                watch("selected_school") === "" ||
+                watch("selected_school") === undefined
+                  ? setSelectedSchool(true)
+                  : setSelectedSchool(false);
               }}
             >
               REGISTER

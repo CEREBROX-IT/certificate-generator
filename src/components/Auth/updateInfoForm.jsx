@@ -11,8 +11,9 @@ const UpdateInfoForm = ({ userId, closeModal }) => {
   const dispatch = useDispatch();
   const Status = useSelector((state) => state.updateInfo?.status);
   const userInfo = useSelector(
-    (state) => state.getUserInfo?.data?.getInformation
+    (state) => state.getUserInfo?.data?.userInformation
   );
+
   const [complete, setComplete] = useState("idle");
 
   const onSubmit = (values) => {
@@ -24,7 +25,7 @@ const UpdateInfoForm = ({ userId, closeModal }) => {
 
     dispatch(UpdateUserInfoRefresh(data, userId));
   };
-  const userData = getUserDatafromToken();
+
   const {
     register,
     handleSubmit,
@@ -101,6 +102,22 @@ const UpdateInfoForm = ({ userId, closeModal }) => {
               {errors.last_name.message}
             </p>
           )}
+        </div>
+
+        <div className="mb-5 w-full">
+          <TextField
+            disabled
+            label="School Belong To"
+            variant="outlined"
+            name="school_belong"
+            className="w-full"
+            defaultValue={userInfo.school_belong}
+            inputProps={{
+              style: {
+                height: "14px",
+              },
+            }}
+          />
         </div>
         {complete === "loading" ? (
           <>
