@@ -320,7 +320,6 @@ const SPITICTemplate = () => {
                         <View
                           style={{
                             width: "100%",
-
                             alignItems: "center",
                           }}
                         >
