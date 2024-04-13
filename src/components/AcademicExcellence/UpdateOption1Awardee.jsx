@@ -7,11 +7,25 @@ import InputAdornment from "@mui/material/InputAdornment";
 import CircularProgress from "@mui/material/CircularProgress";
 import { getUserDatafromToken } from "../../utils/extractJWT";
 import { UpdateAwardeeRefreshSpitic } from "../../redux/slice/awardee/SPITICAwardee/updateAwardee";
+import { UpdateAwardeeRefreshWmaa } from "../../redux/slice/awardee/WMAAAwardee/updateAwardee";
 
 const UpdateOption1Awardee = ({ openModal, closeModal, rowData }) => {
   const dispatch = useDispatch();
-  const Status = useSelector((state) => state.updateAwardeeSpitic?.status);
+  const SpiticStatus = useSelector(
+    (state) => state.updateAwardeeSpitic?.status
+  );
+  const WmaaStatus = useSelector((state) => state.updateAwardeeWmaa?.status);
+  const SpiticErrorMessage = useSelector(
+    (state) => state.updateAwardeeSpitic?.error
+  );
+  const WmaaErrorMessage = useSelector(
+    (state) => state.updateAwardeeWmaa?.error
+  );
+
   const [complete, setComplete] = useState("idle");
+  const schoolBelong = getUserDatafromToken()
+    ? getUserDatafromToken().decodedToken.school_belong
+    : "";
   const userId = getUserDatafromToken().decodedToken.userId;
   const [modalHandler, setModalHandler] = useState(false);
   const onSubmit = (values) => {
@@ -22,7 +36,13 @@ const UpdateOption1Awardee = ({ openModal, closeModal, rowData }) => {
       awardeeName: values.awardee_name,
       avg: values.average_grade,
     };
-    dispatch(UpdateAwardeeRefreshSpitic(data, userId));
+
+    // this condition to determine which school criteria to be used
+    schoolBelong === "Paul’s Institute of Technology of Iligan City, Inc"
+      ? dispatch(UpdateAwardeeRefreshSpitic(data, userId))
+      : schoolBelong === "Western Mindanao Adventist Academy"
+      ? dispatch(UpdateAwardeeRefreshWmaa(data, userId))
+      : undefined;
   };
 
   const {
@@ -34,17 +54,28 @@ const UpdateOption1Awardee = ({ openModal, closeModal, rowData }) => {
   useEffect(() => {
     setModalHandler(openModal);
 
-    if (Status === "loading") {
+    if (WmaaStatus === "loading") {
       setComplete("loading");
-    } else if (Status === "succeeded" && complete === "loading") {
+    } else if (WmaaStatus === "succeeded" && complete === "loading") {
       closeModal();
       setComplete("idle");
-    } else if (Status === "failed" && complete === "loading") {
+    } else if (WmaaStatus === "failed" && complete === "loading") {
       setComplete("failed");
     } else if (complete === "failed") {
       setComplete("idle");
     }
-  }, [openModal, Status, setComplete, complete, closeModal]);
+
+    if (SpiticStatus === "loading") {
+      setComplete("loading");
+    } else if (SpiticStatus === "succeeded" && complete === "loading") {
+      closeModal();
+      setComplete("idle");
+    } else if (SpiticStatus === "failed" && complete === "loading") {
+      setComplete("failed");
+    } else if (complete === "failed") {
+      setComplete("idle");
+    }
+  }, [openModal, WmaaStatus, SpiticStatus, setComplete, complete, closeModal]);
 
   return (
     <>
@@ -70,13 +101,16 @@ const UpdateOption1Awardee = ({ openModal, closeModal, rowData }) => {
                 </button>
               </div>
 
-              {Status === "failed" && (
+              {(WmaaStatus === "failed" || SpiticStatus === "failed") && (
                 <div className="w-full mt-4 mx-auto p-3 bg-red-100 border-[1px] border-red-700">
                   <p className="text-center text-red-700 text-[14px]">
-                    Average below 80, cannot add awardee
+                    {WmaaStatus === "failed"
+                      ? WmaaErrorMessage
+                      : SpiticErrorMessage}
                   </p>
                 </div>
               )}
+
               <form className="h-full z-10 " onSubmit={handleSubmit(onSubmit)}>
                 <div className="w-full mt-4 px-1 pt-2">
                   <div className="mb-5 w-full">

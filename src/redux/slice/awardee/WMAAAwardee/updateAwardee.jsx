@@ -43,9 +43,9 @@ const updateAwardeeSlice = createSlice({
         state.status = "succeeded";
         state.data = action.payload;
       })
-      .addCase(updateAwardeeWmaa.rejected, (state, action) => {
+      .addCase(updateAwardeeWmaa.rejected, (state) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = "Average below 85, cannot add awardee";
       });
   },
 });
