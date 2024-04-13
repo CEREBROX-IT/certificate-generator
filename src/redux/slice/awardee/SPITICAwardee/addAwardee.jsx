@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "../../../utils/baseURL";
-import { getAwardee } from "./getAwardee";
+import axios from "../../../../utils/baseURL";
+import { getAwardee } from "../getAwardee";
 
 export const addAwardee = createAsyncThunk("add/Awardee", async (data) => {
   try {
-    const response = await axios.post(`awardee/add-awardee/`, data);
+    const response = await axios.post(`awardee/spitic/add-awardee/`, data);
     return response.data;
   } catch (error) {
     console.error(error.message);

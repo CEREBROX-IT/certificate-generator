@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import InputAdornment from "@mui/material/InputAdornment";
 import CircularProgress from "@mui/material/CircularProgress";
 import { getUserDatafromToken } from "../../utils/extractJWT";
-import { UpdateAwardeeRefresh } from "../../redux/slice/awardee/updateAwardee";
+import { UpdateAwardeeRefresh } from "../../redux/slice/awardee/SPITICAwardee/updateAwardee";
 
 const UpdateOption1Awardee = ({ openModal, closeModal, rowData }) => {
   const dispatch = useDispatch();

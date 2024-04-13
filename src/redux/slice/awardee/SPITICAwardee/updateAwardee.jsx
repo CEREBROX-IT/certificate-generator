@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "../../../utils/baseURL";
-import { getAwardee } from "./getAwardee";
+import axios from "../../../../utils/baseURL";
+import { getAwardee } from "../getAwardee";
 
 export const updateAwardee = createAsyncThunk(
   "update/Awardee",
@@ -14,7 +14,7 @@ export const updateAwardee = createAsyncThunk(
 
     try {
       const response = await axios.put(
-        `awardee/edit-awardee/${data.id}`,
+        `awardee/spitic/edit-awardee/${data.id}`,
         temData
       );
       return response.data;

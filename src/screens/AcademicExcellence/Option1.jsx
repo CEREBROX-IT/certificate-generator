@@ -14,7 +14,7 @@ import { getUserDatafromToken } from "../../utils/extractJWT";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteSession } from "../../redux/slice/session/resetSession";
 import { Button } from "@mui/material";
-import { MultipleAwardeeRefresh } from "../../redux/slice/awardee/addMultipleAwardee";
+import { MultipleAwardeeRefresh } from "../../redux/slice/awardee/SPITICAwardee/addMultipleAwardee";
 import { deleteAwardeeRefresh } from "../../redux/slice/awardee/deleteAwardee";
 import { deleteAllAwardeeRefresh } from "../../redux/slice/awardee/deleteAllAwardee";
 import { getAwardee } from "../../redux/slice/awardee/getAwardee";
