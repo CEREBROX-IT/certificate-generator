@@ -2,17 +2,10 @@ import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import axios from "./../../../utils/baseURL";
 
 // Function to set a cookie - <<<For development>>>
-// const setJwtCookie = (token) => {
-//   document.cookie = `bridgette=${token}; max-age=${
-//     24 * 60 * 60
-//   }; path=/; domain=localhost; samesite=lax`;
-// };
-
-// Function to set a cookie - <<<For Production>>>
 const setJwtCookie = (token) => {
   document.cookie = `bridgette=${token}; max-age=${
-    1 * 24 * 60 * 60
-  }; path=/; domain=certificate-generator.cerebrox.online; samesite=lax`;
+    24 * 60 * 60
+  }; path=/; domain=localhost; samesite=lax`;
 };
 
 export const userLogin = createAsyncThunk("user/login", async (data) => {

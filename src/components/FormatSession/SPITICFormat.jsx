@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import { TbAwardFilled } from "react-icons/tb";
+import { TbAward } from "react-icons/tb";
 import { GrCertificate } from "react-icons/gr";
 import { GiTiedScroll } from "react-icons/gi";
 import { GiGraduateCap } from "react-icons/gi";
@@ -247,7 +247,7 @@ const SPITICFormat = ({ openModal, closeModal }) => {
                         // }}
                         onClick={CommingSoon}
                       >
-                        <TbAwardFilled className="absolute text-[70px] top-2 right-2 text-[#6929bdeb]" />
+                        <TbAward className="absolute text-[70px] top-2 right-2 text-[#6929bdeb]" />
                         <p className="text-[18px] font-bold text-white">
                           Best in Subject
                         </p>

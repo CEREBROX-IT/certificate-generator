@@ -16,7 +16,7 @@ const AuthenticateUser = () => {
     <>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/academic-excellence/" element={<Option1 />} />
+        <Route path="/academic-excellence" element={<Option1 />} />
         <Route path="*" element={<NotFound />} />
         <Route
           path="/generate-certificate/acadmic-excellence/"

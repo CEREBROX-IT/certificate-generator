@@ -101,6 +101,7 @@ const Landing = () => {
   }, [DeleteStatus]);
 
   useEffect(() => {
+    console.log(userID);
     dispatch(getSession(userID));
   }, []);
 
