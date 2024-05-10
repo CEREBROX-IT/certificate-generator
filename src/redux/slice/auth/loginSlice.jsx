@@ -2,7 +2,9 @@ import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import axios from "./../../../utils/baseURL";
 const { VITE_REACT_APP_COOKIE_DOMAIN } = import.meta.env;
 const setJwtCookie = (token) => {
-  document.cookie = `bridgette=${token}; max-age=${24 * 60 * 60}; path=/; domain=${VITE_REACT_APP_COOKIE_DOMAIN}; samesite=lax`;
+  document.cookie = `bridgette=${token}; max-age=${
+    24 * 60 * 60
+  }; path=/; domain=${VITE_REACT_APP_COOKIE_DOMAIN}; samesite=lax`;
 };
 
 export const userLogin = createAsyncThunk("user/login", async (data) => {
@@ -12,7 +14,7 @@ export const userLogin = createAsyncThunk("user/login", async (data) => {
     setJwtCookie(token);
     return response.data;
   } catch (error) {
-    console.error("Login failed:", error.message);
+    // console.error("Login failed:", error.message);
     throw error;
   }
 });

@@ -7,7 +7,7 @@ export const updateInfo = createAsyncThunk("user/udpateInfo", async (data) => {
     const response = await axios.put("auth/update-profile", data);
     return response.data;
   } catch (error) {
-    console.error(error.message);
+    // console.error(error.message);
     throw error;
   }
 });
@@ -45,6 +45,6 @@ export const UpdateUserInfoRefresh = (data, userId) => async (dispatch) => {
     await dispatch(updateInfo(data));
     await dispatch(getUserInfo(userId));
   } catch (error) {
-    console.error("Error no user info found", error.message);
+    // console.error("Error no user info found", error.message);
   }
 };

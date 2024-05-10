@@ -19,12 +19,12 @@ export const getUserDatafromToken = () => {
         decodedToken,
       };
     } catch (error) {
-      console.error("Error decoding token:", error);
+      // console.error("Error decoding token:", error);
       // Handle token decoding error gracefully
       return null;
     }
   } else {
-    console.error("Token cookie not found");
+    // console.error("Token cookie not found");
     // Handle token cookie not found gracefully
     return null;
   }

@@ -6,7 +6,7 @@ export const getAwardee = createAsyncThunk("get/Awardee", async (data) => {
     const response = await axios.get(`awardee/get-awardee/${data}`);
     return response.data;
   } catch (error) {
-    console.error(error.message);
+    // console.error(error.message);
     throw error;
   }
 });

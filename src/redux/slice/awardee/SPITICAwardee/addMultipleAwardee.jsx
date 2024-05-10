@@ -12,7 +12,7 @@ export const addMultipleAwardeeSpitic = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.error(error.message);
+      // console.error(error.message);
       throw error;
     }
   }
@@ -52,6 +52,6 @@ export const MultipleAwardeeRefreshSpitic =
       await dispatch(addMultipleAwardeeSpitic(excelData));
       await dispatch(getAwardee(userId));
     } catch (error) {
-      console.error("Error adding awardee", error.message);
+      // console.error("Error adding awardee", error.message);
     }
   };

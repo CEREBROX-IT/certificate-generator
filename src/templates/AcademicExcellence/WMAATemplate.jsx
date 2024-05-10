@@ -134,78 +134,165 @@ const WMAATemplate = () => {
             paddingLeft: "40px",
           }}
         >
-          <Text
-            style={{
-              textAlign: "center",
-              fontFamily: "Helvetica-Bold",
-              marginTop: "50px",
-              fontSize: 20,
-              color: "#021f60",
-            }}
-          >
-            {awardee.awardeeName.toUpperCase()}
-          </Text>
+          {SessionData.quarter === "1st Grading" ? (
+            <>
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontFamily: "Helvetica-Bold",
+                  marginLeft: "130px",
+                  marginRight: "10px",
+                  marginTop: "90px",
+                  fontSize: 18,
+                  color: "#021f60",
+                }}
+              >
+                {awardee.awardeeName.toUpperCase()}
+              </Text>
 
-          <Text
-            style={{
-              textAlign: "center",
-              fontFamily: "Helvetica",
-              marginTop: "15px",
-              fontSize: 11,
-              marginHorizontal: "95",
-            }}
-          >
-            for being in the {awardee.ranking.toUpperCase()} with no grades
-            below 85% in all subjects.
-          </Text>
-          <Text
-            style={{
-              fontFamily: "Helvetica",
-              textAlign: "center",
-              marginTop: "15px",
-              fontSize: 11,
-              marginHorizontal: "95",
-            }}
-          >
-            Given this {formattedDate} during the {SessionData.quarter}{" "}
-            Recognition at {SessionData.designationPlace}.
-          </Text>
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontFamily: "Helvetica",
+                  marginLeft: "120px",
+                  marginRight: "10px",
+                  marginTop: "15px",
+                  fontSize: 10,
+                }}
+              >
+                for being in the {awardee.ranking.toUpperCase()} with no grades
+                below 85% in all subjects.
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "Helvetica",
+                  textAlign: "center",
+                  marginTop: "15px",
+                  fontSize: 10,
+                  marginLeft: "139px",
+                  marginRight: "17px",
+                }}
+              >
+                Given this {formattedDate} during the {SessionData.quarter}{" "}
+                Recognition at {SessionData.designationPlace}.
+              </Text>
 
-          <View
-            style={{
-              position: "absolute",
-              width: "100%",
-              alignItems: "center",
-              top: "176px",
-              paddingLeft: 60,
-            }}
-          >
-            <Image
-              src={SessionData.signatorySignature1}
-              style={{
-                height: "50",
-                width: "100",
-              }}
-            />
-            <Text
-              style={{
-                marginTop: "-30",
-                fontSize: 11,
-                fontFamily: "Times-Bold",
-              }}
-            >
-              {SessionData.signatoryName1}
-            </Text>
-            <Text
-              style={{
-                fontSize: 11,
-                fontFamily: "Times-Roman",
-                textAlign: "center",
-              }}
-            >
-              {SessionData.signatoryPosition1}
-            </Text>
-          </View>
+              <View
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  alignItems: "center",
+                  top: "210px",
+                  marginLeft: "60px",
+                  marginRight: "17px",
+                  paddingLeft: 60,
+                }}
+              >
+                <Image
+                  src={SessionData.signatorySignature1}
+                  style={{
+                    height: "50",
+                    width: "100",
+                  }}
+                />
+                <Text
+                  style={{
+                    marginTop: "-30",
+                    fontSize: 10,
+                    fontFamily: "Times-Bold",
+                  }}
+                >
+                  {SessionData.signatoryName1}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 10,
+                    fontFamily: "Times-Roman",
+                    textAlign: "center",
+                    width: "200",
+                  }}
+                >
+                  {SessionData.signatoryPosition1}
+                </Text>
+              </View>
+            </>
+          ) : (
+            <>
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontFamily: "Helvetica-Bold",
+                  marginTop: "50px",
+                  fontSize: 20,
+                  color: "#021f60",
+                }}
+              >
+                {awardee.awardeeName.toUpperCase()}
+              </Text>
+
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontFamily: "Helvetica",
+                  marginTop: "15px",
+                  fontSize: 11,
+                  marginHorizontal: "95",
+                }}
+              >
+                for being in the {awardee.ranking.toUpperCase()} with no grades
+                below 85% in all subjects.
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "Helvetica",
+                  textAlign: "center",
+                  marginTop: "15px",
+                  fontSize: 11,
+                  marginHorizontal: "95",
+                }}
+              >
+                Given this {formattedDate} during the {SessionData.quarter}{" "}
+                Recognition at {SessionData.designationPlace}.
+              </Text>
+
+              <View
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  alignItems: "center",
+                  top: "176px",
+                  paddingLeft: 60,
+                }}
+              >
+                <Image
+                  src={SessionData.signatorySignature1}
+                  style={{
+                    height: "50",
+                    width: "100",
+                  }}
+                />
+                <Text
+                  style={{
+                    marginTop: "-30",
+                    fontSize: 11,
+                    fontFamily: "Times-Bold",
+                  }}
+                >
+                  {SessionData.signatoryName1}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 11,
+                    fontFamily: "Times-Roman",
+                    textAlign: "center",
+                    width: "200",
+                  }}
+                >
+                  {SessionData.signatoryPosition1}
+                </Text>
+              </View>
+            </>
+          )}
         </View>
       </View>
     );

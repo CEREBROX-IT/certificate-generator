@@ -6,7 +6,7 @@ const GuessUser = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/welcome" element={<Landing />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

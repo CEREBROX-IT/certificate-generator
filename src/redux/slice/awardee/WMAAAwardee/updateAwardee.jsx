@@ -19,7 +19,7 @@ export const updateAwardeeWmaa = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.error(error.message);
+      // console.error(error.message);
       throw error;
     }
   }
@@ -58,6 +58,6 @@ export const UpdateAwardeeRefreshWmaa = (data, userId) => async (dispatch) => {
     await dispatch(updateAwardeeWmaa(data));
     await dispatch(getAwardee(userId));
   } catch (error) {
-    console.error("Error upading awardee", error.message);
+    // console.error("Error upading awardee", error.message);
   }
 };

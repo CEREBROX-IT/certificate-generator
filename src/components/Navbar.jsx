@@ -45,7 +45,7 @@ const Navbar = () => {
     // Remove the "bridgette" cookie
     document.cookie =
       "bridgette=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    window.location.href = "/";
+    window.location.href = "/welcome";
   };
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const Navbar = () => {
         <section
           className="flex flex-row items-center  md:ml-6 cursor-pointer"
           onClick={() => {
-            navigate("/");
+            navigate("/welcome");
           }}
         >
           <img

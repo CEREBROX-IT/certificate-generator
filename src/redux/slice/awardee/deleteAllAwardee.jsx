@@ -9,7 +9,7 @@ export const deleteAllAwardee = createAsyncThunk(
       const response = await axios.delete(`awardee/deleteAll-awardee/${data}`);
       return response.data;
     } catch (error) {
-      console.error(error.message);
+      // console.error(error.message);
       throw error;
     }
   }
@@ -48,6 +48,6 @@ export const deleteAllAwardeeRefresh = (userId) => async (dispatch) => {
     await dispatch(deleteAllAwardee(userId));
     await dispatch(getAwardee(userId));
   } catch (error) {
-    console.error("Error deleting all awardee", error.message);
+    // console.error("Error deleting all awardee", error.message);
   }
 };

@@ -125,7 +125,7 @@ const SPITICFormat = ({ openModal, closeModal }) => {
       setComplete("loading");
     } else if (SessionStatus === "succeeded" && complete === "loading") {
       setComplete("idle");
-      window.location.href = "/";
+      window.location.href = "/welcome";
     }
   }, [SessionStatus, setComplete, closeModal, complete]);
 
@@ -997,7 +997,7 @@ const SPITICFormat = ({ openModal, closeModal }) => {
                               <TextField
                                 label="Signatory Position"
                                 variant="outlined"
-                                name="signatory_position3"
+                                name="signatory_position2"
                                 className="w-full"
                                 error={
                                   errors.signatory_position3 ? true : false
@@ -1007,13 +1007,13 @@ const SPITICFormat = ({ openModal, closeModal }) => {
                                     height: "14px",
                                   },
                                 }}
-                                {...register("signatory_position3", {
+                                {...register("signatory_position2", {
                                   required: "This is required.",
                                 })}
                               />
-                              {errors.signatory_position3 && (
+                              {errors.signatory_position2 && (
                                 <p className="ml-1 mt-1 text-[13px] text-red-500 mb-[-0.2rem]">
-                                  {errors.signatory_position3.message}
+                                  {errors.signatory_position2.message}
                                 </p>
                               )}
                             </div>

@@ -6,7 +6,7 @@ export const getSession = createAsyncThunk("get/Session", async (data) => {
     const response = await axios.get(`session/get-session/${data}`);
     return response.data;
   } catch (error) {
-    console.error(error.message);
+    // console.error(error.message);
     throw error;
   }
 });

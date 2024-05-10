@@ -96,12 +96,11 @@ const Landing = () => {
 
   useEffect(() => {
     if (DeleteStatus === "succeeded") {
-      window.location.href = "/";
+      window.location.href = "/welcome";
     }
   }, [DeleteStatus]);
 
   useEffect(() => {
-    console.log(userID);
     dispatch(getSession(userID));
   }, []);
 
@@ -195,10 +194,7 @@ const Landing = () => {
             </button>
           )}
         </section>
-        {/* <div className="flex flex-row w-full justify-center z-10">
-          <div className="w-[1000px] h-[950px] rounded-[50%] bg-green-200 mb-[-20rem]" />
-          <div className="w-[1000px] h-[950px] rounded-[50%] bg-red-200 " />
-        </div> */}
+
         {/* -----User Manual on how to use----- */}
         <div className="relative bg-bgblack bg-slate-900 bg-no-repeat bg-cover min-w-full h-full overflow-hidden pb-10 mt-[60px] pt-[50px]">
           <div className="flex flex-col lg:w-[900px] w-full h-full mx-auto px-4 lg:px-0">

@@ -9,7 +9,7 @@ export const addAwardeeWmaa = createAsyncThunk(
       const response = await axios.post(`awardee/wmaa/add-awardee/`, data);
       return response.data;
     } catch (error) {
-      console.error(error.message);
+      // console.error(error.message);
       throw error;
     }
   }
@@ -48,6 +48,6 @@ export const AwardeeRefreshWmaa = (data, userId) => async (dispatch) => {
     await dispatch(addAwardeeWmaa(data));
     await dispatch(getAwardee(userId));
   } catch (error) {
-    console.error("Error adding awardee", error.message);
+    // console.error("Error adding awardee", error.message);
   }
 };

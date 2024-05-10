@@ -9,7 +9,7 @@ export const addAwardeeSpitic = createAsyncThunk(
       const response = await axios.post(`awardee/spitic/add-awardee/`, data);
       return response.data;
     } catch (error) {
-      console.error(error.message);
+      // console.error(error.message);
       throw error;
     }
   }
@@ -48,6 +48,6 @@ export const AwardeeRefreshSpitic = (data, userId) => async (dispatch) => {
     await dispatch(addAwardeeSpitic(data));
     await dispatch(getAwardee(userId));
   } catch (error) {
-    console.error("Error adding awardee", error.message);
+    // console.error("Error adding awardee", error.message);
   }
 };

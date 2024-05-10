@@ -35,7 +35,7 @@ const LoginForm = () => {
     if (loginStatus === "loading") {
       setComplete("loading");
     } else if (loginStatus === "succeeded" && complete === "loading") {
-      window.location.href = "/";
+      window.location.href = "/welcome";
       setComplete("idle");
     } else if (loginStatus === "failed") {
       setComplete("failed");

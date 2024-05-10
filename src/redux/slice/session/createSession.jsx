@@ -38,7 +38,7 @@ export const createSession = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      console.error(error.message);
+      // console.error(error.message);
       throw error;
     }
   }

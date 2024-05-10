@@ -26,6 +26,7 @@ const Option1 = () => {
   const userData = getUserDatafromToken();
   const awardeeList = useSelector((state) => state.getAwardee?.data?.awardees);
   const [tableData, setTableData] = useState([]);
+  const Status = useSelector((state) => state.getAwardee?.data?.status);
   const userID = userData ? userData.decodedToken.userId : 0;
   const DeleteStatus = useSelector((state) => state.deleteSession?.status);
   const [addAwardeeModal, setAddAwardeeModal] = useState(false);
@@ -102,7 +103,7 @@ const Option1 = () => {
     dispatch(getSession(userID));
 
     if (DeleteStatus === "succeeded") {
-      window.location.href = "/";
+      window.location.href = "/welcome";
     }
   }, [DeleteStatus, dispatch]);
 
@@ -128,13 +129,6 @@ const Option1 = () => {
   };
 
   const column = [
-    {
-      field: "id",
-      headerName: "AWARDEE ID",
-      flex: 0.5,
-      minWidth: 150,
-    },
-
     {
       field: "awardeeName",
       headerName: "AWARDEE NAME",
@@ -247,7 +241,7 @@ const Option1 = () => {
                 }}
               >
                 <MdRemove className="text-[20px]" />
-                <p className="font-bold">REMOVE ALL</p>
+                <p className="font-bold">CLEAR TABLE</p>
               </button>
               <button
                 className="flex flex-row  gap-1 px-2 items-center bg-[#47A2FF] hover:bg-[#478ed5] py-[6px] text-white text-[14px] p-[4px] rounded-lg"
@@ -264,7 +258,7 @@ const Option1 = () => {
                 }}
               >
                 <FiPrinter className="text-[20px]" />
-                <p className="font-bold">PRINT ALL</p>
+                <p className="font-bold">VIEW CERTIFCATE</p>
               </button>
             </div>
           </div>
@@ -339,7 +333,16 @@ const Option1 = () => {
               <DataGrid
                 rows={tableData || []}
                 columns={column}
+                loading={Status === "loading" ? true : false}
+                disableColumnFilter
                 components={{ Toolbar: GridToolbar }}
+                componentsProps={{
+                  toolbar: {
+                    printOptions: { disableToolbarButton: true },
+                    showQuickFilter: false,
+                    quickFilterProps: { debounceMs: 250 },
+                  },
+                }}
               />
             </Box>
           </div>

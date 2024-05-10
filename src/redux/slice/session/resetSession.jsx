@@ -8,7 +8,7 @@ export const deleteSession = createAsyncThunk(
       const response = await axios.delete(`session/delete-session/${data}`);
       return response.data;
     } catch (error) {
-      console.error(error.message);
+      // console.error(error.message);
       throw error;
     }
   }

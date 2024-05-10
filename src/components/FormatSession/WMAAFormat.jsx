@@ -92,7 +92,7 @@ const WMAAFormat = ({ openModal, closeModal }) => {
       setComplete("loading");
     } else if (SessionStatus === "succeeded" && complete === "loading") {
       setComplete("idle");
-      window.location.href = "/";
+      window.location.href = "/welcome";
     }
   }, [SessionStatus, setComplete, closeModal, complete]);
 
@@ -139,12 +139,14 @@ const WMAAFormat = ({ openModal, closeModal }) => {
   ];
 
   const quarterList = [
-    "1st Quarter",
-    "2nd Quarter",
-    "3rd Quarter",
-    "4th Quarter",
-    "1st Semester",
-    "2nd Semester",
+    // "1st Quarter",
+    // "2nd Quarter",
+    // "3rd Quarter",
+    // "4th Quarter",
+    // "1st Semester",
+    // "2nd Semester",
+    "1st Grading",
+    "2nd Grading",
   ];
 
   return (

@@ -8,7 +8,7 @@ export const getUserInfo = createAsyncThunk(
       const response = await axios.get(`auth/user-information/${data}`);
       return response.data;
     } catch (error) {
-      console.error(error.message);
+      S;
       throw error;
     }
   }

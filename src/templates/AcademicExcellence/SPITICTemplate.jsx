@@ -21,10 +21,10 @@ const SPITICTemplate = () => {
   const SessionData = useSelector((state) => state.getSession?.data?.session);
   const [formattedDate, setFormattedDate] = useState("");
 
-  useEffect(() => {
-    dispatch(getAwardee(userID));
-    dispatch(getSession(userID));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAwardee(userID));
+  //   dispatch(getSession(userID));
+  // }, [dispatch]);
 
   const getOrdinalSuffix = (number) => {
     if (number === 1 || number === 21 || number === 31) {
@@ -79,9 +79,9 @@ const SPITICTemplate = () => {
               >
                 <Text
                   style={{
-                    fontFamily: "Times-Bold",
+                    fontFamily: "Courier-Bold",
                     textAlign: "center",
-                    marginTop: "189px",
+                    marginTop: "185px",
                     fontSize: 30,
                   }}
                 >
@@ -91,7 +91,7 @@ const SPITICTemplate = () => {
                   style={{
                     fontFamily: "Times-Bold",
                     textAlign: "center",
-                    marginTop: "20px",
+                    marginTop: "30px",
                     fontSize: 34,
                     textDecoration: "underline",
                   }}
@@ -102,7 +102,7 @@ const SPITICTemplate = () => {
                   style={{
                     fontFamily: "Helvetica",
                     textAlign: "center",
-                    marginTop: "5",
+                    marginTop: "10",
                     fontSize: 16,
                     marginHorizontal: "120",
                   }}
@@ -149,6 +149,7 @@ const SPITICTemplate = () => {
                           style={{
                             fontSize: 14,
                             fontFamily: "Times-Roman",
+                            width: "200",
                             textAlign: "center",
                           }}
                         >
@@ -183,6 +184,7 @@ const SPITICTemplate = () => {
                             fontSize: 14,
                             fontFamily: "Times-Roman",
                             textAlign: "center",
+                            width: "200",
                           }}
                         >
                           {SessionData.signatoryPosition2}
@@ -224,6 +226,7 @@ const SPITICTemplate = () => {
                           fontSize: 14,
                           fontFamily: "Times-Roman",
                           textAlign: "center",
+                          width: "200",
                         }}
                       >
                         {SessionData.signatoryPosition1}
@@ -265,6 +268,7 @@ const SPITICTemplate = () => {
                             fontSize: 14,
                             fontFamily: "Times-Roman",
                             textAlign: "center",
+                            width: "200",
                           }}
                         >
                           {SessionData.signatoryPosition2}
@@ -298,6 +302,7 @@ const SPITICTemplate = () => {
                             fontSize: 14,
                             fontFamily: "Times-Roman",
                             textAlign: "center",
+                            width: "200",
                           }}
                         >
                           {SessionData.signatoryPosition3}
@@ -344,6 +349,7 @@ const SPITICTemplate = () => {
                               fontSize: 14,
                               fontFamily: "Times-Roman",
                               textAlign: "center",
+                              width: "200",
                             }}
                           >
                             {SessionData.signatoryPosition1}
@@ -377,6 +383,7 @@ const SPITICTemplate = () => {
                               fontSize: 14,
                               fontFamily: "Times-Roman",
                               textAlign: "center",
+                              width: "200",
                             }}
                           >
                             {SessionData.signatoryPosition2}
@@ -419,6 +426,7 @@ const SPITICTemplate = () => {
                               fontSize: 14,
                               fontFamily: "Times-Roman",
                               textAlign: "center",
+                              width: "200",
                             }}
                           >
                             {SessionData.signatoryPosition3}
@@ -452,6 +460,7 @@ const SPITICTemplate = () => {
                               fontSize: 14,
                               fontFamily: "Times-Roman",
                               textAlign: "center",
+                              width: "200",
                             }}
                           >
                             {SessionData.signatoryPosition4}
