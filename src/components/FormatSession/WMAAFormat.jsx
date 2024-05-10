@@ -92,7 +92,7 @@ const WMAAFormat = ({ openModal, closeModal }) => {
       setComplete("loading");
     } else if (SessionStatus === "succeeded" && complete === "loading") {
       setComplete("idle");
-      window.location.href = "/welcome";
+      window.location.href = "/";
     }
   }, [SessionStatus, setComplete, closeModal, complete]);
 

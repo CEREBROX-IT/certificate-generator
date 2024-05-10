@@ -103,7 +103,7 @@ const Option1 = () => {
     dispatch(getSession(userID));
 
     if (DeleteStatus === "succeeded") {
-      window.location.href = "/welcome";
+      window.location.href = "/";
     }
   }, [DeleteStatus, dispatch]);
 

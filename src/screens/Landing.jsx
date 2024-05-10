@@ -96,7 +96,7 @@ const Landing = () => {
 
   useEffect(() => {
     if (DeleteStatus === "succeeded") {
-      window.location.href = "/welcome";
+      window.location.href = "/";
     }
   }, [DeleteStatus]);
 
