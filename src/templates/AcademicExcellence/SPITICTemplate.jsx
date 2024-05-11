@@ -21,10 +21,10 @@ const SPITICTemplate = () => {
   const SessionData = useSelector((state) => state.getSession?.data?.session);
   const [formattedDate, setFormattedDate] = useState("");
 
-  // useEffect(() => {
-  //   dispatch(getAwardee(userID));
-  //   dispatch(getSession(userID));
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getAwardee(userID));
+    dispatch(getSession(userID));
+  }, [dispatch]);
 
   const getOrdinalSuffix = (number) => {
     if (number === 1 || number === 21 || number === 31) {

@@ -15,7 +15,7 @@
     "@mui/material": "^5.15.12",
     "@mui/styled-engine-sc": "^6.0.0-alpha.17",
     "@mui/x-data-grid": "^6.19.6",
-    "@react-pdf/renderer": "3.4.2",
+    "@react-pdf/renderer": "^3.4.2",
     "@reduxjs/toolkit": "^2.2.1",
     "aos": "^3.0.0-beta.6",
     "axios": "^1.6.8",
